@@ -1,0 +1,22 @@
+.line {
+  display: flex;
+  flex-direction: row;
+}
+
+.line::after,
+.line::before {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid gray;
+  margin: 9px 5px;
+}
+
+.min-h {
+  min-height: 700px;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
