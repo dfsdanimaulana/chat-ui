@@ -39,10 +39,10 @@ const Home = (props) => {
     // }
     return (
         <div className='container'>
-            <div className='row'>
+            <div className='row px-lg-5'>
                 <div className='col'>
-                  <Card />
-                  <Card />
+                  <Card id='one'/>
+                  <Card id='two'/>
                 </div>
                 {/* <div className='col'></div> */}
             </div>

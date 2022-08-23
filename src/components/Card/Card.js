@@ -1,104 +1,122 @@
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 
-export default function Card() {
+const fakeImages = [
+    'https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ',
+    'https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ',
+    'https://i.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68',
+    'https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w',
+    'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
+]
+
+export default function Card({ id }) {
     const { width } = useWindowDimensions()
 
     const handleImageClass = (w) => {
         return `d-block w-100 ${w >= 768 ? 'rounded-start' : 'rounded-top'}`
     }
 
+    const imagesThumbStyles = () => {
+        return { width: '42px', height: '42px', objectFit: 'cover' }
+    }
+
+    const imagesPostStyles = (w) => {
+        return w >= 768
+            ? { width: '470px', height: '470px', objectFit: 'cover' }
+            : { width: '390px', height: '390px', objectFit: 'cover' }
+    }
+
     return (
         <div className='card mb-3'>
             <div className='row g-0'>
                 <div className='col-md-6'>
-                    {/* <img
-                        src='https://picsum.photos/400'
-                        className='img-fluid w-100 h-100'
-                        alt='...'
-                    /> */}
-
-                    {/* for image more than one */}
-                    <div
-                        id='carouselExampleIndicators'
-                        className='carousel slide'
-                        data-bs-ride='true'>
-                        <div className='carousel-indicators'>
+                    {fakeImages.length > 1 ? (
+                        <div
+                            id={id}
+                            className='carousel slide'
+                            data-bs-ride='true'>
+                            <div className='carousel-indicators'>
+                                <button
+                                    type='button'
+                                    data-bs-target={`#${id}`}
+                                    data-bs-slide-to={0}
+                                    className='active'
+                                    aria-current='true'
+                                    aria-label='Slide 1'
+                                />
+                                {fakeImages.slice(1).map((_, i) => (
+                                    <button
+                                        key={i}
+                                        type='button'
+                                        data-bs-target={`#${id}`}
+                                        data-bs-slide-to={i + 1}
+                                        aria-current='false'
+                                        aria-label={`Slide ${i + 2}`}
+                                    />
+                                ))}
+                            </div>
+                            <div className='carousel-inner'>
+                                <div className='carousel-item active'>
+                                    <img
+                                        src={fakeImages[0]}
+                                        className={handleImageClass(width)}
+                                        alt='...'
+                                        style={imagesPostStyles(width)}
+                                    />
+                                </div>
+                                {fakeImages.slice(1).map((item, i) => (
+                                    <div className='carousel-item'>
+                                        <img
+                                            key={i}
+                                            src={item}
+                                            className={handleImageClass(width)}
+                                            alt='...'
+                                            style={imagesPostStyles(width)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                             <button
+                                className='carousel-control-prev'
                                 type='button'
-                                data-bs-target='#carouselExampleIndicators'
-                                data-bs-slide-to={0}
-                                className='active'
-                                aria-current='true'
-                                aria-label='Slide 1'
-                            />
+                                data-bs-target={`#${id}`}
+                                data-bs-slide='prev'>
+                                <span
+                                    className='carousel-control-prev-icon'
+                                    aria-hidden='true'
+                                />
+                                <span className='visually-hidden'>
+                                    Previous
+                                </span>
+                            </button>
                             <button
+                                className='carousel-control-next'
                                 type='button'
-                                data-bs-target='#carouselExampleIndicators'
-                                data-bs-slide-to={1}
-                                aria-label='Slide 2'
-                            />
-                            <button
-                                type='button'
-                                data-bs-target='#carouselExampleIndicators'
-                                data-bs-slide-to={2}
-                                aria-label='Slide 3'
-                            />
+                                data-bs-target={`#${id}`}
+                                data-bs-slide='next'>
+                                <span
+                                    className='carousel-control-next-icon'
+                                    aria-hidden='true'
+                                />
+                                <span className='visually-hidden'>Next</span>
+                            </button>
                         </div>
-                        <div className='carousel-inner'>
-                            <div className='carousel-item active'>
-                                <img
-                                    src='https://picsum.photos/400'
-                                    className={handleImageClass(width)}
-                                    alt='...'
-                                />
-                            </div>
-                            <div className='carousel-item'>
-                                <img
-                                    src='https://picsum.photos/400'
-                                    className={handleImageClass(width)}
-                                    alt='...'
-                                />
-                            </div>
-                            <div className='carousel-item'>
-                                <img
-                                    src='https://picsum.photos/400'
-                                    className={handleImageClass(width)}
-                                    alt='...'
-                                />
-                            </div>
-                        </div>
-                        <button
-                            className='carousel-control-prev'
-                            type='button'
-                            data-bs-target='#carouselExampleIndicators'
-                            data-bs-slide='prev'>
-                            <span
-                                className='carousel-control-prev-icon'
-                                aria-hidden='true'
-                            />
-                            <span className='visually-hidden'>Previous</span>
-                        </button>
-                        <button
-                            className='carousel-control-next'
-                            type='button'
-                            data-bs-target='#carouselExampleIndicators'
-                            data-bs-slide='next'>
-                            <span
-                                className='carousel-control-next-icon'
-                                aria-hidden='true'
-                            />
-                            <span className='visually-hidden'>Next</span>
-                        </button>
-                    </div>
+                    ) : (
+                        <img
+                            src={fakeImages[0]}
+                            className='img-fluid w-100 h-100'
+                            alt='...'
+                        />
+                    )}
                 </div>
                 <div className='col-md-6 d-flex flex-column justify-content-between'>
                     <div className='card-body d-flex flex-column'>
                         <div className='mt-2 mb-3 d-flex justify-content-between'>
                             <div>
                                 <img
-                                    src='https://picsum.photos/32'
+                                    src='https://picsum.photos/200'
                                     className='img-thumbnail rounded-circle'
-                                    alt='...'></img>
+                                    alt='...'
+                                    style={imagesThumbStyles()}></img>
                                 <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
                                     Name
                                 </span>

@@ -9,7 +9,7 @@ export default function Navbar() {
     // }
 
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-3 shadow-sm'>
+        <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-3 shadow-sm sticky-top'>
             <div className='container d-flex'>
                 <Link className='navbar-brand flex-fill fw-bold' to='/'>
                     DanApp
