@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import SidebarList from './SidebarList'
 
-export default function SidebarLte() {
+export default function Sidebar() {
     return (
         <aside className='main-sidebar sidebar-dark-primary elevation-4'>
             {/* Sidebar */}

@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import moment from 'moment'
 
 /** Components */
 import PostComment from './PostComment'
@@ -34,8 +35,8 @@ export default function Post({ post }) {
     const handleComment = (event) => {
         event.preventDefault()
         setIsPending(true)
-        
-        if(commentMessage === '') return false
+
+        if (commentMessage === '') return false
 
         axios
             .post(`${BASE_URL}/comment`, {
@@ -52,7 +53,7 @@ export default function Post({ post }) {
                 setError('failed to add comment')
                 console.log(error.message)
             })
-            
+
         setIsPending(true)
     }
 
@@ -69,7 +70,7 @@ export default function Post({ post }) {
                         <Link to='/'>{post.user.username}</Link>
                     </span>
                     <span className='description'>
-                        Shared publicly - {post.timeSend}
+                        Shared publicly -{moment(post.createdAt).fromNow()}
                     </span>
                 </div>
                 {/* /.user-block */}

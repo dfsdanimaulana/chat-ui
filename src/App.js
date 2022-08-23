@@ -3,51 +3,47 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 /** Utils */
-import axios from 'axios'
+// import axios from 'axios'
 
 /** Pages */
 import Home from './pages/Home/Home'
-import PageNotFound from './pages/404/PageNotFound'
-import Login from './pages/Login/Login'
-import Register from './pages/Register/Register'
+// import PageNotFound from './pages/404/PageNotFound'
+// import Login from './pages/Login/Login'
+// import Register from './pages/Register/Register'
 
 /** Development Pages only */
-import UserList from './pages/UserList/UserList'
+// import UserList from './pages/UserList/UserList'
 
 /** Components */
-import NavbarLte from './components/Navbar/NavbarLte'
-import SidebarLte from './components/Sidebar/SidebarLte'
-import ChatBody from './components/Chat/ChatBody'
-import Footer from './components/Footer/Footer'
-import ProfileCard from './components/Profile/ProfileCard'
-import AddPost from './components/Post/AddPost'
-import UserPost from './components/Post/UserPost'
-import AboutMeCard from './components/Profile/AboutMeCard'
+import Navbar from './components/Navbar/Navbar'
+// import Sidebar from './components/Sidebar/Sidebar'
+// import ChatBody from './components/Chat/ChatBody'
+// import Footer from './components/Footer/Footer'
+// import ProfileCard from './components/Profile/ProfileCard'
+// import AddPost from './components/Post/AddPost'
+// import UserPost from './components/Post/UserPost'
+// import AboutMeCard from './components/Profile/AboutMeCard'
 
 const App = () => {
-    axios.defaults.withCredentials = true
-    const currentUser = useSelector((state) => state.user.value)
+    // axios.defaults.withCredentials = true
+    // const currentUser = useSelector((state) => state.user.value)
 
     return (
-        <div className='wrapper'>
+        <div>
             <Router>
+                <Navbar />
                 <Switch>
-                    {/* Register Page */}
-                    <Route path='/register' component={Register} />
+                    <Route exact path='/' component={Home} />
+                    {/* <Route path='/register' component={Register} />
 
-                    {/* Login Page */}
                     <Route path='/login' exact component={Login} />
 
-                    {/* User List Page */}
                     <Route path='/user-list' component={UserList} />
 
-                    {/* Home Page */}
                     <Route exact path='/' component={Home} />
 
-                    {/* Chats Page */}
                     <Route path='/chats' component={ChatBody} />
 
-                    {/* Add Post Page */}
                     <Route path='/add-post'>
                         <NavbarLte />
                         <SidebarLte />
@@ -57,7 +53,6 @@ const App = () => {
                         </div>
                     </Route>
 
-                    {/* User Page */}
                     <Route path='/user'>
                         <NavbarLte />
                         <SidebarLte />
@@ -77,8 +72,7 @@ const App = () => {
                         </div>
                     </Route>
 
-                    {/* Page not found */}
-                    <Route path='*' component={PageNotFound} />
+                    <Route path='*' component={PageNotFound} /> */}
                 </Switch>
             </Router>
         </div>

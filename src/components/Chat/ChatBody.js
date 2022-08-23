@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { useState } from 'react'
-import NavbarLte from '../Navbar/NavbarLte.js'
-import SidebarLte from '../Sidebar/SidebarLte.js'
+import NavbarLte from '../Navbar/Navbar.js'
+import SidebarLte from '../Sidebar/Sidebar.js'
 import Footer from '../Footer/Footer.js'
 
 import Chat from './Chat.js'
