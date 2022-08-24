@@ -1,14 +1,7 @@
-import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Avatar from '../Avatar/Avatar'
 
 export default function Navbar() {
-    // const [arrow, setArrow] = useState(false)
-
-    // const handleArrow = () => {
-    //     arrow ? setArrow(false) : setArrow(true)
-    // }
-
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-3 shadow-sm sticky-top'>
             <div className='container d-flex'>
@@ -29,20 +22,17 @@ export default function Navbar() {
                     </button>
                 </form>
                 <div className='navbar-nav d-none d-lg-flex flex-fill  justify-content-end'>
-                    <NavLink
-                        className='nav-link fs-5'
-                        aria-current='page'
-                        to='/'>
+                    <NavLink className='nav-link fs-5' exact to='/'>
                         <i className='bi bi-house-door'></i>
                     </NavLink>
-                    <NavLink className='nav-link fs-5' to='/add-post'>
+                    <NavLink className='nav-link fs-5' to='/create/post'>
                         <i className='bi bi-plus-square'></i>
                     </NavLink>
                     <NavLink className='nav-link fs-5' to='/chat'>
                         <i className='bi bi-chat-dots'></i>
                     </NavLink>
                     <NavLink className='nav-link fs-5' to='/profile'>
-                        <Avatar width={23} thumbnail='false'/>
+                        <Avatar width={23} thumbnail='false' />
                     </NavLink>
                 </div>
             </div>

@@ -61,9 +61,8 @@ export default function Card({ id }) {
                                     />
                                 </div>
                                 {fakeImages.slice(1).map((item, i) => (
-                                    <div className='carousel-item'>
+                                    <div className='carousel-item' key={i}>
                                         <img
-                                            key={i}
                                             src={item}
                                             className={handleImageClass(width)}
                                             alt='...'

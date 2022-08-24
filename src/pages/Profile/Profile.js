@@ -1,9 +1,15 @@
 import Avatar from '../../components/Avatar/Avatar'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
+import PostGrid from './PostGrid'
 
 export default function Profile() {
+    const { width } = useWindowDimensions()
+
+    const containerClass = (w) => `container ${w >= 992 ? 'w-50' : ''}`
+
     return (
-        <div className='container'>
-            <div className='row d-flex'>
+        <div className={containerClass(width)}>
+            <div className='row d-flex my-5'>
                 <div className='col-6 col-md-4 d-md-flex d-none align-items-center justify-content-center'>
                     <Avatar width={150} />
                 </div>
@@ -15,7 +21,7 @@ export default function Profile() {
                         </button>
                         <i className='bi bi-gear-wide fs-5 d-none d-lg-block'></i>
                     </div>
-                    <div className='d-flex align-items-center justify-content-md-start justify-content-sm-center mb-4'>
+                    <div className='d-flex align-items-center justify-content-md-start justify-content-center mb-4'>
                         <div className='row w-md-100'>
                             <div className='col d-md-none'>
                                 <Avatar width={100} />
@@ -55,6 +61,12 @@ export default function Profile() {
                         <p className='fs-6'>profile descriptions</p>
                     </div>
                 </div>
+            </div>
+            <div className='text-success'>
+                <hr />
+            </div>
+            <div className='row justify-content-center'>
+                <PostGrid />
             </div>
         </div>
     )

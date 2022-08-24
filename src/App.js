@@ -17,6 +17,8 @@ import Home from './pages/Home/Home'
 /** Components */
 import Navbar from './components/Navbar/Navbar'
 import Profile from './pages/Profile/Profile'
+import Footer from './components/Footer/Footer'
+import Post from './pages/Post/Post'
 // import Sidebar from './components/Sidebar/Sidebar'
 // import ChatBody from './components/Chat/ChatBody'
 // import Footer from './components/Footer/Footer'
@@ -35,8 +37,11 @@ const App = () => {
                 <Navbar />
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/profile' component={Profile} />
-                    {/* <Route path='/register' component={Register} />
+                    <Route path='/profile' component={Profile} />
+                    <Route path='/create/post' component={Post} />
+                </Switch>
+                <Footer />
+                {/* <Route path='/register' component={Register} />
 
                     <Route path='/login' exact component={Login} />
 
@@ -75,7 +80,6 @@ const App = () => {
                     </Route>
 
                     <Route path='*' component={PageNotFound} /> */}
-                </Switch>
             </Router>
         </div>
     )
