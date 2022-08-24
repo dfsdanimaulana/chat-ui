@@ -1,4 +1,5 @@
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+import Avatar from '../Avatar/Avatar'
 
 const fakeImages = [
     'https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ',
@@ -13,10 +14,6 @@ export default function Card({ id }) {
 
     const handleImageClass = (w) => {
         return `d-block w-100 ${w >= 768 ? 'rounded-start' : 'rounded-top'}`
-    }
-
-    const imagesThumbStyles = () => {
-        return { width: '42px', height: '42px', objectFit: 'cover' }
     }
 
     const imagesPostStyles = (w) => {
@@ -112,11 +109,7 @@ export default function Card({ id }) {
                     <div className='card-body d-flex flex-column'>
                         <div className='mt-2 mb-3 d-flex justify-content-between'>
                             <div>
-                                <img
-                                    src='https://picsum.photos/200'
-                                    className='img-thumbnail rounded-circle'
-                                    alt='...'
-                                    style={imagesThumbStyles()}></img>
+                                <Avatar width={42} />
                                 <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
                                     Name
                                 </span>

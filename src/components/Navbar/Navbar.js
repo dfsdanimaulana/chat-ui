@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import Avatar from '../Avatar/Avatar'
 
 export default function Navbar() {
     // const [arrow, setArrow] = useState(false)
@@ -14,7 +15,7 @@ export default function Navbar() {
                 <Link className='navbar-brand flex-fill fw-bold' to='/'>
                     DanApp
                 </Link>
-                <form className='d-md-flex flex-fill d-none' role='search'>
+                <form className='d-sm-flex flex-fill d-none' role='search'>
                     <input
                         className='form-control form-control-sm me-2'
                         type='search'
@@ -41,7 +42,7 @@ export default function Navbar() {
                         <i className='bi bi-chat-dots'></i>
                     </NavLink>
                     <NavLink className='nav-link fs-5' to='/profile'>
-                        <i className='bi bi-person-circle'></i>
+                        <Avatar width={23} thumbnail='false'/>
                     </NavLink>
                 </div>
             </div>
