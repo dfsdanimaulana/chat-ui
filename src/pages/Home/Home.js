@@ -1,7 +1,7 @@
 /** React dependencies */
 // import { Fragment, useState } from 'react'
-// import { useSelector } from 'react-redux'
-// import { Redirect } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import Card from "../../components/Card/Card"
 
@@ -13,36 +13,38 @@ import Card from "../../components/Card/Card"
 // import Sidebar from '../../components/Sidebar/Sidebar'
 
 /** Utils */
-// import BASE_URL from '../../config'
-// import useFetch from '../../hooks/useFetch'
+import BASE_URL from '../../config'
+import useFetch from '../../hooks/useFetch'
 
 const Home = (props) => {
-    // // get auth state
-    // const isLoggedIn = useSelector((state) => state.auth.value)
-    // const posts = useSelector((state) => state.post.value)
+    // get auth state
+    const isLoggedIn = useSelector((state) => state.auth.value) // @typeof isLoggedIn Boolean
+    // const currentUserPost = useSelector((state) => state.post.value) // @typeof posts Array
 
-    // // get logged user state
-    // const currentUser = useSelector((state) => state.user.value)
+    // get logged user state
+    const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     // const [arrays, setArrays] = useState([1, 2, 2, 3, 3, 3, 3, 3, 3])
 
-    // const { data: post, isPending, error } = useFetch(`${BASE_URL}/post`)
+    const { data: posts, isPending, error } = useFetch(`${BASE_URL}/post`) // @typeof post Array
 
-    // if (!isLoggedIn && !posts) {
-    //     return (
-    //         <Redirect
-    //             to={{
-    //                 pathname: '/login',
-    //                 state: { from: props.location },
-    //             }}
-    //         />
-    //     )
-    // }
+    if (!isLoggedIn && !posts) {
+         return (
+             <Redirect
+                 to={{
+                     pathname: '/login',
+                     state: { from: props.location },
+                 }}
+             />
+         )
+    }
+    
     return (
         <div className='container'>
-            <div className='row px-lg-5'>
+            <div className='row px-lg-5 pb-5 pb-md-0'>
                 <div className='col'>
-                  <Card id='one'/>
-                  <Card id='two'/>
+                  {posts.map((post) => (
+                    <Card key={post._id} id={post._id} post={post}/>
+                  ))}
                 </div>
                 {/* <div className='col'></div> */}
             </div>

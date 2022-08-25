@@ -45,16 +45,15 @@ const Register = () => {
                 if (err.response?.data !== undefined) {
                     setError(err.response.data.error)
                 } else {
-                    setError(['something went wrong'])
-                    console.log(err)
+                    setError(['something went wrong', err.message])
                 }
             })
     }
 
     return (
-        <div className='container '>
+        <div className='container'>
             <form
-                className='m-2 m-lg-5 p-3 shadow border rounded'
+                className='m-2 m-lg-5 p-3 border'
                 onSubmit={handleSubmit}>
                 <h4 className='text-center'>Register form</h4>
                 <hr />
@@ -158,7 +157,7 @@ const Register = () => {
                             <label htmlFor='email' className='form-label'>
                                 Gender
                             </label>
-                            <div className='row'>
+                            <div className='row d-flex flex-column'>
                                 <div className='col-4'>
                                     <div className='form-check'>
                                         <input
@@ -203,7 +202,7 @@ const Register = () => {
                             disabled>
                             Submiting
                             <span
-                                className='spinner-border spinner-border-sm'
+                                className='spinner-border spinner-border-sm ms-1'
                                 role='status'
                                 aria-hidden='true'
                             />

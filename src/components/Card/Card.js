@@ -1,6 +1,7 @@
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import Avatar from '../Avatar/Avatar'
-
+import moment from 'moment'
+/*
 const fakeImages = [
     'https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ',
     'https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ',
@@ -8,8 +9,8 @@ const fakeImages = [
     'https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w',
     'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
 ]
-
-export default function Card({ id }) {
+*/
+export default function Card({ post, id }) { // @typeof post Array
     const { width } = useWindowDimensions()
 
     const handleImageClass = (w) => {
@@ -26,7 +27,7 @@ export default function Card({ id }) {
         <div className='card mb-3'>
             <div className='row g-0'>
                 <div className='col-md-6'>
-                    {fakeImages.length > 1 ? (
+                    {post.img_post_url.length > 1 ? (
                         <div
                             id={id}
                             className='carousel slide'
@@ -40,7 +41,7 @@ export default function Card({ id }) {
                                     aria-current='true'
                                     aria-label='Slide 1'
                                 />
-                                {fakeImages.slice(1).map((_, i) => (
+                                {post.img_post_url.slice(1).map((_, i) => (
                                     <button
                                         key={i}
                                         type='button'
@@ -54,13 +55,13 @@ export default function Card({ id }) {
                             <div className='carousel-inner'>
                                 <div className='carousel-item active'>
                                     <img
-                                        src={fakeImages[0]}
+                                        src={post.img_post_url[0]}
                                         className={handleImageClass(width)}
                                         alt='...'
                                         style={imagesPostStyles(width)}
                                     />
                                 </div>
-                                {fakeImages.slice(1).map((item, i) => (
+                                {post.img_post_url.slice(1).map((item, i) => (
                                     <div className='carousel-item' key={i}>
                                         <img
                                             src={item}
@@ -98,7 +99,7 @@ export default function Card({ id }) {
                         </div>
                     ) : (
                         <img
-                            src={fakeImages[0]}
+                            src={post.img_post_url[0]}
                             className='img-fluid w-100 h-100'
                             alt='...'
                         />
@@ -108,9 +109,9 @@ export default function Card({ id }) {
                     <div className='card-body d-flex flex-column'>
                         <div className='mt-2 mb-3 d-flex justify-content-between'>
                             <div>
-                                <Avatar width={42} />
+                                <Avatar width={42} image={post.user.img_thumb}/>
                                 <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
-                                    Name
+                                    {post.user.username}
                                 </span>
                             </div>
                             <div className='fs-6'>
@@ -119,13 +120,11 @@ export default function Card({ id }) {
                             </div>
                         </div>
                         <p className='card-text'>
-                            {width} This is a wider card with supporting text
-                            below as a natural lead-in to additional content.
-                            This content is a little bit longer.
+                            {post.caption}
                         </p>
                         <p className='card-text mt-auto'>
                             <small className='text-muted'>
-                                Last updated 3 mins ago
+                                Last updated {moment(post.createdAt).fromNow()}
                             </small>
                         </p>
                     </div>
@@ -147,11 +146,11 @@ export default function Card({ id }) {
                         </div>
                         <div className='d-flex justify-content-around align-items-center text-secondary fw-bold'>
                             <span className='fw-lighter text-secondary ms-3'>
-                                50
+                                {post.comment.length}
                             </span>
                             <i className='bi bi-chat-left-dots ms-2'></i>
                             <span className='fw-lighter text-secondary ms-3'>
-                                200
+                                {post.like.length}
                             </span>
                             <i className='bi bi-heart ms-2'></i>
                         </div>

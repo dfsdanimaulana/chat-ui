@@ -7,18 +7,19 @@ import { useSelector } from 'react-redux'
 
 /** Pages */
 import Home from './pages/Home/Home'
-// import PageNotFound from './pages/404/PageNotFound'
-// import Login from './pages/Login/Login'
-// import Register from './pages/Register/Register'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import Post from './pages/Post/Post'
+import Profile from './pages/Profile/Profile'
+import PageNotFound from './pages/404/PageNotFound'
 
 /** Development Pages only */
 // import UserList from './pages/UserList/UserList'
 
 /** Components */
 import Navbar from './components/Navbar/Navbar'
-import Profile from './pages/Profile/Profile'
+import Navigation from './components/Navigation/Navigation'
 import Footer from './components/Footer/Footer'
-import Post from './pages/Post/Post'
 // import Sidebar from './components/Sidebar/Sidebar'
 // import ChatBody from './components/Chat/ChatBody'
 // import Footer from './components/Footer/Footer'
@@ -29,22 +30,43 @@ import Post from './pages/Post/Post'
 
 const App = () => {
     // axios.defaults.withCredentials = true
-    // const currentUser = useSelector((state) => state.user.value)
+    const currentUser = useSelector((state) => state.user.value)
 
     return (
         <div>
             <Router>
-                <Navbar />
                 <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/profile' component={Profile} />
-                    <Route path='/create/post' component={Post} />
+                    <Route exact path='/'>
+                      <Navbar />
+                      <Home />
+                      <Navigation/>
+                      <Footer />
+                    </Route>
+                    <Route exact path='/login'>
+                      <Login />
+                    </Route>
+                    <Route exact path='/register'>
+                      <Register />
+                    </Route>
+                    <Route path='/profile'>
+                      <Navbar />
+                      <Profile />
+                      <Navigation/>
+                      <Footer />
+                    </Route>
+                    <Route path='/post/create'>
+                      <Navbar />
+                      <Post />
+                      <Navigation/>
+                      <Footer />
+                    </Route>
+                    <Route exact path='*'>
+                      <PageNotFound />
+                    </Route>
                 </Switch>
-                <Footer />
-                {/* <Route path='/register' component={Register} />
 
-                    <Route path='/login' exact component={Login} />
 
+                {/* 
                     <Route path='/user-list' component={UserList} />
 
                     <Route exact path='/' component={Home} />
@@ -79,7 +101,7 @@ const App = () => {
                         </div>
                     </Route>
 
-                    <Route path='*' component={PageNotFound} /> */}
+                    */}
             </Router>
         </div>
     )

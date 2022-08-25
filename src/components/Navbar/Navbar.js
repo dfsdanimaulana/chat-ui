@@ -1,7 +1,8 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useRouteMatch } from 'react-router-dom'
 import Avatar from '../Avatar/Avatar'
 
 export default function Navbar() {
+    const { path } = useRouteMatch()
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-3 shadow-sm sticky-top'>
             <div className='container d-flex'>
@@ -21,17 +22,36 @@ export default function Navbar() {
                         <i className='bi bi-search'></i>
                     </button>
                 </form>
-                <div className='navbar-nav d-none d-lg-flex flex-fill  justify-content-end'>
-                    <NavLink className='nav-link fs-5' exact to='/'>
+                <div className='navbar text-light flex-fill justify-content-end'>
+                    <NavLink className='nav-link fs-5 ms-2 d-none d-md-inline' exact to='/'>
                         <i className='bi bi-house-door'></i>
                     </NavLink>
-                    <NavLink className='nav-link fs-5' to='/create/post'>
+                    <NavLink className='nav-link fs-5 ms-3' to='/post/create'>
                         <i className='bi bi-plus-square'></i>
                     </NavLink>
-                    <NavLink className='nav-link fs-5' to='/chat'>
-                        <i className='bi bi-chat-dots'></i>
-                    </NavLink>
-                    <NavLink className='nav-link fs-5' to='/profile'>
+                     {path === '/profile'? (
+                        <>
+                          <NavLink className='nav-link fs-5 ms-3 d-md-none' to='#'>
+                              <i className='bi bi-gear'></i>
+                          </NavLink>
+                          <NavLink className='nav-link fs-5 ms-3 d-none d-md-inline' to='#'>
+                              <i className='bi bi-heart'></i>
+                          </NavLink>
+                          <NavLink className='nav-link fs-5 ms-3 d-none d-md-inline' to='#'>
+                              <i className='bi bi-chat-square-dots'></i>
+                          </NavLink>
+                        </>
+                     ):(
+                        <>
+                          <NavLink className='nav-link fs-5 ms-3' to='#'>
+                              <i className='bi bi-heart'></i>
+                          </NavLink>
+                          <NavLink className='nav-link fs-5 ms-3' to='#'>
+                              <i className='bi bi-chat-square-dots'></i>
+                          </NavLink>
+                        </>
+                     )}
+                    <NavLink className='nav-link fs-5 ms-3 d-none d-md-flex align-items-center' to='/profile'>
                         <Avatar width={23} thumbnail='false' />
                     </NavLink>
                 </div>

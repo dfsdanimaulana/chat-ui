@@ -21,12 +21,14 @@ export default function SignIn() {
         password: '',
     })
 
-    const [error, setError] = useState('')
+    const [error, setError] = useState(false)
+    const [isPending, setIsPending] = useState(false)
 
     const dispatch = useDispatch()
     const history = useHistory()
 
     // cek if user already login
+/*
     useEffect(() => {
         axios
             .get(`${BASE_URL}/user/login`)
@@ -37,7 +39,7 @@ export default function SignIn() {
                 console.log(err.data)
             })
     }, [])
-
+*/
     // handle input user
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -50,17 +52,20 @@ export default function SignIn() {
     // send and check data to server
     const handleSubmit = (e) => {
         e.preventDefault()
+        setIsPending(true)
         axios
             .post(`${BASE_URL}/user/login`, input)
             .then((user) => {
                 // data valid
-                setError('')
+                setIsPending(false)
+                setError(false)
                 dispatch(login(user.data))
                 dispatch(loggedIn())
                 dispatch(getPosts())
                 history.push('/')
             })
             .catch((err) => {
+                setIsPending(false)
                 if (err.response?.data !== undefined) {
                     setError(err.response.data.error)
                 } else {
@@ -71,19 +76,22 @@ export default function SignIn() {
 
     // login as guest
     const setGuest = () => {
+        setIsPending(true)
         axios
             .post(`${BASE_URL}/user/login`, {
                 username: 'guest',
                 password: '123456',
             })
             .then((user) => {
-                setError('')
+                setIsPending(false)
+                setError(false)
                 dispatch(login(user.data))
                 dispatch(loggedIn())
                 dispatch(getPosts())
                 history.push('/')
             })
             .catch((err) => {
+                setIsPending(false)
                 if (err.response?.data !== undefined) {
                     setError(err.response.data.error)
                 } else {
@@ -93,20 +101,20 @@ export default function SignIn() {
     }
 
     return (
-        <div className='container bg-light '>
-            <div className='row vh-100 min-h align-items-center'>
+        <div className='container'>
+            <div className='row align-items-center'>
                 <div className='col h-100 d-none d-md-inline'>
                     <img
                         className='img-fluid image'
                         src='https://source.unsplash.com/m2Wd_bTUSGw/640x958'
                         alt='login page'></img>
                 </div>
-                <div className='col'>
+                <div className='col p-5'>
                     <form
-                        className='w-75 p-4 mx-auto shadow rounded'
+                        className='p-4 mx-auto border p-3'
                         onSubmit={handleSubmit}>
-                        <h3 className='mb-4 text-center'>Login to Dstopia!</h3>
-                        {error !== '' && (
+                        <h3 className='mb-4 text-center fw-bold'>Login</h3>
+                        {error && (
                             <div className='alert alert-danger' role='alert'>
                                 {error}
                             </div>
@@ -126,7 +134,7 @@ export default function SignIn() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className='mb-1'>
+                        <div className='mb-3'>
                             <label
                                 htmlFor='password'
                                 className='form-label fw-normal'>
@@ -140,35 +148,37 @@ export default function SignIn() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <Link to='#' className=' d-block mb-4 text-end small'>
+                        <Link to='#' className='d-block mb-4 text-end small'>
                             Forgot password?
                         </Link>
-                        <button
-                            type='submit'
-                            className='btn btn-outline-primary btn-block'>
-                            Login
-                        </button>
-                        <button
-                            onClick={setGuest}
-                            className='btn btn-outline-primary btn-block'>
-                            Login As Guest
-                        </button>
+                        <div className='mb-3 d-flex flex-column align-items-center'>
+                            <button
+                                type='submit'
+                                className='btn btn-primary mb-3 px-5'>
+                                Login
+                            </button>
+                            <button
+                                onClick={setGuest}
+                                className='btn btn-outline-primary'>
+                                Login As Guest
+                            </button>
+                        </div>
                         <p className='line my-3'>or</p>
                         <div className='d-flex justify-content-evenly my-3'>
                             <button
                                 type='button'
                                 className='btn btn-outline-primary rounded-circle'>
-                                <i className='fab fa-twitter'></i>
+                                <i className='bi bi-google'></i>
                             </button>
                             <button
                                 type='button'
                                 className='btn btn-outline-primary rounded-circle'>
-                                <i className='fab fa-facebook'></i>
+                                <i className='bi bi-facebook'></i>
                             </button>
                             <button
                                 type='button'
                                 className='btn btn-outline-primary rounded-circle'>
-                                <i className='fab fa-google'></i>
+                                <i className='bi bi-twitter'></i>
                             </button>
                         </div>
                         <p className='small text-center'>

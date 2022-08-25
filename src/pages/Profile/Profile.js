@@ -16,10 +16,10 @@ export default function Profile() {
                 <div className='col-sm-12 col-md-8'>
                     <div className='d-none d-md-flex align-items-center mb-3'>
                         <span className='fs-5 me-5'>dnm17_</span>
-                        <button className='btn btn-sm btn-outline-info me-3 d-none d-lg-block'>
+                        <button className='btn btn-sm btn-outline-info me-3 d-none d-md-block'>
                             Edit profile
                         </button>
-                        <i className='bi bi-gear-wide fs-5 d-none d-lg-block'></i>
+                        <i className='bi bi-gear-wide fs-5 d-none d-md-block'></i>
                     </div>
                     <div className='d-flex align-items-center justify-content-md-start justify-content-center mb-4'>
                         <div className='row w-md-100'>
@@ -56,7 +56,7 @@ export default function Profile() {
                             </div>
                         </div>
                     </div>
-                    <div className='d-flex flex-column'>
+                    <div className='d-flex flex-column ms-3 ms-md-0'>
                         <span className='fw-bold fs-6'>Dani Maulana</span>
                         <p className='fs-6'>profile descriptions</p>
                     </div>

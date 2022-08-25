@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import Avatar from '../../components/Avatar/Avatar'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import BASE_URL from '../../config'
@@ -51,13 +51,11 @@ export default function Post() {
             .then((res) => {
                 setIsPending(false)
                 // history.push('/')
-                console.log(res.data)
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
             })
             .catch((err) => {
                 setIsPending(false)
-                setError('failed to upload')
-                console.log(err)
+                setError(err?.message || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
             })
     }
@@ -85,7 +83,7 @@ export default function Post() {
                 files.map((file) => {
                     const reader = new FileReader()
                     reader.readAsDataURL(file)
-                    reader.onload = (e) => {
+                    return reader.onload = (e) => {
                         setImgSrc((prevState) => [
                             ...prevState,
                             e.target.result,
@@ -100,10 +98,6 @@ export default function Post() {
             }
         }
     }
-
-    useEffect(() => {
-        if (error) console.log(error)
-    }, [error])
 
     return (
         <form className='container my-lg-5' onSubmit={handleSubmit}>
