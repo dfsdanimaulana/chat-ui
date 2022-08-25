@@ -1,26 +1,62 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const useFetch = (url) => {
+export const useFetch = (url, method = 'GET') => {
     const [data, setData] = useState(null)
-    const [isPending, setisPending] = useState(true)
-    const [error, setError] = useState(false)
+    const [isPending, setIsPending] = useState(false)
+    const [error, setError] = useState(null)
+    const [options, setOptions] = useState(null)
+
+    const postData = (postData) => {
+        setOptions({
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+    }
 
     useEffect(() => {
-        if (!url) return
-        axios
-            .get(url)
-            .then((res) => {
-                setisPending(false)
-                setData(res.data)
-            })
-            .catch((err) => {
-                setisPending(false)
-                setError(err)
-            })
-    },[url])
+        const controller = new AbortController()
 
-    return { data, isPending, error }
+        const fetchData = async (fetchOptions) => {
+            setIsPending(true)
+
+            try {
+                const res = await fetch('http://localhost:3003' + url, {
+                    ...fetchOptions,
+                    signal: controller.signal,
+                })
+                if (!res.ok) {
+                    throw new Error(res.statusText)
+                }
+                const data = await res.json()
+
+                setIsPending(false)
+                setData(data)
+                setError(null)
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    return
+                } else {
+                    setIsPending(false)
+                    setError('Could not fetch the data')
+                }
+            }
+        }
+
+        // invoke the function
+        if (method === 'GET') {
+            fetchData()
+        }
+        if (method === 'POST' && options) {
+            fetchData(options)
+        }
+
+        return () => {
+            controller.abort()
+        }
+    }, [url, method, options])
+
+    return { data, isPending, error, postData }
 }
-
-export default useFetch

@@ -3,6 +3,7 @@ import Avatar from '../Avatar/Avatar'
 
 export default function Navbar() {
     const { path } = useRouteMatch()
+
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-3 shadow-sm sticky-top'>
             <div className='container d-flex'>
@@ -23,35 +24,46 @@ export default function Navbar() {
                     </button>
                 </form>
                 <div className='navbar text-light flex-fill justify-content-end'>
-                    <NavLink className='nav-link fs-5 ms-2 d-none d-md-inline' exact to='/'>
+                    <NavLink
+                        className='nav-link fs-5 ms-2 d-none d-md-inline'
+                        exact
+                        to='/'>
                         <i className='bi bi-house-door'></i>
                     </NavLink>
                     <NavLink className='nav-link fs-5 ms-3' to='/post/create'>
                         <i className='bi bi-plus-square'></i>
                     </NavLink>
-                     {path === '/profile'? (
+                    {path === '/profile' ? (
                         <>
-                          <NavLink className='nav-link fs-5 ms-3 d-md-none' to='#'>
-                              <i className='bi bi-gear'></i>
-                          </NavLink>
-                          <NavLink className='nav-link fs-5 ms-3 d-none d-md-inline' to='#'>
-                              <i className='bi bi-heart'></i>
-                          </NavLink>
-                          <NavLink className='nav-link fs-5 ms-3 d-none d-md-inline' to='#'>
-                              <i className='bi bi-chat-square-dots'></i>
-                          </NavLink>
+                            <NavLink
+                                className='nav-link fs-5 ms-3 d-md-none'
+                                to='#'>
+                                <i className='bi bi-gear'></i>
+                            </NavLink>
+                            <NavLink
+                                className='nav-link fs-5 ms-3 d-none d-md-inline'
+                                to='#'>
+                                <i className='bi bi-heart'></i>
+                            </NavLink>
+                            <NavLink
+                                className='nav-link fs-5 ms-3 d-none d-md-inline'
+                                to='#'>
+                                <i className='bi bi-chat-square-dots'></i>
+                            </NavLink>
                         </>
-                     ):(
+                    ) : (
                         <>
-                          <NavLink className='nav-link fs-5 ms-3' to='#'>
-                              <i className='bi bi-heart'></i>
-                          </NavLink>
-                          <NavLink className='nav-link fs-5 ms-3' to='#'>
-                              <i className='bi bi-chat-square-dots'></i>
-                          </NavLink>
+                            <NavLink className='nav-link fs-5 ms-3' to='#'>
+                                <i className='bi bi-heart'></i>
+                            </NavLink>
+                            <NavLink className='nav-link fs-5 ms-3' to='#'>
+                                <i className='bi bi-chat-square-dots'></i>
+                            </NavLink>
                         </>
-                     )}
-                    <NavLink className='nav-link fs-5 ms-3 d-none d-md-flex align-items-center' to='/profile'>
+                    )}
+                    <NavLink
+                        className='nav-link fs-5 ms-3 d-none d-md-flex align-items-center'
+                        to='/profile'>
                         <Avatar width={23} thumbnail='false' />
                     </NavLink>
                 </div>

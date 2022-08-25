@@ -3,9 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialStateValue = {
     _id:'',
     username:'',
+    name:'',
     img_thumb:'',
     img_bg:'',
     email:'',
+    desc:'',
     followers:[],
     following:[],
     post:[],

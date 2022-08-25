@@ -1,23 +1,30 @@
-import { useState} from 'react'
+import { useState } from 'react'
 import Avatar from '../../components/Avatar/Avatar'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
-import BASE_URL from '../../config'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 export default function Post() {
+    const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     const { width } = useWindowDimensions()
     const [imgSrc, setImgSrc] = useState([
         'https://i.ibb.co/g3ffFKB/camera.png',
     ])
     const [error, setError] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [isPending, setIsPending] = useState(false)
     const [post, setPost] = useState({
-        userId: '63049de40a8779bd2b154792',
-        username: 'novi',
-        caption: 'im testing upload multiple images',
-        hashtag: 'multiple image',
+        userId: currentUser._id,
+        username: currentUser.username,
+        caption: '',
+        hashtag: '',
         image: [],
     })
+
+    // reset all here
+    const resetForm = () => {
+        
+    }
 
     const imageStyle = (w) => {
         const size = w >= 768 ? 300 : 200
@@ -47,11 +54,11 @@ export default function Post() {
         }
 
         axios
-            .post(`${BASE_URL}/post`, post)
+            .post(`/post/`, post)
             .then((res) => {
                 setIsPending(false)
-                // history.push('/')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
+                setSuccess(true)
             })
             .catch((err) => {
                 setIsPending(false)
@@ -83,7 +90,7 @@ export default function Post() {
                 files.map((file) => {
                     const reader = new FileReader()
                     reader.readAsDataURL(file)
-                    return reader.onload = (e) => {
+                    return (reader.onload = (e) => {
                         setImgSrc((prevState) => [
                             ...prevState,
                             e.target.result,
@@ -93,7 +100,7 @@ export default function Post() {
                             ...prevState,
                             image: [...prevState.image, e.target.result],
                         }))
-                    }
+                    })
                 })
             }
         }
@@ -115,6 +122,20 @@ export default function Post() {
                                 data-bs-dismiss='alert'
                                 aria-label='Close'
                                 onClick={() => setError(false)}></button>
+                        </div>
+                    )}
+                    {success && (
+                        <div
+                            className='alert alert-success d-flex align-items-center alert-dismissible fade show'
+                            role='alert'>
+                            <i className='bi bi-check-circle me-2'></i>
+                            <div>Uploaded!</div>
+                            <button
+                                type='button'
+                                className='btn-close'
+                                data-bs-dismiss='alert'
+                                aria-label='Close'
+                                onClick={() => setSuccess(false)}></button>
                         </div>
                     )}
 
@@ -205,7 +226,9 @@ export default function Post() {
                 <div className='col-12 col-md-6 text-start d-flex flex-column'>
                     <div className='m-3 d-none d-md-flex align-items-center'>
                         <Avatar width={32} thumbnail='false' />
-                        <span className='fw-semibold ms-3'>dnm17_</span>
+                        <span className='fw-semibold ms-3'>
+                            {currentUser.username}
+                        </span>
                     </div>
                     <div className='mb-3 flex-fill'>
                         <div className='form-floating h-100'>

@@ -1,16 +1,15 @@
 /** React dependencies */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 /** global state */
 import { login } from '../../redux/user'
 import { loggedIn } from '../../redux/auth'
-import { getPosts } from '../../redux/post'
+import { updateUserPost } from '../../redux/post'
 
 /** utils */
 import axios from 'axios'
-import BASE_URL from '../../config'
 
 /** Styles */
 import './Login.css'
@@ -27,19 +26,6 @@ export default function SignIn() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    // cek if user already login
-/*
-    useEffect(() => {
-        axios
-            .get(`${BASE_URL}/user/login`)
-            .then((user) => {
-                console.log(user)
-            })
-            .catch((err) => {
-                console.log(err.data)
-            })
-    }, [])
-*/
     // handle input user
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -50,54 +36,52 @@ export default function SignIn() {
     }
 
     // send and check data to server
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setIsPending(true)
-        axios
-            .post(`${BASE_URL}/user/login`, input)
-            .then((user) => {
-                // data valid
-                setIsPending(false)
-                setError(false)
-                dispatch(login(user.data))
-                dispatch(loggedIn())
-                dispatch(getPosts())
-                history.push('/')
-            })
-            .catch((err) => {
-                setIsPending(false)
-                if (err.response?.data !== undefined) {
-                    setError(err.response.data.error)
-                } else {
-                    setError('connection error')
-                }
-            })
+        try {
+            const user = await axios.post(`/user/login`, input)
+
+            setIsPending(false)
+            setError(false)
+            dispatch(login(user.data))
+            dispatch(loggedIn())
+            dispatch(updateUserPost(user.data.post))
+            history.push('/')
+        } catch (err) {
+            setIsPending(false)
+            if (err.response?.data !== undefined) {
+                setError(err.response.data.error)
+            } else {
+                setError('connection error')
+            }
+        }
     }
 
     // login as guest
-    const setGuest = () => {
+    const setGuest = async () => {
         setIsPending(true)
-        axios
-            .post(`${BASE_URL}/user/login`, {
+
+        try {
+            const user = await axios.post(`/user/login`, {
                 username: 'guest',
                 password: '123456',
             })
-            .then((user) => {
-                setIsPending(false)
-                setError(false)
-                dispatch(login(user.data))
-                dispatch(loggedIn())
-                dispatch(getPosts())
-                history.push('/')
-            })
-            .catch((err) => {
-                setIsPending(false)
-                if (err.response?.data !== undefined) {
-                    setError(err.response.data.error)
-                } else {
-                    setError('connection error')
-                }
-            })
+
+            setIsPending(false)
+            setError(false)
+            dispatch(login(user.data))
+            dispatch(loggedIn())
+            dispatch(updateUserPost(user.data.post))
+            history.push('/')
+        } catch (err) {
+            setIsPending(false)
+            if (err.response?.data !== undefined) {
+                setError(err.response.data.error)
+            } else {
+                setError('connection error')
+            }
+        }
     }
 
     return (
@@ -155,12 +139,12 @@ export default function SignIn() {
                             <button
                                 type='submit'
                                 className='btn btn-primary mb-3 px-5'>
-                                Login
+                                {isPending ? 'loading...' : 'Login'}
                             </button>
                             <button
                                 onClick={setGuest}
                                 className='btn btn-outline-primary'>
-                                Login As Guest
+                                {isPending ? 'loading...' : 'Login As Guest'}
                             </button>
                         </div>
                         <p className='line my-3'>or</p>

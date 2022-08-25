@@ -10,7 +10,8 @@ const fakeImages = [
     'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
 ]
 */
-export default function Card({ post, id }) { // @typeof post Array
+export default function Card({ post, id }) {
+    // @typeof post Array
     const { width } = useWindowDimensions()
 
     const handleImageClass = (w) => {
@@ -109,7 +110,10 @@ export default function Card({ post, id }) { // @typeof post Array
                     <div className='card-body d-flex flex-column'>
                         <div className='mt-2 mb-3 d-flex justify-content-between'>
                             <div>
-                                <Avatar width={42} image={post.user.img_thumb}/>
+                                <Avatar
+                                    width={42}
+                                    image={post.user.img_thumb}
+                                />
                                 <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
                                     {post.user.username}
                                 </span>
@@ -119,12 +123,10 @@ export default function Card({ post, id }) { // @typeof post Array
                                 <i className='bi bi-three-dots-vertical ms-3'></i>
                             </div>
                         </div>
-                        <p className='card-text'>
-                            {post.caption}
-                        </p>
+                        <p className='card-text'>{post.caption}</p>
                         <p className='card-text mt-auto'>
                             <small className='text-muted'>
-                                Last updated {moment(post.createdAt).fromNow()}
+                                {moment(post.createdAt).fromNow()}
                             </small>
                         </p>
                     </div>

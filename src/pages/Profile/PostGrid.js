@@ -11,7 +11,7 @@ const fakeImages = [
 export function PostImages({ image }) {
     return (
         <div className='col-4 mb-3'>
-            <img src={image} alt='...' className='w-100' />
+            <img src={image[0]} alt='...' className='w-100' />
         </div>
     )
 }
@@ -24,7 +24,7 @@ export function PostReels({ image }) {
     )
 }
 
-export default function PostGrid() {
+export default function PostGrid({ posts }) {
     const { url, path } = useRouteMatch()
 
     return (
@@ -59,8 +59,11 @@ export default function PostGrid() {
             <Switch>
                 <Route exact path={path}>
                     <div className='row'>
-                        {fakeImages.map((image, i) => (
-                            <PostImages key={i} image={image} />
+                        {[...posts].reverse().map((post) => (
+                            <PostImages
+                                key={post._id}
+                                image={post.img_post_url}
+                            />
                         ))}
                     </div>
                 </Route>

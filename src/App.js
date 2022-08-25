@@ -1,6 +1,8 @@
 /** React dependencies */
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import axios from 'axios'
+// import { useSelector } from 'react-redux'
+// import ProtectedRoute from './components/ProtectedRoute'
 
 /** Utils */
 // import axios from 'axios'
@@ -29,42 +31,42 @@ import Footer from './components/Footer/Footer'
 // import AboutMeCard from './components/Profile/AboutMeCard'
 
 const App = () => {
-    // axios.defaults.withCredentials = true
-    const currentUser = useSelector((state) => state.user.value)
+    axios.defaults.withCredentials = true
+    axios.defaults.baseURL = 'http://localhost:3003'
+    // const currentUser = useSelector((state) => state.user.value)
 
     return (
         <div>
             <Router>
                 <Switch>
                     <Route exact path='/'>
-                      <Navbar />
-                      <Home />
-                      <Navigation/>
-                      <Footer />
+                        <Navbar />
+                        <Home />
+                        <Navigation />
+                        <Footer />
                     </Route>
                     <Route exact path='/login'>
-                      <Login />
+                        <Login />
                     </Route>
                     <Route exact path='/register'>
-                      <Register />
+                        <Register />
                     </Route>
                     <Route path='/profile'>
-                      <Navbar />
-                      <Profile />
-                      <Navigation/>
-                      <Footer />
+                        <Navbar />
+                        <Profile />
+                        <Navigation />
+                        <Footer />
                     </Route>
                     <Route path='/post/create'>
-                      <Navbar />
-                      <Post />
-                      <Navigation/>
-                      <Footer />
+                        <Navbar />
+                        <Post />
+                        <Navigation />
+                        <Footer />
                     </Route>
                     <Route exact path='*'>
-                      <PageNotFound />
+                        <PageNotFound />
                     </Route>
                 </Switch>
-
 
                 {/* 
                     <Route path='/user-list' component={UserList} />

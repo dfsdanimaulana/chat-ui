@@ -1,9 +1,11 @@
 import Avatar from '../../components/Avatar/Avatar'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import PostGrid from './PostGrid'
+import { useSelector } from 'react-redux'
 
 export default function Profile() {
     const { width } = useWindowDimensions()
+    const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
 
     const containerClass = (w) => `container ${w >= 992 ? 'w-50' : ''}`
 
@@ -15,7 +17,9 @@ export default function Profile() {
                 </div>
                 <div className='col-sm-12 col-md-8'>
                     <div className='d-none d-md-flex align-items-center mb-3'>
-                        <span className='fs-5 me-5'>dnm17_</span>
+                        <span className='fs-5 me-5'>
+                            {currentUser.username}
+                        </span>
                         <button className='btn btn-sm btn-outline-info me-3 d-none d-md-block'>
                             Edit profile
                         </button>
@@ -30,7 +34,7 @@ export default function Profile() {
                                 <div className='d-flex align-items-center'>
                                     <div className='d-flex flex-column flex-md-row align-items-center me-lg-5 me-3'>
                                         <span className='fs-6 fw-semibold me-1'>
-                                            700
+                                            {currentUser.post.length}
                                         </span>
                                         <span className='fs-6 fw-light'>
                                             posts
@@ -38,7 +42,7 @@ export default function Profile() {
                                     </div>
                                     <div className='d-flex flex-column flex-md-row align-items-center me-lg-5 me-3'>
                                         <span className='fs-6 fw-semibold me-1'>
-                                            10k
+                                            {currentUser.followers.length}
                                         </span>
                                         <span className='fs-6 fw-light'>
                                             followers
@@ -46,7 +50,7 @@ export default function Profile() {
                                     </div>
                                     <div className='d-flex flex-column flex-md-row align-items-center'>
                                         <span className='fs-6 fw-semibold me-1'>
-                                            500
+                                            {currentUser.following.length}
                                         </span>
                                         <span className='fs-6 fw-light'>
                                             following
@@ -57,8 +61,8 @@ export default function Profile() {
                         </div>
                     </div>
                     <div className='d-flex flex-column ms-3 ms-md-0'>
-                        <span className='fw-bold fs-6'>Dani Maulana</span>
-                        <p className='fs-6'>profile descriptions</p>
+                        <span className='fw-bold fs-6'>{currentUser.name}</span>
+                        <p className='fs-6'>{currentUser.desc}</p>
                     </div>
                 </div>
             </div>
@@ -66,7 +70,7 @@ export default function Profile() {
                 <hr />
             </div>
             <div className='row justify-content-center'>
-                <PostGrid />
+                <PostGrid posts={currentUser.post} />
             </div>
         </div>
     )

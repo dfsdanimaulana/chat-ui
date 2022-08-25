@@ -4,7 +4,6 @@ import { Link, useHistory } from 'react-router-dom'
 
 /** utils */
 import axios from 'axios'
-import BASE_URL from '../../config'
 
 const Register = () => {
     const [input, setInput] = useState({
@@ -15,7 +14,7 @@ const Register = () => {
         password: '',
         confirm_password: '',
     })
-    const [isPending, setisPending] = useState(false)
+    const [isPending, setIsPending] = useState(false)
     const [error, setError] = useState()
     const history = useHistory()
 
@@ -30,18 +29,18 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setisPending(true)
-        
+        setIsPending(true)
+
         // Save data user to server
         axios
-            .post(`${BASE_URL}/user`, input)
+            .post(`/user`, input)
             .then((res) => {
-                setisPending(false)
+                setIsPending(false)
                 setError()
                 history.push('/login')
             })
             .catch((err) => {
-                setisPending(false)
+                setIsPending(false)
                 if (err.response?.data !== undefined) {
                     setError(err.response.data.error)
                 } else {
@@ -52,9 +51,7 @@ const Register = () => {
 
     return (
         <div className='container'>
-            <form
-                className='m-2 m-lg-5 p-3 border'
-                onSubmit={handleSubmit}>
+            <form className='m-2 m-lg-5 p-3 border' onSubmit={handleSubmit}>
                 <h4 className='text-center'>Register form</h4>
                 <hr />
                 {error && (
