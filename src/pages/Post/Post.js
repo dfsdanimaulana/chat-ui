@@ -21,11 +21,6 @@ export default function Post() {
         image: [],
     })
 
-    // reset all here
-    const resetForm = () => {
-        
-    }
-
     const imageStyle = (w) => {
         const size = w >= 768 ? 300 : 200
         return {
@@ -49,21 +44,35 @@ export default function Post() {
         e.preventDefault()
 
         if (post.image.length < 1) {
+            setIsPending(false)
             setError('Please select an image')
             return
         }
 
         axios
-            .post(`/post/`, post)
+            .post(`/post`, post)
             .then((res) => {
                 setIsPending(false)
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
                 setSuccess(true)
+                setPost((prevState) => ({
+                  ...prevState,
+                  caption: '',
+                  hashtag: '',
+                  image: []
+                }))
+                
             })
             .catch((err) => {
                 setIsPending(false)
                 setError(err?.message || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
+                setPost((prevState) => ({
+                  ...prevState,
+                  caption: '',
+                  hashtag: '',
+                  image: []
+                }))
             })
     }
 
@@ -129,7 +138,7 @@ export default function Post() {
                             className='alert alert-success d-flex align-items-center alert-dismissible fade show'
                             role='alert'>
                             <i className='bi bi-check-circle me-2'></i>
-                            <div>Uploaded!</div>
+                            <div>Posted!</div>
                             <button
                                 type='button'
                                 className='btn-close'
@@ -236,7 +245,6 @@ export default function Post() {
                                 className='form-control h-100'
                                 placeholder='Leave a comment here'
                                 id='caption'
-                                required
                                 defaultValue={''}
                                 onChange={handleChange}
                             />

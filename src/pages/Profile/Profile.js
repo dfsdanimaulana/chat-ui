@@ -2,12 +2,14 @@ import Avatar from '../../components/Avatar/Avatar'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import PostGrid from './PostGrid'
 import { useSelector } from 'react-redux'
+import { useFetch } from '../../hooks/useFetch'
 
 export default function Profile() {
     const { width } = useWindowDimensions()
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
-
-    const containerClass = (w) => `container ${w >= 992 ? 'w-50' : ''}`
+    const { data: userPosts , isPending, error } = useFetch('/post/' + currentUser._id)
+    
+    const containerClass = (w) => `container pb-5 ${w >= 992 ? 'w-50' : ''}`
 
     return (
         <div className={containerClass(width)}>
@@ -70,7 +72,9 @@ export default function Profile() {
                 <hr />
             </div>
             <div className='row justify-content-center'>
-                <PostGrid posts={currentUser.post} />
+                { isPending && <h1>Loading...</h1> }
+                { userPosts && <PostGrid posts={userPosts} /> }
+                { error && <h1>Not found</h1> }
             </div>
         </div>
     )

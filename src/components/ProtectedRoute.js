@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({ children , ...rest }) => {
 
     const isAuth = useSelector((state)=>state.auth.value)
     
@@ -10,7 +10,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (isAuth) {
-                    return <Component />
+                    return children
                 } else {
                     return (
                         <Redirect

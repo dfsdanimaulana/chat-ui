@@ -59,7 +59,7 @@ export default function PostGrid({ posts }) {
             <Switch>
                 <Route exact path={path}>
                     <div className='row'>
-                        {[...posts].reverse().map((post) => (
+                        {posts.map((post) => (
                             <PostImages
                                 key={post._id}
                                 image={post.img_post_url}

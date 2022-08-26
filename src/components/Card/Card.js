@@ -101,8 +101,9 @@ export default function Card({ post, id }) {
                     ) : (
                         <img
                             src={post.img_post_url[0]}
-                            className='img-fluid w-100 h-100'
+                            className={handleImageClass(width)}
                             alt='...'
+                            style={imagesPostStyles(width)}
                         />
                     )}
                 </div>
@@ -124,6 +125,11 @@ export default function Card({ post, id }) {
                             </div>
                         </div>
                         <p className='card-text'>{post.caption}</p>
+                        <div className="my-1 d-flex">
+                            {post.hashtag.map((h,i)=>(
+                                <span key={i} className='text-primary me-1 fw-light'>#{h}</span>
+                            ))}
+                        </div>
                         <p className='card-text mt-auto'>
                             <small className='text-muted'>
                                 {moment(post.createdAt).fromNow()}

@@ -11,7 +11,7 @@ export default function Navigation () {
           <NavLink className='nav-link fs-5' exact to='/'>
               <i className='bi bi-house-door'></i>
           </NavLink>
-          <NavLink className='nav-link fs-5' to='/post/create'>
+          <NavLink className='nav-link fs-5' to='#'>
               <i className='bi bi-search'></i>
           </NavLink>
           <NavLink className='nav-link fs-5' to='#'>

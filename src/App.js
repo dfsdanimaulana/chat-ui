@@ -1,8 +1,7 @@
 /** React dependencies */
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router,Route, Switch } from 'react-router-dom'
 import axios from 'axios'
-// import { useSelector } from 'react-redux'
-// import ProtectedRoute from './components/ProtectedRoute'
+import { useSelector } from 'react-redux'
 
 /** Utils */
 // import axios from 'axios'
@@ -22,9 +21,9 @@ import PageNotFound from './pages/404/PageNotFound'
 import Navbar from './components/Navbar/Navbar'
 import Navigation from './components/Navigation/Navigation'
 import Footer from './components/Footer/Footer'
+import ProtectedRoute from './components/ProtectedRoute'
 // import Sidebar from './components/Sidebar/Sidebar'
 // import ChatBody from './components/Chat/ChatBody'
-// import Footer from './components/Footer/Footer'
 // import ProfileCard from './components/Profile/ProfileCard'
 // import AddPost from './components/Post/AddPost'
 // import UserPost from './components/Post/UserPost'
@@ -33,77 +32,40 @@ import Footer from './components/Footer/Footer'
 const App = () => {
     axios.defaults.withCredentials = true
     axios.defaults.baseURL = 'http://localhost:3003'
-    // const currentUser = useSelector((state) => state.user.value)
+    const currentUser = useSelector((state) => state.user.value)
 
     return (
         <div>
             <Router>
                 <Switch>
-                    <Route exact path='/'>
+                    <ProtectedRoute exact path='/'>
                         <Navbar />
                         <Home />
                         <Navigation />
                         <Footer />
-                    </Route>
+                    </ProtectedRoute>
                     <Route exact path='/login'>
                         <Login />
                     </Route>
                     <Route exact path='/register'>
                         <Register />
                     </Route>
-                    <Route path='/profile'>
+                    <ProtectedRoute path='/profile'>
                         <Navbar />
                         <Profile />
                         <Navigation />
                         <Footer />
-                    </Route>
-                    <Route path='/post/create'>
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/post/create'>
                         <Navbar />
                         <Post />
                         <Navigation />
                         <Footer />
-                    </Route>
+                    </ProtectedRoute>
                     <Route exact path='*'>
                         <PageNotFound />
                     </Route>
                 </Switch>
-
-                {/* 
-                    <Route path='/user-list' component={UserList} />
-
-                    <Route exact path='/' component={Home} />
-
-                    <Route path='/chats' component={ChatBody} />
-
-                    <Route path='/add-post'>
-                        <NavbarLte />
-                        <SidebarLte />
-                        <div className='content-wrapper'>
-                            <AddPost />
-                            <Footer />
-                        </div>
-                    </Route>
-
-                    <Route path='/user'>
-                        <NavbarLte />
-                        <SidebarLte />
-                        <div className='content-wrapper'>
-                            <div className='container'>
-                                <div className='row'>
-                                    <div className='col-12 col-sm-6'>
-                                        <ProfileCard user={currentUser} />
-                                    </div>
-                                    <div className='col-12 col-sm-6'>
-                                        <AboutMeCard user={currentUser} />
-                                    </div>
-                                </div>
-                                <UserPost posts={currentUser.post} />
-                            </div>
-                            <Footer />
-                        </div>
-                    </Route>
-
-                    */}
             </Router>
         </div>
     )
