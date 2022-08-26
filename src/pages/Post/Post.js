@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Avatar from '../../components/Avatar/Avatar'
-import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 
@@ -22,7 +22,7 @@ export default function Post() {
     })
 
     const imageStyle = (w) => {
-        const size = w >= 768 ? 300 : 200
+        const size = w > 768 ? 300 : 200
         return {
             width: `${size}px`,
             height: `${size}px`,
@@ -56,22 +56,21 @@ export default function Post() {
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
                 setSuccess(true)
                 setPost((prevState) => ({
-                  ...prevState,
-                  caption: '',
-                  hashtag: '',
-                  image: []
+                    ...prevState,
+                    caption: '',
+                    hashtag: '',
+                    image: [],
                 }))
-                
             })
             .catch((err) => {
                 setIsPending(false)
                 setError(err?.message || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
                 setPost((prevState) => ({
-                  ...prevState,
-                  caption: '',
-                  hashtag: '',
-                  image: []
+                    ...prevState,
+                    caption: '',
+                    hashtag: '',
+                    image: [],
                 }))
             })
     }
@@ -216,7 +215,7 @@ export default function Post() {
                     <div className='m-3'>
                         <label
                             htmlFor='image'
-                            className='btn btn-sm btn-outline-secondary'>
+                            className='btn btn-sm btn-outline-success'>
                             Select Image
                         </label>
                         <input

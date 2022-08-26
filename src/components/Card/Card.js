@@ -1,4 +1,4 @@
-import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Avatar from '../Avatar/Avatar'
 import moment from 'moment'
 /*
@@ -15,13 +15,16 @@ export default function Card({ post, id }) {
     const { width } = useWindowDimensions()
 
     const handleImageClass = (w) => {
-        return `d-block w-100 ${w >= 768 ? 'rounded-start' : 'rounded-top'}`
+        return `d-block w-100 ${w > 768 ? 'rounded-start' : 'rounded-top'}`
     }
 
     const imagesPostStyles = (w) => {
-        return w >= 768
-            ? { width: '470px', height: '470px', objectFit: 'cover' }
-            : { width: '390px', height: '390px', objectFit: 'cover' }
+        const size = w < 768 ? '390px' : '470px'
+        return {
+            height: size,
+            width: '100%',
+            objectFit: 'cover',
+        }
     }
 
     return (
@@ -125,9 +128,16 @@ export default function Card({ post, id }) {
                             </div>
                         </div>
                         <p className='card-text'>{post.caption}</p>
-                        <div className="my-1 d-flex">
-                            {post.hashtag.map((h,i)=>(
-                                <span key={i} className='text-primary me-1 fw-light'>#{h}</span>
+                        <div className='my-1 d-flex'>
+                            {post.hashtag.map((h, i) => (
+                                <span
+                                    key={i}
+                                    className='text-primary me-1 fw-light'
+                                    style={{
+                                        cursor: 'pointer',
+                                    }}>
+                                    #{h}
+                                </span>
                             ))}
                         </div>
                         <p className='card-text mt-auto'>

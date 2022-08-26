@@ -1,4 +1,5 @@
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
 const fakeImages = [
     'https://picsum.photos/500',
@@ -8,23 +9,32 @@ const fakeImages = [
     'https://picsum.photos/500',
 ]
 
-export function PostImages({ image }) {
+export function PostImages({ image, imageStyle }) {
     return (
         <div className='col-4 mb-3'>
-            <img src={image[0]} alt='...' className='w-100' />
+            <img src={image[0]} alt='...' style={imageStyle} />
         </div>
     )
 }
 
-export function PostReels({ image }) {
+export function PostReels({ image, imageStyle }) {
     return (
         <div className='col-4 mb-3'>
-            <img src={image} alt='...' className='w-100' />
+            <img src={image} alt='...' style={imageStyle} />
         </div>
     )
 }
 
 export default function PostGrid({ posts }) {
+    const { width } = useWindowDimensions()
+
+    const imageStyles = (w) => {
+        return {
+            height: w < 768 ? '100px' : '200px',
+            width: '100%',
+            objectFit: 'cover',
+        }
+    }
     const { url, path } = useRouteMatch()
 
     return (
@@ -63,6 +73,7 @@ export default function PostGrid({ posts }) {
                             <PostImages
                                 key={post._id}
                                 image={post.img_post_url}
+                                imageStyle={imageStyles(width)}
                             />
                         ))}
                     </div>
@@ -70,14 +81,22 @@ export default function PostGrid({ posts }) {
                 <Route path={`${path}/reels`}>
                     <div className='row'>
                         {fakeImages.slice(2).map((image, i) => (
-                            <PostReels key={i} image={image} />
+                            <PostReels
+                                key={i}
+                                image={image}
+                                imageStyle={imageStyles(width)}
+                            />
                         ))}
                     </div>
                 </Route>
                 <Route path={`${path}/saved`}>
                     <div className='row'>
                         {fakeImages.slice(3).map((image, i) => (
-                            <PostReels key={i} image={image} />
+                            <PostReels
+                                key={i}
+                                image={image}
+                                imageStyle={imageStyles(width)}
+                            />
                         ))}
                     </div>
                 </Route>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import BASE_URL from '../../config'
 import ProfileCard from '../../components/Profile/ProfileCard'
 import axios from 'axios'
 
@@ -11,7 +10,7 @@ const UserList = () => {
 
     useEffect(() => {
         axios
-            .get(`${BASE_URL}/user`)
+            .get(`/user`)
             .then((res) => {
                 setIsPending(false)
                 setError(false)

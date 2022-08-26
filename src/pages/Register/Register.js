@@ -9,13 +9,13 @@ const Register = () => {
     const [input, setInput] = useState({
         username: '',
         birthday: '',
-        gender: '',
+        gender: 'male',
         email: '',
         password: '',
         confirm_password: '',
     })
     const [isPending, setIsPending] = useState(false)
-    const [error, setError] = useState()
+    const [error, setError] = useState(false)
     const history = useHistory()
 
     const handleChange = (e) => {
@@ -30,13 +30,14 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setIsPending(true)
+       
 
         // Save data user to server
         axios
             .post(`/user`, input)
             .then((res) => {
                 setIsPending(false)
-                setError()
+                setError(false)
                 history.push('/login')
             })
             .catch((err) => {
@@ -162,7 +163,8 @@ const Register = () => {
                                             type='radio'
                                             name='gender'
                                             id='exampleRadios1'
-                                            defaultValue='option1'
+                                            defaultValue='male'
+                                            onChange={handleChange}
                                             defaultChecked
                                         />
                                         <label
@@ -178,6 +180,8 @@ const Register = () => {
                                             className='form-check-input'
                                             type='radio'
                                             name='gender'
+                                            onChange={handleChange}
+                                            value='female'
                                             id='exampleRadios2'
                                         />
                                         <label

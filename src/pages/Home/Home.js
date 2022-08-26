@@ -4,7 +4,7 @@ import { useFetch } from '../../hooks/useFetch'
 import Card from '../../components/Card/Card'
 import CardPlaceholder from '../../components/Card/CardPlaceholder'
 
-const Home = (props) => {
+const Home = () => {
     const { data: posts, isPending } = useFetch(`/post`) // @typeof post Array
 
     return (
