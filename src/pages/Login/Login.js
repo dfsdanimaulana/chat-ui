@@ -63,7 +63,7 @@ export default function SignIn() {
         setIsPending(true)
 
         try {
-            const user = await axios.post(`/user/login`, {
+            const user = await axios.post(`/auth/login`, {
                 username: 'guest',
                 password: '123456',
             })
@@ -143,6 +143,7 @@ export default function SignIn() {
                             </button>
                             <button
                                 onClick={setGuest}
+                                type='button'
                                 className='btn btn-outline-primary'>
                                 {isPending ? 'loading...' : 'Login As Guest'}
                             </button>

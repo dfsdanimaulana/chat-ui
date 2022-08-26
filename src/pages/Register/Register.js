@@ -30,11 +30,10 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setIsPending(true)
-       
 
         // Save data user to server
         axios
-            .post(`/user`, input)
+            .post(`/auth/register`, input)
             .then((res) => {
                 setIsPending(false)
                 setError(false)

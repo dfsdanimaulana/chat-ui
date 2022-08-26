@@ -115,7 +115,7 @@ export default function Post() {
     }
 
     return (
-        <form className='container my-lg-5' onSubmit={handleSubmit}>
+        <form className='container my-lg-5 mb-5' onSubmit={handleSubmit}>
             <div className='row text-center'>
                 <div className='col-12 col-md-6 d-flex flex-column justify-content-center align-items-center'>
                     {error && (

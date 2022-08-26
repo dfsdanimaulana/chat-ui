@@ -1,7 +1,6 @@
 /** React dependencies */
 import { BrowserRouter as Router,Route, Switch } from 'react-router-dom'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 
 /** Utils */
 // import axios from 'axios'
@@ -32,7 +31,6 @@ import ProtectedRoute from './components/ProtectedRoute'
 const App = () => {
     axios.defaults.withCredentials = true
     axios.defaults.baseURL = 'http://localhost:3003'
-    const currentUser = useSelector((state) => state.user.value)
 
     return (
         <div>
