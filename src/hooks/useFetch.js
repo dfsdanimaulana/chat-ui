@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useCookie } from './useCookie'
 
 export const useFetch = (url, method = 'GET') => {
+    const { cookie: token } = useCookie('jwt', null)
     const [data, setData] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const [error, setError] = useState(null)
@@ -17,6 +19,7 @@ export const useFetch = (url, method = 'GET') => {
     }
 
     useEffect(() => {
+        console.log({ token })
         const controller = new AbortController()
 
         const fetchData = async (fetchOptions) => {
@@ -26,6 +29,9 @@ export const useFetch = (url, method = 'GET') => {
                 const res = await fetch('http://localhost:3003' + url, {
                     ...fetchOptions,
                     signal: controller.signal,
+                    headers: {
+                        Authorization: token && `Bearer ${token}`,
+                    },
                 })
                 if (!res.ok) {
                     throw new Error(res.statusText)
@@ -56,7 +62,7 @@ export const useFetch = (url, method = 'GET') => {
         return () => {
             controller.abort()
         }
-    }, [url, method, options])
+    }, [url, method, options, token])
 
     return { data, isPending, error, postData }
 }

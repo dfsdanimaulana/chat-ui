@@ -1,5 +1,5 @@
 import Avatar from '../../components/Avatar/Avatar'
-import {useWindowDimensions} from '../../hooks/useWindowDimensions'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import PostGrid from './PostGrid'
 import { useSelector } from 'react-redux'
 import { useFetch } from '../../hooks/useFetch'
@@ -41,7 +41,7 @@ export default function Profile() {
                                 <div className='d-flex align-items-center'>
                                     <div className='d-flex flex-column flex-md-row align-items-center me-lg-5 me-3'>
                                         <span className='fs-6 fw-semibold me-1'>
-                                            {currentUser.post.length}
+                                            {userPosts ? userPosts.length : '0'}
                                         </span>
                                         <span className='fs-6 fw-light'>
                                             posts

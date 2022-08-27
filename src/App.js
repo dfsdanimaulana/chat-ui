@@ -1,6 +1,7 @@
 /** React dependencies */
-import { BrowserRouter as Router,Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
+import { useCookie } from './hooks/useCookie'
 
 /** Utils */
 // import axios from 'axios'
@@ -29,8 +30,10 @@ import ProtectedRoute from './components/ProtectedRoute'
 // import AboutMeCard from './components/Profile/AboutMeCard'
 
 const App = () => {
+    const { cookie: token } = useCookie('jwt', null)
     axios.defaults.withCredentials = true
     axios.defaults.baseURL = 'http://localhost:3003'
+    axios.defaults.headers.common = { Authorization: `Bearer ${token}` }
 
     return (
         <div>

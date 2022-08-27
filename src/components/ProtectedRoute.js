@@ -1,14 +1,11 @@
 import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
-const ProtectedRoute = ({ children , ...rest }) => {
+const ProtectedRoute = ({ children, ...rest }) => {
+    const isAuth = useSelector((state) => state.auth.value)
 
-    const isAuth = useSelector((state)=>state.auth.value)
-    
     // cek jwt in cookie
-    
 
-    
     return (
         <Route
             {...rest}
