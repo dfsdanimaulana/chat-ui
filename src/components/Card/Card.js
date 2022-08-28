@@ -1,6 +1,7 @@
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Avatar from '../Avatar/Avatar'
 import moment from 'moment'
+import CardComment from './CardComment'
 /*
 const fakeImages = [
     'https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ',
@@ -147,21 +148,7 @@ export default function Card({ post, id }) {
                         </p>
                     </div>
                     <div className='card-footer d-flex justify-content-between'>
-                        <div className='input-group w-75 w-md-50'>
-                            <span className='input-group-text'>
-                                <i className='bi bi-emoji-smile'></i>
-                            </span>
-                            <input
-                                type='text'
-                                className='form-control'
-                                placeholder='Add a comment...'
-                                aria-label="Recipient's username"
-                                aria-describedby='basic-addon2'
-                            />
-                            <span className='input-group-text'>
-                                <i className='bi bi-send'></i>
-                            </span>
-                        </div>
+                        <CardComment />
                         <div className='d-flex justify-content-around align-items-center text-secondary fw-bold'>
                             <span className='fw-lighter text-secondary ms-3'>
                                 {post.comment.length}

@@ -19,7 +19,7 @@ export const useRefreshToken = () => {
         
         return res.data.accessToken
       } catch (err) {
-        console.log({ refreshToken: err })
+        return
       }
     }
     

@@ -1,10 +1,8 @@
 import { Link, NavLink, useRouteMatch } from 'react-router-dom'
-import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Avatar from '../Avatar/Avatar'
 
 export default function Navbar() {
     const { path } = useRouteMatch()
-    const { width } = useWindowDimensions()
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top'>
             <div className='container d-flex'>
@@ -31,12 +29,16 @@ export default function Navbar() {
                         to='/'>
                         <i className='bi bi-house-door'></i>
                     </NavLink>
-                     {path !== '/setting' && (
-                        <NavLink className='nav-link fs-5 ms-3 d-md-none' to='/post/create'>
+                    {path !== '/setting' && (
+                        <NavLink
+                            className='nav-link fs-5 ms-3 d-md-none'
+                            to='/post/create'>
                             <i className='bi bi-plus-square'></i>
                         </NavLink>
-                     )}
-                    <NavLink className='nav-link fs-5 ms-3 d-none d-md-flex' to='/post/create'>
+                    )}
+                    <NavLink
+                        className='nav-link fs-5 ms-3 d-none d-md-flex'
+                        to='/post/create'>
                         <i className='bi bi-plus-square'></i>
                     </NavLink>
                     {path === '/profile' || path === '/setting' ? (
@@ -84,5 +86,5 @@ export default function Navbar() {
                 </div>
             </div>
         </nav>
-     )
+    )
 }
