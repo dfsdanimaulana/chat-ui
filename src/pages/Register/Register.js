@@ -1,6 +1,7 @@
 /** React dependencies */
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import cogoToast from 'cogo-toast'
 
 /** utils */
 import axios from 'axios'
@@ -14,8 +15,7 @@ const Register = () => {
         password: '',
         confirm_password: '',
     })
-    const [isPending, setIsPending] = useState(false)
-    const [error, setError] = useState(false)
+
     const history = useHistory()
 
     const handleChange = (e) => {
@@ -29,22 +29,52 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setIsPending(true)
+        const { hide } = cogoToast.loading('Loading...')
 
         // Save data user to server
         axios
             .post(`/auth/register`, input)
             .then((res) => {
-                setIsPending(false)
-                setError(false)
+                hide()
                 history.push('/login')
             })
             .catch((err) => {
-                setIsPending(false)
+                hide()
                 if (err.response?.data !== undefined) {
-                    setError(err.response.data.error)
+                    const { hide } = cogoToast.error(
+                        <ul className='list-group list-group-flush'>
+                            {err.response.data.error.map((err, i) => (
+                                <li key={i} className='list-group-item'>
+                                    {err}
+                                </li>
+                            ))}
+                        </ul>,
+                        {
+                            hideAfter: 5,
+                            heading: 'Register error!',
+                            onClick: () => hide(),
+                        }
+                    )
                 } else {
-                    setError(['something went wrong', err.message])
+                    const { hide } = cogoToast.error(
+                        <div className='error-wrapper'>
+                            <div className='alert alert-danger' role='alert'>
+                                <ul>
+                                    {['something went wrong', err.message].map(
+                                        (err, i) => (
+                                            <li key={i}>{err}</li>
+                                        )
+                                    )}
+                                </ul>
+                            </div>
+                            <hr />
+                        </div>,
+                        {
+                            hideAfter: 5,
+                            heading: 'Register error!',
+                            onClick: () => hide(),
+                        }
+                    )
                 }
             })
     }
@@ -53,19 +83,6 @@ const Register = () => {
         <div className='container'>
             <form className='m-2 m-lg-5 p-3 border' onSubmit={handleSubmit}>
                 <h4 className='text-center'>Register form</h4>
-                <hr />
-                {error && (
-                    <div className='error-wrapper'>
-                        <div className='alert alert-danger' role='alert'>
-                            <ul>
-                                {error.map((err, i) => (
-                                    <li key={i}>{err}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <hr />
-                    </div>
-                )}
 
                 <div className='row'>
                     <div className='col-lg-6'>
@@ -195,25 +212,9 @@ const Register = () => {
                     </div>
                 </div>
                 <div className='text-center'>
-                    {isPending ? (
-                        <button
-                            className='btn btn-primary w-50 mb-3'
-                            type='button'
-                            disabled>
-                            Submiting
-                            <span
-                                className='spinner-border spinner-border-sm ms-1'
-                                role='status'
-                                aria-hidden='true'
-                            />
-                        </button>
-                    ) : (
-                        <button
-                            type='submit'
-                            className='btn btn-primary w-50 mb-3'>
-                            Submit
-                        </button>
-                    )}
+                    <button type='submit' className='btn btn-primary w-50 mb-3'>
+                        Submit
+                    </button>
                     <p>
                         Have an account? <Link to='/login'>Log in</Link>
                     </p>

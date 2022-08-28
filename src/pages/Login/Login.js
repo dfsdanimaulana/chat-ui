@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user'
 import { loggedIn } from '../../redux/auth'
+import cogoToast from 'cogo-toast'
 
 /** Styles */
 import './Login.css'
@@ -17,9 +18,6 @@ export default function SignIn() {
         password: '',
     })
 
-    const [error, setError] = useState(false)
-    const [isPending, setIsPending] = useState(false)
- 
     // handle input user
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -32,27 +30,26 @@ export default function SignIn() {
     // send and check data to server
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setIsPending(true)
+        const { hide } = cogoToast.loading('Loading...')
         try {
             const user = await axios.post(`/auth/login`, input)
-            setIsPending(false)
-            setError(false)
+            hide()
             dispatch(login(user.data))
             dispatch(loggedIn())
             history.push('/')
         } catch (err) {
-            setIsPending(false)
+            hide()
             if (err.response?.data !== undefined) {
-                setError(err.response.data.error)
+                cogoToast.error(err.response.data.error)
             } else {
-                setError('connection error')
+                cogoToast.error('connection error')
             }
         }
     }
 
     // login as guest
     const setGuest = async () => {
-        setIsPending(true)
+        const { hide } = cogoToast.loading('Loading...')
 
         try {
             const user = await axios.post(`/auth/login`, {
@@ -60,17 +57,17 @@ export default function SignIn() {
                 password: '123456',
             })
 
-            setIsPending(false)
-            setError(false)
+            hide()
+
             dispatch(login(user.data))
             dispatch(loggedIn())
             history.push('/')
         } catch (err) {
-            setIsPending(false)
+            hide()
             if (err.response?.data !== undefined) {
-                setError(err.response.data.error)
+                cogoToast.error(err.response.data.error)
             } else {
-                setError('connection error')
+                cogoToast.error('connection error')
             }
         }
     }
@@ -89,11 +86,7 @@ export default function SignIn() {
                         className='p-4 mx-auto border p-3'
                         onSubmit={handleSubmit}>
                         <h3 className='mb-4 text-center fw-bold'>Login</h3>
-                        {error && (
-                            <div className='alert alert-danger' role='alert'>
-                                {error}
-                            </div>
-                        )}
+
                         <hr className='mb-3' />
                         <div className='mb-3'>
                             <label
@@ -132,13 +125,13 @@ export default function SignIn() {
                             <button
                                 type='submit'
                                 className='btn btn-primary mb-3 px-5'>
-                                {isPending ? 'loading...' : 'Login'}
+                                Login
                             </button>
                             <button
                                 onClick={setGuest}
                                 type='button'
                                 className='btn btn-outline-primary'>
-                                {isPending ? 'loading...' : 'Login As Guest'}
+                                Login As Guest
                             </button>
                         </div>
                         <p className='line my-3'>or</p>

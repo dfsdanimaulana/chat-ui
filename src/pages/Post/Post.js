@@ -3,8 +3,7 @@ import Avatar from '../../components/Avatar/Avatar'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useSelector } from 'react-redux'
-import ErrorAlert from '../../components/Alert/ErrorAlert'
-import SuccessAlert from '../../components/Alert/SuccessAlert'
+import cogoToast from 'cogo-toast'
 
 export default function Post() {
     const axiosPrivate = useAxiosPrivate()
@@ -13,9 +12,7 @@ export default function Post() {
     const [imgSrc, setImgSrc] = useState([
         'https://i.ibb.co/g3ffFKB/camera.png',
     ])
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [isPending, setIsPending] = useState(false)
+
     const [post, setPost] = useState({
         userId: currentUser._id,
         username: currentUser.username,
@@ -42,33 +39,30 @@ export default function Post() {
     }
 
     const handleSubmit = (e) => {
-        setError(false)
-        setSuccess(false)
-        setIsPending(true)
         e.preventDefault()
+        const { hide } = cogoToast.loading('Loading...')
 
         if (post.image.length < 1) {
-            setIsPending(false)
-            setError('Please select an image')
+            hide()
+            cogoToast.error('Please select an image')
             return
         }
 
         axiosPrivate
             .post(`/post`, post)
             .then((res) => {
-                setIsPending(false)
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
-                setSuccess('Posted successfully!')
+                cogoToast.success('Posted successfully!')
                 setPost((prevState) => ({
                     ...prevState,
                     caption: '',
                     hashtag: '',
                     image: [],
                 }))
+                hide()
             })
             .catch((err) => {
-                setIsPending(false)
-                setError(err?.message || 'failed to upload')
+                cogoToast.error(err?.message || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
                 setPost((prevState) => ({
                     ...prevState,
@@ -92,10 +86,9 @@ export default function Post() {
         setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
         const allowedExt = /(\.jpg|\.jpeg|\.png)$/i
         if (!allowedExt.exec(event.target.value)) {
-            setError(true)
+            cogoToast.error('File not allowed!')
             event.target.value = ''
         } else {
-            setError(false)
             // multiple images
             if (event.target.files && event.target.files[0]) {
                 const files = [...event.target.files]
@@ -122,8 +115,6 @@ export default function Post() {
         <form className='container mt-3 mb-5 my-lg-5' onSubmit={handleSubmit}>
             <div className='row text-center'>
                 <div className='col-12 col-md-6 d-flex flex-column justify-content-center align-items-center'>
-                    <ErrorAlert error={error} setError={setError} />
-                    <SuccessAlert success={success} setError={setSuccess} />
                     {imgSrc.length > 2 ? (
                         <div
                             id='postImageCarousel'
@@ -221,7 +212,7 @@ export default function Post() {
                                 className='form-control h-100'
                                 placeholder='Leave a comment here'
                                 id='caption'
-                                defaultValue={''}
+                                value={post.caption}
                                 onChange={handleChange}
                             />
                             <label htmlFor='caption'>Captions</label>
@@ -246,20 +237,12 @@ export default function Post() {
                                 aria-describedby='basic-addon1'
                                 autoComplete='off'
                                 onChange={handleChange}
+                                value={post.hashtag}
                             />
                         </div>
                     </div>
                     <div className='mb-3 mt-auto align-self-center align-self-md-end me-3 '>
-                        {isPending && (
-                            <button className='btn btn-primary px-5'>
-                                Posting...
-                            </button>
-                        )}
-                        {!isPending && (
-                            <button className='btn btn-primary px-5'>
-                                Post
-                            </button>
-                        )}
+                        <button className='btn btn-primary px-5'>Post</button>
                     </div>
                 </div>
             </div>

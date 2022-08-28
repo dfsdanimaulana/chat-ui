@@ -16,7 +16,7 @@ export default function Setting() {
 
     return (
         <div className='container mb-5'>
-            <div className='row'>
+            <div className='row mt-md-3'>
                 <div className='col-md-4 border d-none d-md-block'>
                     <ul className='list-group list-group-flush'>
                         <li className='list-group-item'>

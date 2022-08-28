@@ -5,8 +5,7 @@ import Avatar from '../../components/Avatar/Avatar'
 import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
-import ErrorAlert from '../../components/Alert/ErrorAlert'
-import SuccessAlert from '../../components/Alert/SuccessAlert'
+import cogoToast from 'cogo-toast'
 
 export default function EditProfile() {
     const axiosPrivate = useAxiosPrivate()
@@ -21,10 +20,6 @@ export default function EditProfile() {
         gender: currentUser.gender,
     })
 
-    const [isPending, setIsPending] = useState(false)
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-
     const handleInputChange = (e) => {
         const { id, value } = e.target
         setData((prevState) => ({
@@ -35,29 +30,25 @@ export default function EditProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setIsPending(true)
-        setSuccess(false)
-        setError(false)
+
+        const { hide } = cogoToast.loading('Updating...')
 
         // check if there's any update
         if (
-          data._id === currentUser._id &&
-          data.username === currentUser.username &&
-          data.name === currentUser.name &&
-          data.email === currentUser.email &&
-          data.desc === currentUser.desc &&
-          data.gender === currentUser.gender
-          ) {
-            setIsPending(false)
-            setError('nothing to update')
+            data._id === currentUser._id &&
+            data.username === currentUser.username &&
+            data.name === currentUser.name &&
+            data.email === currentUser.email &&
+            data.desc === currentUser.desc &&
+            data.gender === currentUser.gender
+        ) {
+            hide()
+            cogoToast.error('Nothing to update!')
             return
-          }
+        }
         axiosPrivate
             .put(`/user/update`, data)
             .then((user) => {
-                setIsPending(false)
-                setError(false)
-
                 const updatedUser = {
                     ...currentUser,
                     username: user.data.username,
@@ -66,26 +57,25 @@ export default function EditProfile() {
                     desc: user.data.desc,
                     gender: user.data.gender,
                 }
+                hide()
                 dispatch(login(updatedUser))
-                setSuccess('Update successfully!')
+                cogoToast.success('Update successfully!')
             })
             .catch((err) => {
-                setIsPending(false)
+                hide()
                 if (err.response?.data !== undefined) {
-                    setError(err.response.data.error)
+                    cogoToast.error(err.response.data.error)
                 } else {
-                    setError('connection error')
+                    cogoToast.error('connection error')
                 }
             })
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <ErrorAlert error={error} setError={setError} />
-            <SuccessAlert success={success} setSuccess={setSuccess} />
-            <div className='row align-items-center mt-3'>
+            <div className='row align-items-center my-3'>
                 <div className='col-3 text-end pe-3'>
-                    <Avatar width={32} thumbnail='false' />
+                    <Avatar width={42} thumbnail='false' />
                 </div>
                 <div className='col-9 pe-5'>
                     <div className='fw-semibold fs-5'>
@@ -164,9 +154,7 @@ export default function EditProfile() {
             <div className='row align-items-center my-4'>
                 <div className='col-3 text-end pe-3'></div>
                 <div className='col-9 pe-5 text-end'>
-                    <button className='btn btn-outline-primary'>
-                        {isPending ? 'Updating...' : 'update'}
-                    </button>
+                    <button className='btn btn-outline-primary'>Update</button>
                 </div>
             </div>
         </form>
