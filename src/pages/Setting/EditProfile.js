@@ -5,13 +5,15 @@ import Avatar from '../../components/Avatar/Avatar'
 import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import ErrorAlert from '../../components/Alert/ErrorAlert'
+import SuccessAlert from '../../components/Alert/SuccessAlert'
 
 export default function EditProfile() {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.user.value)
     const [data, setData] = useState({
-        id: currentUser._id,
+        _id: currentUser._id,
         username: currentUser.username,
         name: currentUser.name,
         email: currentUser.email,
@@ -21,6 +23,7 @@ export default function EditProfile() {
 
     const [isPending, setIsPending] = useState(false)
     const [error, setError] = useState(false)
+    const [success, setSuccess] = useState(false)
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
@@ -33,7 +36,22 @@ export default function EditProfile() {
     const handleSubmit = (e) => {
         e.preventDefault()
         setIsPending(true)
+        setSuccess(false)
+        setError(false)
 
+        // check if there's any update
+        if (
+          data._id === currentUser._id &&
+          data.username === currentUser.username &&
+          data.name === currentUser.name &&
+          data.email === currentUser.email &&
+          data.desc === currentUser.desc &&
+          data.gender === currentUser.gender
+          ) {
+            setIsPending(false)
+            setError('nothing to update')
+            return
+          }
         axiosPrivate
             .put(`/user/update`, data)
             .then((user) => {
@@ -49,6 +67,7 @@ export default function EditProfile() {
                     gender: user.data.gender,
                 }
                 dispatch(login(updatedUser))
+                setSuccess('Update successfully!')
             })
             .catch((err) => {
                 setIsPending(false)
@@ -62,6 +81,8 @@ export default function EditProfile() {
 
     return (
         <form onSubmit={handleSubmit}>
+            <ErrorAlert error={error} setError={setError} />
+            <SuccessAlert success={success} setSuccess={setSuccess} />
             <div className='row align-items-center mt-3'>
                 <div className='col-3 text-end pe-3'>
                     <Avatar width={32} thumbnail='false' />

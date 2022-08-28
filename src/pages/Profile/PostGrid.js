@@ -11,7 +11,15 @@ const fakeImages = [
 
 export function PostImages({ image, imageStyle }) {
     return (
-        <div className='col-4 mb-3'>
+        <div className='col-4 mb-3 position-relative'>
+            { image.length > 1 && (
+              <div className="position-absolute top-0 end-0 me-3" style={{
+                fontSize: '12px',
+                color: '#fff'
+              }}>
+                  <i className="bi bi-back"></i>
+              </div>
+            )}
             <img src={image[0]} alt='...' style={imageStyle} />
         </div>
     )

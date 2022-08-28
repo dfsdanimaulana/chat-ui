@@ -3,6 +3,8 @@ import Avatar from '../../components/Avatar/Avatar'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useSelector } from 'react-redux'
+import ErrorAlert from '../../components/Alert/ErrorAlert'
+import SuccessAlert from '../../components/Alert/SuccessAlert'
 
 export default function Post() {
     const axiosPrivate = useAxiosPrivate()
@@ -41,6 +43,7 @@ export default function Post() {
 
     const handleSubmit = (e) => {
         setError(false)
+        setSuccess(false)
         setIsPending(true)
         e.preventDefault()
 
@@ -55,7 +58,7 @@ export default function Post() {
             .then((res) => {
                 setIsPending(false)
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
-                setSuccess(true)
+                setSuccess('Posted successfully!')
                 setPost((prevState) => ({
                     ...prevState,
                     caption: '',
@@ -119,35 +122,8 @@ export default function Post() {
         <form className='container mt-3 mb-5 my-lg-5' onSubmit={handleSubmit}>
             <div className='row text-center'>
                 <div className='col-12 col-md-6 d-flex flex-column justify-content-center align-items-center'>
-                    {error && (
-                        <div
-                            className='alert alert-danger d-flex align-items-center alert-dismissible fade show'
-                            role='alert'>
-                            <i className='bi bi-radioactive me-2'></i>
-                            <div>{error}</div>
-                            <button
-                                type='button'
-                                className='btn-close'
-                                data-bs-dismiss='alert'
-                                aria-label='Close'
-                                onClick={() => setError(false)}></button>
-                        </div>
-                    )}
-                    {success && (
-                        <div
-                            className='alert alert-success d-flex align-items-center alert-dismissible fade show'
-                            role='alert'>
-                            <i className='bi bi-check-circle me-2'></i>
-                            <div>Posted!</div>
-                            <button
-                                type='button'
-                                className='btn-close'
-                                data-bs-dismiss='alert'
-                                aria-label='Close'
-                                onClick={() => setSuccess(false)}></button>
-                        </div>
-                    )}
-
+                    <ErrorAlert error={error} setError={setError} />
+                    <SuccessAlert success={success} setError={setSuccess} />
                     {imgSrc.length > 2 ? (
                         <div
                             id='postImageCarousel'
