@@ -37,7 +37,7 @@ export default function Navbar() {
                         <>
                             <NavLink
                                 className='nav-link fs-5 ms-3 d-md-none'
-                                to='#'>
+                                to='/setting'>
                                 <i className='bi bi-gear'></i>
                             </NavLink>
                             <NavLink

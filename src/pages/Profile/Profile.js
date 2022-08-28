@@ -4,6 +4,7 @@ import PostGrid from './PostGrid'
 import { useSelector } from 'react-redux'
 import { useFetch } from '../../hooks/useFetch'
 import PostGridPlaceholder from './PostGridPlaceholder'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
     const { width } = useWindowDimensions()
@@ -28,9 +29,11 @@ export default function Profile() {
                             {currentUser.username}
                         </span>
                         <button className='btn btn-sm btn-outline-info me-3 d-none d-md-block'>
-                            Edit profile
+                            <Link to='/setting' className='text-decoration-none'>Edit profile</Link>
                         </button>
-                        <i className='bi bi-gear-wide fs-5 d-none d-md-block'></i>
+                        <Link to='#'>
+                            <i className='bi bi-gear-wide fs-5 d-none d-md-block'></i>
+                        </Link>
                     </div>
                     <div className='d-flex align-items-center justify-content-md-start justify-content-center mb-4'>
                         <div className='row w-md-100'>

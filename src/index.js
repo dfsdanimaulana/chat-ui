@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { CookiesProvider } from 'react-cookie'
 
 /** Components */
 import App from './App.js'
@@ -26,11 +25,9 @@ const store = configureStore({
 
 ReactDOM.render(
     <React.StrictMode>
-        <CookiesProvider>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </CookiesProvider>
+        <Provider store={store}>
+            <App />
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 )

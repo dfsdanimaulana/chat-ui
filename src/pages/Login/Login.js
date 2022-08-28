@@ -34,7 +34,7 @@ export default function SignIn() {
         e.preventDefault()
         setIsPending(true)
         try {
-            const user = await axios.post(`/user/login`, input)
+            const user = await axios.post(`/auth/login`, input)
             setIsPending(false)
             setError(false)
             dispatch(login(user.data))
@@ -107,6 +107,7 @@ export default function SignIn() {
                                 id='username'
                                 placeholder='Email or username'
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         <div className='mb-3'>
@@ -119,7 +120,8 @@ export default function SignIn() {
                                 type='password'
                                 className='form-control'
                                 id='password'
-                                placeholder='Enter your email'
+                                placeholder='Enter your password'
+                                required
                                 onChange={handleChange}
                             />
                         </div>

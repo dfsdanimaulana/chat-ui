@@ -17,9 +17,9 @@ import PageNotFound from './pages/404/PageNotFound'
 import Navbar from './components/Navbar/Navbar'
 import Navigation from './components/Navigation/Navigation'
 import Footer from './components/Footer/Footer'
+import Setting from './pages/Setting/Setting'
 
 const App = () => {
- 
     return (
         <div>
             <Router>
@@ -45,6 +45,11 @@ const App = () => {
                     <ProtectedRoute path='/post/create'>
                         <Navbar />
                         <Post />
+                        <Navigation />
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/setting'>
+                        <Navbar />
+                        <Setting />
                         <Navigation />
                         <Footer />
                     </ProtectedRoute>

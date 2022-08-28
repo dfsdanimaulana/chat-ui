@@ -44,7 +44,7 @@ export default function PostGrid({ posts }) {
                     <Link
                         className='nav-link text-secondary'
                         aria-current='page'
-                        to={`${url}`}>
+                        to={url}>
                         <i className='bi bi-grid me-1'></i>
                         POSTS
                     </Link>
