@@ -2,55 +2,25 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Avatar from '../../components/Avatar/Avatar'
-
-function FormInput({
-    label,
-    id,
-    placeholder,
-    desc,
-    type,
-    value,
-    handleChange,
-}) {
-    return (
-        <div className='row mb-3'>
-            <div className='col-3 text-end pe-3'>
-                <label htmlFor='edit_username' className='fw-semibold mt-1'>
-                    {label}
-                </label>
-            </div>
-            <div className='col-9 align-items-center pe-5'>
-                <div className='input-group'>
-                    <input
-                        type={type ? type : 'text'}
-                        id={id}
-                        value={value}
-                        className='form-control form-control-sm'
-                        placeholder={placeholder}
-                        aria-label={placeholder}
-                        aria-describedby={desc && `${id}_desc`}
-                        onChange={handleChange}
-                    />
-                </div>
-                {desc && (
-                    <div id={`${id}_desc`} className='form-text'>
-                        {desc}
-                    </div>
-                )}
-            </div>
-        </div>
-    )
-}
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/user'
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 
 export default function EditProfile() {
+    const axiosPrivate = useAxiosPrivate()
+    const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.user.value)
     const [data, setData] = useState({
+        id: currentUser._id,
         username: currentUser.username,
         name: currentUser.name,
         email: currentUser.email,
         desc: currentUser.desc,
         gender: currentUser.gender,
     })
+
+    const [isPending, setIsPending] = useState(false)
+    const [error, setError] = useState(false)
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
@@ -62,7 +32,32 @@ export default function EditProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(data)
+        setIsPending(true)
+
+        axiosPrivate
+            .put(`/user/update`, data)
+            .then((user) => {
+                setIsPending(false)
+                setError(false)
+
+                const updatedUser = {
+                    ...currentUser,
+                    username: user.data.username,
+                    name: user.data.name,
+                    email: user.data.email,
+                    desc: user.data.desc,
+                    gender: user.data.gender,
+                }
+                dispatch(login(updatedUser))
+            })
+            .catch((err) => {
+                setIsPending(false)
+                if (err.response?.data !== undefined) {
+                    setError(err.response.data.error)
+                } else {
+                    setError('connection error')
+                }
+            })
     }
 
     return (
@@ -140,7 +135,7 @@ export default function EditProfile() {
                         </option>
                         <option
                             value={data.gender === 'male' ? 'female' : 'male'}>
-                            Female
+                            {data.gender === 'male' ? 'Female' : 'Male'}
                         </option>
                     </select>
                 </div>
@@ -148,9 +143,50 @@ export default function EditProfile() {
             <div className='row align-items-center my-4'>
                 <div className='col-3 text-end pe-3'></div>
                 <div className='col-9 pe-5 text-end'>
-                    <button className='btn btn-outline-primary'>Update</button>
+                    <button className='btn btn-outline-primary'>
+                        {isPending ? 'Updating...' : 'update'}
+                    </button>
                 </div>
             </div>
         </form>
+    )
+}
+
+function FormInput({
+    label,
+    id,
+    placeholder,
+    desc,
+    type,
+    value,
+    handleChange,
+}) {
+    return (
+        <div className='row mb-3'>
+            <div className='col-3 text-end pe-3'>
+                <label htmlFor='edit_username' className='fw-semibold mt-1'>
+                    {label}
+                </label>
+            </div>
+            <div className='col-9 align-items-center pe-5'>
+                <div className='input-group'>
+                    <input
+                        type={type ? type : 'text'}
+                        id={id}
+                        value={value}
+                        className='form-control form-control-sm'
+                        placeholder={placeholder}
+                        aria-label={placeholder}
+                        aria-describedby={desc && `${id}_desc`}
+                        onChange={handleChange}
+                    />
+                </div>
+                {desc && (
+                    <div id={`${id}_desc`} className='form-text'>
+                        {desc}
+                    </div>
+                )}
+            </div>
+        </div>
     )
 }
