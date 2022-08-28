@@ -8,7 +8,7 @@ const Home = () => {
     const { data: posts, isPending } = useFetch(`/post`) // @typeof post Array
 
     return (
-        <div className='container'>
+        <div className='container mt-3'>
             <div className='row px-lg-5 pb-5 pb-md-0'>
                 <div className='col'>
                     {isPending && (

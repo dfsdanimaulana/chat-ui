@@ -26,7 +26,9 @@ export const userSlice = createSlice({
         login: (state, action) => {
             state.value = action.payload
         },
-        logout: (state) => [(state.value = initialStateValue)],
+        logout: (state) => {
+            state.value = initialStateValue
+        }
     },
 })
 
