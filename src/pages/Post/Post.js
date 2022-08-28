@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Avatar from '../../components/Avatar/Avatar'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import axios from 'axios'
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useSelector } from 'react-redux'
 
 export default function Post() {
+    const axiosPrivate = useAxiosPrivate()
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     const { width } = useWindowDimensions()
     const [imgSrc, setImgSrc] = useState([
@@ -49,7 +50,7 @@ export default function Post() {
             return
         }
 
-        axios
+        axiosPrivate
             .post(`/post`, post)
             .then((res) => {
                 setIsPending(false)

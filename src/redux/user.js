@@ -11,7 +11,7 @@ const initialStateValue = {
     followers:[],
     following:[],
     post:[],
-    
+    accessToken: ''
 
 }
 

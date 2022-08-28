@@ -1,10 +1,6 @@
 /** React dependencies */
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import axios from 'axios'
-import { useCookie } from './hooks/useCookie'
-
-/** Utils */
-// import axios from 'axios'
+import ProtectedRoute from './components/ProtectedRoute'
 
 /** Pages */
 import Home from './pages/Home/Home'
@@ -21,20 +17,9 @@ import PageNotFound from './pages/404/PageNotFound'
 import Navbar from './components/Navbar/Navbar'
 import Navigation from './components/Navigation/Navigation'
 import Footer from './components/Footer/Footer'
-import ProtectedRoute from './components/ProtectedRoute'
-// import Sidebar from './components/Sidebar/Sidebar'
-// import ChatBody from './components/Chat/ChatBody'
-// import ProfileCard from './components/Profile/ProfileCard'
-// import AddPost from './components/Post/AddPost'
-// import UserPost from './components/Post/UserPost'
-// import AboutMeCard from './components/Profile/AboutMeCard'
 
 const App = () => {
-    const { cookie: token } = useCookie('jwt', null)
-    axios.defaults.withCredentials = true
-    axios.defaults.baseURL = 'http://localhost:3003'
-    axios.defaults.headers.common = { Authorization: `Bearer ${token}` }
-
+ 
     return (
         <div>
             <Router>

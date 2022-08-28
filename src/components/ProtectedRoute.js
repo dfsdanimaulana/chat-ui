@@ -5,7 +5,10 @@ const ProtectedRoute = ({ children, ...rest }) => {
     const isAuth = useSelector((state) => state.auth.value)
 
     // cek jwt in cookie
-
+    if(!isAuth) {
+      
+    }
+    
     return (
         <Route
             {...rest}

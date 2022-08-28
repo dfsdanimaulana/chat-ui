@@ -1,20 +1,17 @@
 /** React dependencies */
 import { useState } from 'react'
+import axios from '../../api/axios'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-
-/** global state */
 import { login } from '../../redux/user'
 import { loggedIn } from '../../redux/auth'
-import { updateUserPost } from '../../redux/post'
-
-/** utils */
-import axios from 'axios'
 
 /** Styles */
 import './Login.css'
 
 export default function SignIn() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [input, setInput] = useState({
         username: '',
         password: '',
@@ -22,10 +19,7 @@ export default function SignIn() {
 
     const [error, setError] = useState(false)
     const [isPending, setIsPending] = useState(false)
-
-    const dispatch = useDispatch()
-    const history = useHistory()
-
+ 
     // handle input user
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -41,12 +35,10 @@ export default function SignIn() {
         setIsPending(true)
         try {
             const user = await axios.post(`/user/login`, input)
-
             setIsPending(false)
             setError(false)
             dispatch(login(user.data))
             dispatch(loggedIn())
-            dispatch(updateUserPost(user.data.post))
             history.push('/')
         } catch (err) {
             setIsPending(false)
@@ -72,7 +64,6 @@ export default function SignIn() {
             setError(false)
             dispatch(login(user.data))
             dispatch(loggedIn())
-            dispatch(updateUserPost(user.data.post))
             history.push('/')
         } catch (err) {
             setIsPending(false)
