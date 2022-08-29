@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Avatar from '../../components/Avatar/Avatar'
@@ -7,10 +6,10 @@ import { login } from '../../redux/user'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
 
-export default function EditProfile() {
+export default function EditProfile({ currentUser }) {
     const axiosPrivate = useAxiosPrivate()
     const dispatch = useDispatch()
-    const currentUser = useSelector((state) => state.user.value)
+
     const [data, setData] = useState({
         _id: currentUser._id,
         username: currentUser.username,
@@ -161,7 +160,7 @@ export default function EditProfile() {
     )
 }
 
-function FormInput({
+export function FormInput({
     label,
     id,
     placeholder,
