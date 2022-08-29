@@ -1,4 +1,4 @@
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
+import { Switch, Route, Link, useRouteMatch, useHistory } from 'react-router-dom'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
 const fakeImages = [
@@ -9,7 +9,9 @@ const fakeImages = [
     'https://picsum.photos/500',
 ]
 
-export function PostImages({ image, imageStyle }) {
+export function PostImages({ image, imageStyle, postId }) {
+    const history = useHistory()
+    
     return (
         <div className='col-4 mb-3 position-relative'>
             { image.length > 1 && (
@@ -20,7 +22,7 @@ export function PostImages({ image, imageStyle }) {
                   <i className="bi bi-back"></i>
               </div>
             )}
-            <img src={image[0]} alt='...' style={imageStyle} />
+            <img src={image[0]} alt='...' style={imageStyle} onClick={()=> history.push('/profile/posts/' + postId)}/>
         </div>
     )
 }
@@ -80,6 +82,7 @@ export default function PostGrid({ posts }) {
                         {posts.map((post) => (
                             <PostImages
                                 key={post._id}
+                                postId={post.uniqueId}
                                 image={post.img_post_url}
                                 imageStyle={imageStyles(width)}
                             />

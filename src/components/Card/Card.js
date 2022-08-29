@@ -104,6 +104,7 @@ export default function Card({ post, id }) {
                         </div>
                     ) : (
                         <img
+                            id={id}
                             src={post.img_post_url[0]}
                             className={handleImageClass(width)}
                             alt='...'

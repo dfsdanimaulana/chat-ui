@@ -8,6 +8,7 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import Post from './pages/Post/Post'
 import Profile from './pages/Profile/Profile'
+import PostProfile from './pages/Profile/PostProfile'
 import PageNotFound from './pages/404/PageNotFound'
 
 /** Development Pages only */
@@ -36,6 +37,11 @@ const App = () => {
                     <Route exact path='/register'>
                         <Register />
                     </Route>
+                    <ProtectedRoute path='/profile/posts/:id'>
+                        <PostProfile />
+                        <Navigation />
+                        <Footer />
+                    </ProtectedRoute>
                     <ProtectedRoute path='/profile'>
                         <Navbar />
                         <Profile />
@@ -48,7 +54,6 @@ const App = () => {
                         <Navigation />
                     </ProtectedRoute>
                     <ProtectedRoute path='/setting'>
-                        <Navbar />
                         <Setting />
                         <Navigation />
                         <Footer />

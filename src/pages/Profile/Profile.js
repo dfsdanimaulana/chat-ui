@@ -1,12 +1,15 @@
 import Avatar from '../../components/Avatar/Avatar'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import PostGrid from './PostGrid'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateUserPost } from '../../redux/post'
 import { useFetch } from '../../hooks/useFetch'
 import PostGridPlaceholder from './PostGridPlaceholder'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function Profile() {
+    const dispatch = useDispatch()
     const { width } = useWindowDimensions()
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     const {
@@ -14,6 +17,10 @@ export default function Profile() {
         isPending,
         error,
     } = useFetch('/post/' + currentUser._id)
+    
+    useEffect(()=> {
+      userPosts && dispatch(updateUserPost(userPosts))
+    }, [userPosts, dispatch])
 
     const containerClass = (w) => `container pb-5 ${w >= 992 ? 'w-50' : ''}`
 

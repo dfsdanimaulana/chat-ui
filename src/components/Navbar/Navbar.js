@@ -48,6 +48,9 @@ export default function Navbar() {
                                 {path !== '/setting' && (
                                     <NavLink
                                         className='nav-link fs-5 ms-3 d-md-none'
+                                        data-bs-toggle='offcanvas' 
+                                        data-bs-target='#offcanvasRight'
+                                        aria-controls='offcanvasRight'
                                         to='/setting'>
                                         <i className='bi bi-gear'></i>
                                     </NavLink>
@@ -85,21 +88,11 @@ export default function Navbar() {
                                 </NavLink>
                             </>
                         )}
-                        <NavLink
+                        <NavLink // md avatar
                             className='nav-link fs-5 ms-3 d-none d-md-flex align-items-center'
                             to='/profile'>
                             <Avatar width={23} thumbnail='false' />
                         </NavLink>
-                        {path === '/setting' && (
-                            <NavLink
-                                data-bs-toggle='offcanvas'
-                                data-bs-target='#offcanvasRight'
-                                aria-controls='offcanvasRight'
-                                className='nav-link fs-5 ms-3 d-md-none align-items-center'
-                                to='#'>
-                                <i className='bi bi-three-dots-vertical'></i>
-                            </NavLink>
-                        )}
                     </div>
                 </div>
             </nav>

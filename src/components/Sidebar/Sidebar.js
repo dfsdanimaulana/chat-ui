@@ -1,15 +1,15 @@
-import React from 'react'
+import { SettingLink } from '../../pages/Setting/Setting'
 
 export default function Sidebar() {
     return (
         <div
-            className='offcanvas-md offcanvas-end'
+            className='offcanvas offcanvas-md offcanvas-bottom rounded-bottom rounded-5 d-md-none'
             tabIndex={-1}
             id='offcanvasRight'
             aria-labelledby='offcanvasRightLabel'>
             <div className='offcanvas-header'>
                 <h5 className='offcanvas-title' id='offcanvasRightLabel'>
-                    Offcanvas right
+                    Settings
                 </h5>
                 <button
                     type='button'
@@ -18,7 +18,9 @@ export default function Sidebar() {
                     aria-label='Close'
                 />
             </div>
-            <div className='offcanvas-body'>...</div>
+            <div className='offcanvas-body'>
+              <SettingLink />
+            </div>
         </div>
     )
 }

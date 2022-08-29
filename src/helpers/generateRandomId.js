@@ -1,6 +1,6 @@
 export const generateRandomId = () => {
     let id = ''
-    for (let index = 0; index < 3; index++) {
+    for (let index = 0; index < 4; index++) {
         const str = (Math.random() + 1)
             .toString(36)
             .replace(/[^a-z]+/g, '')

@@ -4,6 +4,7 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useSelector } from 'react-redux'
 import cogoToast from 'cogo-toast'
+import { generateRandomId } from '../../helpers/generateRandomId'
 
 export default function Post() {
     const axiosPrivate = useAxiosPrivate()
@@ -16,6 +17,7 @@ export default function Post() {
     const [post, setPost] = useState({
         userId: currentUser._id,
         username: currentUser.username,
+        uniqueId: '',
         caption: '',
         hashtag: '',
         image: [],
@@ -39,7 +41,9 @@ export default function Post() {
     }
 
     const handleSubmit = (e) => {
+        
         e.preventDefault()
+        
         const { hide } = cogoToast.loading('Loading...')
 
         if (post.image.length < 1) {
@@ -47,7 +51,7 @@ export default function Post() {
             cogoToast.error('Please select an image')
             return
         }
-
+        
         axiosPrivate
             .post(`/post`, post)
             .then((res) => {
@@ -62,7 +66,7 @@ export default function Post() {
                 hide()
             })
             .catch((err) => {
-                cogoToast.error(err?.message || 'failed to upload')
+                cogoToast.error(err?.error || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
                 setPost((prevState) => ({
                     ...prevState,
@@ -77,6 +81,7 @@ export default function Post() {
         const { id, value } = e.target
         setPost((prevState) => ({
             ...prevState,
+            uniqueId: generateRandomId(),
             [id]: value,
         }))
     }
@@ -103,6 +108,7 @@ export default function Post() {
 
                         setPost((prevState) => ({
                             ...prevState,
+                            uniqueId: generateRandomId(),
                             image: [...prevState.image, e.target.result],
                         }))
                     })
@@ -220,7 +226,7 @@ export default function Post() {
                     </div>
                     <div className='mb-3'>
                         <div className='form-text mb-1 ms-1 text-italic'>
-                            Separate by coma
+                            Separate by space
                         </div>
                         <div className='input-group mb-3'>
                             <span
