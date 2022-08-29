@@ -8,7 +8,7 @@ import EditProfile from './EditProfile'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Nav from '../../components/Navbar/Nav'
 
-function ListItem({ title, path }) {
+function ListItem({ title, path, listStyle }) {
     const { width } = useWindowDimensions()
 
     return (
@@ -20,7 +20,7 @@ function ListItem({ title, path }) {
             <NavLink
                 to={`/setting${path ? path : ''}`}
                 className='text-decoration-none text-secondary'>
-                <span>{title}</span>
+                <span className={listStyle && listStyle}>{title}</span>
             </NavLink>
         </li>
     )
@@ -36,8 +36,9 @@ export function SettingLink() {
 
     return (
         <ul className='list-group list-group-flush'>
-            <ListItem title='Edit profile' />
-            <ListItem title='Change password' path='/change_password' />
+            <ListItem title='Edit Profile' />
+            <ListItem title='Change Password' path='/change_password' />
+            <ListItem listStyle={'text-danger fw-semibold'} title='Delete Account' path='/change_password' />
             <li className='list-group-item'>
                 <button
                     className='btn btn-sm btn-outline-danger mt-3'

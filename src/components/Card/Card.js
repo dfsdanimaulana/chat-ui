@@ -1,20 +1,14 @@
+import { useState } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Avatar from '../Avatar/Avatar'
 import moment from 'moment'
 import CardComment from './CardComment'
-/*
-const fakeImages = [
-    'https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ',
-    'https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ',
-    'https://i.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68',
-    'https://i.picsum.photos/id/100/2500/1656.jpg?hmac=gWyN-7ZB32rkAjMhKXQgdHOIBRHyTSgzuOK6U0vXb1w',
-    'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
-]
-*/
-export default function Card({ post, id }) {
-    // @typeof post Array
-    const { width } = useWindowDimensions()
+import CardPopup from './CardPopup'
 
+export default function Card({ post, id }) {
+    const { width } = useWindowDimensions()
+    const [ isPopup, setIsPopup] = useState(false)
+    
     const handleImageClass = (w) => {
         return `d-block w-100 ${w > 768 ? 'rounded-start' : 'rounded-top'}`
     }
@@ -112,7 +106,7 @@ export default function Card({ post, id }) {
                         />
                     )}
                 </div>
-                <div className='col-md-6 d-flex flex-column justify-content-between'>
+                <div className='col-md-6 d-flex flex-column justify-content-between position-relative'>
                     <div className='card-body d-flex flex-column'>
                         <div className='mt-2 mb-3 d-flex justify-content-between'>
                             <div>
@@ -125,8 +119,16 @@ export default function Card({ post, id }) {
                                 </span>
                             </div>
                             <div className='fs-6'>
+                              <span>
                                 <i className='bi bi-bookmark'></i>
+                              </span>
+                              <span 
+                                data-bs-toggle='offcanvas'
+                                data-bs-target={'#offcanvasCard' + id }
+                                aria-controls='offcanvasCard'
+                              >
                                 <i className='bi bi-three-dots-vertical ms-3'></i>
+                              </span>
                             </div>
                         </div>
                         <p className='card-text'>{post.caption}</p>
@@ -161,6 +163,7 @@ export default function Card({ post, id }) {
                             <i className='bi bi-heart ms-2'></i>
                         </div>
                     </div>
+                    <CardPopup id={id} data={post} />
                 </div>
             </div>
         </div>

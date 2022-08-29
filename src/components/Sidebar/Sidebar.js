@@ -6,8 +6,12 @@ export default function Sidebar() {
             className='offcanvas offcanvas-md offcanvas-bottom rounded-bottom rounded-5 d-md-none'
             tabIndex={-1}
             id='offcanvasRight'
-            aria-labelledby='offcanvasRightLabel'>
-            <div className='offcanvas-header'>
+            aria-labelledby='offcanvasRightLabel'
+            style={{
+              minHeight: '50vh'
+            }}
+            >
+            <div className='offcanvas-header px-4'>
                 <h5 className='offcanvas-title' id='offcanvasRightLabel'>
                     Settings
                 </h5>
