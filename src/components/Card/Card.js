@@ -3,7 +3,7 @@ import Avatar from '../Avatar/Avatar'
 import moment from 'moment'
 import CardComment from './CardComment'
 import CardPopup from './CardPopup'
-import Modal from '../Modal/Modal'
+import CardModal from '../Modal/CardModal'
 
 export default function Card({ post, id }) {
     const { width } = useWindowDimensions()
@@ -170,7 +170,7 @@ export default function Card({ post, id }) {
                         </div>
                     </div>
                     <CardPopup id={id} data={post} />
-                    <Modal id={id} data={post} />
+                    <CardModal id={id} data={post} />
                 </div>
             </div>
         </div>
