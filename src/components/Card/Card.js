@@ -1,14 +1,13 @@
-import { useState } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Avatar from '../Avatar/Avatar'
 import moment from 'moment'
 import CardComment from './CardComment'
 import CardPopup from './CardPopup'
+import Modal from '../Modal/Modal'
 
 export default function Card({ post, id }) {
     const { width } = useWindowDimensions()
-    const [ isPopup, setIsPopup] = useState(false)
-    
+
     const handleImageClass = (w) => {
         return `d-block w-100 ${w > 768 ? 'rounded-start' : 'rounded-top'}`
     }
@@ -119,16 +118,23 @@ export default function Card({ post, id }) {
                                 </span>
                             </div>
                             <div className='fs-6'>
-                              <span>
-                                <i className='bi bi-bookmark'></i>
-                              </span>
-                              <span 
-                                data-bs-toggle='offcanvas'
-                                data-bs-target={'#offcanvasCard' + id }
-                                aria-controls='offcanvasCard'
-                              >
-                                <i className='bi bi-three-dots-vertical ms-3'></i>
-                              </span>
+                                <span>
+                                    <i className='bi bi-bookmark'></i>
+                                </span>
+                                <span
+                                    data-bs-toggle={
+                                        width < 768 ? 'offcanvas' : 'modal'
+                                    }
+                                    data-bs-target={
+                                        width < 768
+                                            ? '#offcanvasCard' + id
+                                            : '#cardModal' + id
+                                    }
+                                    aria-controls={
+                                        width < 768 && 'offcanvasCard'
+                                    }>
+                                    <i className='bi bi-three-dots-vertical ms-3'></i>
+                                </span>
                             </div>
                         </div>
                         <p className='card-text'>{post.caption}</p>
@@ -164,6 +170,7 @@ export default function Card({ post, id }) {
                         </div>
                     </div>
                     <CardPopup id={id} data={post} />
+                    <Modal id={id} data={post} />
                 </div>
             </div>
         </div>

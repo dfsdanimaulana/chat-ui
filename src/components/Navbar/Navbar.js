@@ -6,25 +6,25 @@ export default function Navbar() {
     const { path } = useRouteMatch()
     return (
         <>
-            <nav className='navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top'>
+            <nav className='navbar navbar-expand-lg navbar-light shadow-sm sticky-top bg-white'>
                 <div className='container d-flex'>
                     <Link className='navbar-brand flex-fill fw-bold' to='/'>
                         DanApp
                     </Link>
                     <form className='d-sm-flex flex-fill d-none' role='search'>
                         <input
-                            className='form-control form-control-sm me-2'
+                            className='form-control form-control-sm me-2 bg-light'
                             type='search'
                             placeholder='Search'
                             aria-label='Search'
                         />
                         <button
-                            className='btn btn-sm btn-outline-light'
-                            type='submit'>
+                            className='btn btn-sm btn-outline-secondary'
+                            type='button'>
                             <i className='bi bi-search'></i>
                         </button>
                     </form>
-                    <div className='navbar text-light flex-fill justify-content-end'>
+                    <div className='navbar navbar-light flex-fill justify-content-end'>
                         <NavLink
                             className='nav-link fs-5 ms-2 d-none d-md-inline'
                             exact
@@ -64,7 +64,7 @@ export default function Navbar() {
                                     className='nav-link fs-5 ms-3 d-none d-md-inline position-relative'
                                     to='#'>
                                     <i className='bi bi-chat-square-dots'></i>
-                                    <span className='position-absolute top-0 start-100 translate-middle p-1 mt-1 bg-danger border border-light rounded-circle'>
+                                    <span className='position-absolute top-0 start-100 translate-middle p-1 mt-1 bg-primary border border-light rounded-circle'>
                                         <span className='visually-hidden'>
                                             unread messages
                                         </span>
@@ -80,7 +80,7 @@ export default function Navbar() {
                                     className='nav-link fs-5 ms-3 position-relative'
                                     to='#'>
                                     <i className='bi bi-chat-square-dots'></i>
-                                    <span className='position-absolute top-0 start-100 translate-middle p-1 mt-1 bg-danger border border-light rounded-circle'>
+                                    <span className='position-absolute top-0 start-100 translate-middle p-1 mt-1 bg-primary border border-light rounded-circle'>
                                         <span className='visually-hidden'>
                                             unread messages
                                         </span>

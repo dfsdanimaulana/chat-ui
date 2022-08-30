@@ -8,9 +8,8 @@ export default function Sidebar() {
             id='offcanvasRight'
             aria-labelledby='offcanvasRightLabel'
             style={{
-              minHeight: '50vh'
-            }}
-            >
+                minHeight: '50vh',
+            }}>
             <div className='offcanvas-header px-4'>
                 <h5 className='offcanvas-title' id='offcanvasRightLabel'>
                     Settings
@@ -23,7 +22,7 @@ export default function Sidebar() {
                 />
             </div>
             <div className='offcanvas-body'>
-              <SettingLink />
+                <SettingLink />
             </div>
         </div>
     )

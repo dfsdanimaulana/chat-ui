@@ -248,7 +248,7 @@ export default function Post() {
                         </div>
                     </div>
                     <div className='mb-3 mt-auto align-self-center align-self-md-end me-3 '>
-                        <button className='btn btn-primary px-5'>Post</button>
+                        <button className='btn btn-outline-primary px-5'>Post</button>
                     </div>
                 </div>
             </div>

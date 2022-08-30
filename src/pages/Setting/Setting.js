@@ -7,13 +7,43 @@ import ChangePassword from './ChangePassword'
 import EditProfile from './EditProfile'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Nav from '../../components/Navbar/Nav'
+import Navbar from '../../components/Navbar/Navbar'
+
+export default function Setting() {
+    const { path } = useRouteMatch()
+    const currentUser = useSelector((state) => state.user.value)
+    const { width } = useWindowDimensions()
+
+    return (
+        <>
+            {width < 768 ? <Nav title='Setting' /> : <Navbar />}
+            <div className='container mb-5'>
+                <div className='row mt-md-3'>
+                    <div className='col-md-4 border d-none d-md-block'>
+                        <SettingLink />
+                    </div>
+                    <div className='col-md-8 border p-md-3'>
+                        <Switch>
+                            <Route exact path={path}>
+                                <EditProfile currentUser={currentUser} />
+                            </Route>
+                            <Route path={`${path}/change_password`}>
+                                <ChangePassword currentUser={currentUser} />
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
 
 function ListItem({ title, path, listStyle }) {
     const { width } = useWindowDimensions()
 
     return (
         <li
-            className='list-group-item'
+            className='list-group-item bg-light'
             data-bs-toggle={width < 768 && 'offcanvas'}
             data-bs-target={width < 768 && '#offcanvasRight'}
             aria-controls={width < 768 && 'offcanvasRight'}>
@@ -38,8 +68,15 @@ export function SettingLink() {
         <ul className='list-group list-group-flush'>
             <ListItem title='Edit Profile' />
             <ListItem title='Change Password' path='/change_password' />
-            <ListItem listStyle={'text-danger fw-semibold'} title='Delete Account' path='/change_password' />
-            <li className='list-group-item'>
+
+            <ListItem title='About' />
+            <ListItem title='Contact Us' />
+            <ListItem
+                listStyle={'text-danger fw-semibold'}
+                title='Delete Account'
+                path='/change_password'
+            />
+            <li className='list-group-item bg-light'>
                 <button
                     className='btn btn-sm btn-outline-danger mt-3'
                     type='button'
@@ -48,33 +85,5 @@ export function SettingLink() {
                 </button>
             </li>
         </ul>
-    )
-}
-
-export default function Setting() {
-    const { path } = useRouteMatch()
-    const currentUser = useSelector((state) => state.user.value)
-
-    return (
-        <>
-            <Nav title='Settings' />
-            <div className='container mb-5'>
-                <div className='row mt-md-3'>
-                    <div className='col-md-4 border d-none d-md-block'>
-                        <SettingLink />
-                    </div>
-                    <div className='col-md-8 border p-md-3'>
-                        <Switch>
-                            <Route exact path={path}>
-                                <EditProfile currentUser={currentUser} />
-                            </Route>
-                            <Route path={`${path}/change_password`}>
-                                <ChangePassword currentUser={currentUser} />
-                            </Route>
-                        </Switch>
-                    </div>
-                </div>
-            </div>
-        </>
     )
 }

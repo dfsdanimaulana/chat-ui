@@ -22,7 +22,7 @@ import Setting from './pages/Setting/Setting'
 
 const App = () => {
     return (
-        <div>
+        <div className='bg-light'>
             <Router>
                 <Switch>
                     <ProtectedRoute exact path='/'>
