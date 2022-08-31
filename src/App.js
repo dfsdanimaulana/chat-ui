@@ -19,6 +19,7 @@ import Navbar from './components/Navbar/Navbar'
 import Navigation from './components/Navigation/Navigation'
 import Footer from './components/Footer/Footer'
 import Setting from './pages/Setting/Setting'
+import Qrcode from './components/QRCode/Qrcode'
 
 const App = () => {
     return (
@@ -57,6 +58,9 @@ const App = () => {
                         <Setting />
                         <Navigation />
                         <Footer />
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/qr/:id'>
+                        <Qrcode />
                     </ProtectedRoute>
                     <Route exact path='*'>
                         <PageNotFound />

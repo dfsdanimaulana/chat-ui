@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import CardOptionList from './CardOptionList'
 
 const itemStyle = {
@@ -12,6 +13,7 @@ const itemStyle = {
 
 export default function CardPopup({ data, id }) {
     const currentUser = useSelector((state) => state.user.value)
+
     return (
         <div
             className='offcanvas offcanvas-md offcanvas-bottom rounded-5 rounded-bottom d-md-none bg-light'
@@ -28,8 +30,13 @@ export default function CardPopup({ data, id }) {
                 <div className='bg-info rounded-circle' style={itemStyle}>
                     <i className='bi bi-link-45deg'></i>
                 </div>
-                <div className='bg-info rounded-circle' style={itemStyle}>
-                    <i className='bi bi-qr-code-scan'></i>
+                <div
+                    className='bg-info rounded-circle'
+                    style={itemStyle}
+                    aria-label='Close'>
+                    <Link to={'/qr/' + data._id} className='text-light'>
+                        <i className='bi bi-qr-code-scan'></i>
+                    </Link>
                 </div>
                 <div className='bg-info rounded-circle' style={itemStyle}>
                     <i className='bi bi-flag'></i>
@@ -41,5 +48,3 @@ export default function CardPopup({ data, id }) {
         </div>
     )
 }
-
-
