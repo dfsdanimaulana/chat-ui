@@ -10,11 +10,12 @@ const listStyle = {
     cursor: 'pointer',
 }
 
-export default function CardOptionList({ data, currentUser }) {
+export default function CardOptionList({ data, currentUser, setIsOpen }) {
     const axiosPrivate = useAxiosPrivate()
     const updatePostState = useUpdatePost()
 
     const handleDelete = () => {
+        setIsOpen && setIsOpen(false)
         const { hide } = cogoToast.loading('Deleting post...')
 
         axiosPrivate
@@ -49,6 +50,7 @@ export default function CardOptionList({ data, currentUser }) {
             </li>
             {data.user._id === currentUser._id && (
                 <li
+                    data-bs-dismiss='offcanvas'
                     className='list-group-item bg-light text-danger'
                     onClick={handleDelete}
                     style={listStyle}>

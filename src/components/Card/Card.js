@@ -1,11 +1,19 @@
-import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import Avatar from '../Avatar/Avatar'
+import { useState } from 'react'
+
+// helpers
 import moment from 'moment'
+
+// hooks
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+
+// components
 import CardComment from './CardComment'
-import CardPopup from './CardPopup'
 import CardModal from '../Modal/CardModal'
+import Avatar from '../Avatar/Avatar'
+import CardPopup from './CardPopup'
 
 export default function Card({ post, id }) {
+    const [isOpen, setIsOpen] = useState(false)
     const { width } = useWindowDimensions()
 
     const handleImageClass = (w) => {
@@ -122,16 +130,15 @@ export default function Card({ post, id }) {
                                     <i className='bi bi-bookmark'></i>
                                 </span>
                                 <span
-                                    data-bs-toggle={
-                                        width < 768 ? 'offcanvas' : 'modal'
-                                    }
+                                    data-bs-toggle={width < 768 && 'offcanvas'}
                                     data-bs-target={
-                                        width < 768
-                                            ? '#offcanvasCard' + id
-                                            : '#cardModal' + id
+                                        width < 768 && '#offcanvasCard' + id
                                     }
                                     aria-controls={
                                         width < 768 && 'offcanvasCard'
+                                    }
+                                    onClick={() =>
+                                        width >= 768 && setIsOpen(true)
                                     }>
                                     <i className='bi bi-three-dots-vertical ms-3'></i>
                                 </span>
@@ -170,7 +177,12 @@ export default function Card({ post, id }) {
                         </div>
                     </div>
                     <CardPopup id={id} data={post} />
-                    <CardModal id={id} data={post} />
+                    <CardModal
+                        id={id}
+                        data={post}
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                    />
                 </div>
             </div>
         </div>
