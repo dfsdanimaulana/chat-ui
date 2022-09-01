@@ -1,20 +1,38 @@
-/** React dependencies */
-import { useFetch } from '../../hooks/useFetch'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+    fetchPosts,
+    getPostsValue,
+    getPostsStatus,
+    getPostsError,
+} from '../../redux/posts'
+
+// components
 import Card from '../../components/Card/Card'
 import CardPlaceholder from '../../components/Card/CardPlaceholder'
 
 const Home = () => {
-    const { data: posts, isPending } = useFetch(`/post`) // @typeof post Array
+    const dispatch = useDispatch()
+
+    const posts = useSelector(getPostsValue)
+    const postsStatus = useSelector(getPostsStatus)
+    const error = useSelector(getPostsError)
+
+    useEffect(() => {
+        if (postsStatus === 'idle') {
+            dispatch(fetchPosts())
+        }
+    }, [postsStatus, dispatch])
 
     return (
         <div className='container mt-3'>
             <div className='row px-lg-5 pb-5 pb-md-0'>
                 <div className='col'>
-                    {isPending && (
-                      <>
-                        <CardPlaceholder />
-                        <CardPlaceholder />
-                      </>
+                    {postsStatus === 'loading' && (
+                        <>
+                            <CardPlaceholder />
+                            <CardPlaceholder />
+                        </>
                     )}
                     {posts &&
                         posts.map((post) => (
@@ -23,7 +41,8 @@ const Home = () => {
                                 id={post.uniqueId}
                                 post={post}
                             />
-                      ))}
+                        ))}
+                    {error && <h1>Filed to fetch data</h1>}
                 </div>
             </div>
         </div>

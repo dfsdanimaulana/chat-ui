@@ -1,12 +1,23 @@
 import { useState } from 'react'
-import Avatar from '../../components/Avatar/Avatar'
-import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
-import { useSelector } from 'react-redux'
+
+// helpers
 import cogoToast from 'cogo-toast'
 import { generateRandomId } from '../../helpers/generateRandomId'
 
+// state management
+import { useSelector, useDispatch } from 'react-redux'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { fetchPosts } from '../../redux/posts'
+import { fetchPost } from '../../redux/post'
+
+// hooks
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+
+// components
+import Avatar from '../../components/Avatar/Avatar'
+
 export default function Post() {
+    const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     const { width } = useWindowDimensions()
@@ -41,9 +52,8 @@ export default function Post() {
     }
 
     const handleSubmit = (e) => {
-        
         e.preventDefault()
-        
+
         const { hide } = cogoToast.loading('Loading...')
 
         if (post.image.length < 1) {
@@ -51,12 +61,13 @@ export default function Post() {
             cogoToast.error('Please select an image')
             return
         }
-        
+
         axiosPrivate
             .post(`/post`, post)
             .then((res) => {
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
-                cogoToast.success('Posted successfully!')
+                dispatch(fetchPosts())
+                dispatch(fetchPost(currentUser._id))
                 setPost((prevState) => ({
                     ...prevState,
                     caption: '',
@@ -64,8 +75,10 @@ export default function Post() {
                     image: [],
                 }))
                 hide()
+                cogoToast.success('Posted successfully!')
             })
             .catch((err) => {
+                hide()
                 cogoToast.error(err?.error || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
                 setPost((prevState) => ({
@@ -248,7 +261,9 @@ export default function Post() {
                         </div>
                     </div>
                     <div className='mb-3 mt-auto align-self-center align-self-md-end me-3 '>
-                        <button className='btn btn-outline-primary px-5'>Post</button>
+                        <button className='btn btn-outline-primary px-5'>
+                            Post
+                        </button>
                     </div>
                 </div>
             </div>

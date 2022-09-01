@@ -10,18 +10,22 @@ import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './redux/user'
 import authReducer from './redux/auth'
 import postReducer from './redux/post'
+import postsReducer from './redux/posts'
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         auth: authReducer,
         post: postReducer,
+        posts: postsReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
         }),
 })
+
+// The thunk middleware was automatically added
 
 ReactDOM.render(
     <React.StrictMode>

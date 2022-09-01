@@ -1,26 +1,39 @@
-import Avatar from '../../components/Avatar/Avatar'
-import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import PostGrid from './PostGrid'
-import { useSelector, useDispatch } from 'react-redux'
-import { updateUserPost } from '../../redux/post'
-import { useFetch } from '../../hooks/useFetch'
-import PostGridPlaceholder from './PostGridPlaceholder'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
+// state management
+import { useSelector, useDispatch } from 'react-redux'
+
+import {
+    fetchPost,
+    getPostValue,
+    getPostStatus,
+    getPostError,
+} from '../../redux/post'
+
+// hooks
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+
+// components
+import PostGrid from './PostGrid'
+import PostGridPlaceholder from './PostGridPlaceholder'
+import Avatar from '../../components/Avatar/Avatar'
+
 export default function Profile() {
-    const dispatch = useDispatch()
     const { width } = useWindowDimensions()
-    const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
-    const {
-        data: userPosts,
-        isPending,
-        error,
-    } = useFetch('/post/' + currentUser._id)
-    
-    useEffect(()=> {
-      userPosts && dispatch(updateUserPost(userPosts))
-    }, [userPosts, dispatch])
+    const dispatch = useDispatch()
+    const currentUser = useSelector((state) => state.user.value)
+    const userId = currentUser._id
+
+    const userPosts = useSelector(getPostValue)
+    const postStatus = useSelector(getPostStatus)
+    const error = useSelector(getPostError)
+
+    useEffect(() => {
+        if (postStatus === 'idle') {
+            dispatch(fetchPost(userId))
+        }
+    }, [postStatus, dispatch, userId])
 
     const containerClass = (w) => `container pb-5 ${w >= 992 ? 'w-50' : ''}`
 
@@ -36,7 +49,11 @@ export default function Profile() {
                             {currentUser.username}
                         </span>
                         <button className='btn btn-sm btn-outline-info me-3 d-none d-md-block'>
-                            <Link to='/setting' className='text-decoration-none'>Edit profile</Link>
+                            <Link
+                                to='/setting'
+                                className='text-decoration-none'>
+                                Edit profile
+                            </Link>
                         </button>
                         <Link to='#'>
                             <i className='bi bi-gear-wide fs-5 d-none d-md-block'></i>
@@ -87,7 +104,7 @@ export default function Profile() {
                 <hr />
             </div>
             <div className='row justify-content-center'>
-                {isPending && <PostGridPlaceholder />}
+                {postStatus === 'loading' && <PostGridPlaceholder />}
                 {userPosts && <PostGrid posts={userPosts} />}
                 {error && <h1>Not found</h1>}
             </div>

@@ -1,22 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from '../api/axios'
+
+export const fetchPost = createAsyncThunk('post/fetchPost', async (userId) => {
+    try {
+        const response = await axios.get('/post/' + userId)
+        return [...response.data]
+    } catch (err) {
+        return err.message
+    }
+})
 
 export const postSlice = createSlice({
     // state name
     name: 'post',
     initialState: {
-        value: [{}],
+        value: [],
+        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+        error: null,
     },
     // function to change state value
     reducers: {
-        updateUserPost: (state, action) => {
+        updatePostStatus: (state, action) => {
             state.value = action.payload
         },
         resetPost: (state) => {
             state.value = false
         },
     },
+    extraReducers(builder) {
+        builder
+            .addCase(fetchPost.pending, (state, action) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchPost.fulfilled, (state, action) => {
+                state.status = 'succeeded'
+                state.value = action.payload
+            })
+            .addCase(fetchPost.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
+    },
 })
 
-export const { updateUserPost, resetPost } = postSlice.actions
+export const getPostValue = (state) => state.post.value
+export const getPostStatus = (state) => state.post.status
+export const getPostError = (state) => state.post.error
+
+export const { updatePostStatus, resetPost } = postSlice.actions
 
 export default postSlice.reducer

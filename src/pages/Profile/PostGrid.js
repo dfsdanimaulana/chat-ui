@@ -79,7 +79,7 @@ export default function PostGrid({ posts }) {
             <Switch>
                 <Route exact path={path}>
                     <div className='row'>
-                        {posts.map((post) => (
+                        {posts && posts.map((post) => (
                             <PostImages
                                 key={post._id}
                                 postId={post.uniqueId}
