@@ -1,13 +1,10 @@
-// state management
-import { useSelector } from 'react-redux'
-import { getCommentsValue } from '../../redux/comments'
+// helpers
+import moment from 'moment'
 
 // components
 import Avatar from '../Avatar/Avatar'
 
-export default function CardComment({ post, height }) {
-    const comments = useSelector(getCommentsValue)
-
+export default function CardComment({ post, height, comments }) {
     return (
         <div className='h-100'>
             <div className='card-header bg-white d-flex justify-content-between align-items-center'>
@@ -26,7 +23,7 @@ export default function CardComment({ post, height }) {
                 }}>
                 <ul className='list-group list-group-flush '>
                     {comments &&
-                        comments.map((comment) => (
+                        comments.reverse().map((comment) => (
                             <Comment key={comment._id} comment={comment} />
                         ))}
                 </ul>
@@ -40,9 +37,13 @@ function Comment({ comment }) {
         <li className='list-group-item border-none'>
             <div className='row'>
                 <div className='col-1 d-flex justify-content-center pt-2'>
-                    <Avatar width={24} thumbnail='false' />
+                    <Avatar
+                        width={24}
+                        thumbnail='false'
+                        image={comment.sender.img_thumb}
+                    />
                 </div>
-                <div className='col-10'>
+                <div className='col-9'>
                     <div className='mb-1'>
                         <span className='fw-semibold me-1'>
                             {comment.sender.username}
@@ -53,8 +54,8 @@ function Comment({ comment }) {
                         style={{
                             fontSize: '12px',
                         }}>
-                        <span className='me-1'>2h</span>
-                        <span className='me-1'>3 likes</span>
+                        <span className='me-2'>{moment(comment.createdAt).fromNow(true)}</span>
+                        <span className='me-2'>3 likes</span>
                         <span
                             className='me-1 fw-semibold'
                             style={{
@@ -64,7 +65,8 @@ function Comment({ comment }) {
                         </span>
                     </div>
                 </div>
-                <div className='col-1 d-flex justify-content-center align-items-center'>
+                <div className='col-2 d-flex justify-content-around align-items-center'>
+                    <i className="bi bi-three-dots text-secondary"></i>
                     <i className='bi bi-heart'></i>
                 </div>
             </div>

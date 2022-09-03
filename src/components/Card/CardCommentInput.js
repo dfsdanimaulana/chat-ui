@@ -1,15 +1,19 @@
 import Picker from 'emoji-picker-react'
 import { useState, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import { fetchComments } from '../../redux/comments'
+import cogoToast from 'cogo-toast'
 
 export default function CardCommentInput({ postId }) {
+    const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
     const currentUser = useSelector((state) => state.user.value)
     const ref = useRef()
     const [inputText, setInputText] = useState('')
     const [isEmojiChosen, setIsEmojiChosen] = useState(false)
+    const [isPending, setIsPending] = useState(false)
 
     const onEmojiClick = (_, emojiObject) => {
         setInputText((prevText) => prevText + emojiObject.emoji)
@@ -19,6 +23,7 @@ export default function CardCommentInput({ postId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsPending(true)
 
         const data = {
             msg: inputText,
@@ -28,8 +33,12 @@ export default function CardCommentInput({ postId }) {
 
         try {
             await axiosPrivate.post('/comment', data)
+            dispatch(fetchComments(postId))
+            setInputText('')
         } catch (err) {
-            console.log(err)
+            cogoToast.error(err.message)
+        } finally {
+            setIsPending(false)
         }
     }
 
@@ -42,6 +51,7 @@ export default function CardCommentInput({ postId }) {
             </span>
             <input
                 type='text'
+                required
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 className='form-control'
@@ -50,7 +60,14 @@ export default function CardCommentInput({ postId }) {
                 aria-describedby='basic-addon2'
             />
             <button className='input-group-text'>
-                <i className='bi bi-send'></i>
+                {isPending ? (
+                    <span
+                        className='spinner-border spinner-border-sm text-secondary'
+                        role='status'
+                        aria-hidden='true'></span>
+                ) : (
+                    <i className='bi bi-send'></i>
+                )}
             </button>
             {isEmojiChosen && (
                 <div

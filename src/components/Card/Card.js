@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react'
 
 // state management
-import { useDispatch } from 'react-redux'
-import { fetchComments } from '../../redux/comments'
+import { useSelector } from 'react-redux'
+import { getCommentsValue } from '../../redux/comments'
 
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
@@ -16,7 +16,10 @@ import CardCaption from './CardCaption'
 import CardComment from './CardComment'
 
 export default function Card({ post, id }) {
-    const dispatch = useDispatch()
+    const allComments = useSelector(getCommentsValue)
+    const comments = allComments.filter(
+        (comment) => comment.postId === post._id
+    )
 
     const [isOpen, setIsOpen] = useState(false)
     const [commentOpen, setCommentOpen] = useState(false)
@@ -32,10 +35,6 @@ export default function Card({ post, id }) {
     }
 
     const handleCommentClick = () => {
-        if (!commentOpen) {
-            dispatch(fetchComments(post._id))
-        }
-
         setCommentOpen((val) => !val)
     }
 
@@ -54,6 +53,7 @@ export default function Card({ post, id }) {
                                     cardBodyRef.current.clientHeight -
                                     ref.current.clientHeight
                                 }
+                                comments={comments}
                             />
                         ) : (
                             <CardCaption
@@ -70,7 +70,7 @@ export default function Card({ post, id }) {
                         <CardCommentInput postId={post._id} />
                         <div className='d-flex justify-content-around align-items-center text-secondary fw-bold'>
                             <span className='fw-lighter text-secondary ms-3'>
-                                {post.comment.length}
+                                {comments.length}
                             </span>
                             <i
                                 className='bi bi-chat-left-dots ms-2'

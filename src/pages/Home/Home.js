@@ -6,6 +6,7 @@ import {
     getPostsStatus,
     getPostsError,
 } from '../../redux/posts'
+import { fetchComments } from '../../redux/comments'
 
 // components
 import Card from '../../components/Card/Card'
@@ -21,6 +22,7 @@ const Home = () => {
     useEffect(() => {
         if (postsStatus === 'idle') {
             dispatch(fetchPosts())
+            dispatch(fetchComments())
         }
     }, [postsStatus, dispatch])
 
