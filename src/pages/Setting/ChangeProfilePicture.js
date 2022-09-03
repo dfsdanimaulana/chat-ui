@@ -4,6 +4,8 @@ import cogoToast from 'cogo-toast'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user'
+import { fetchPosts } from '../../redux/posts'
+import { fetchComments } from '../../redux/comments'
 
 export default function ChangeProfilePicture({ currentUser }) {
     const dispatch = useDispatch()
@@ -43,7 +45,11 @@ export default function ChangeProfilePicture({ currentUser }) {
         const { hide } = cogoToast.loading('Updating...')
 
         axiosPrivate
-            .put(`/user/update/image`, { image: imgSrc })
+            .put(`/user/update/image`, { 
+              id: currentUser._id,
+              publicId: currentUser.img_thumb_id,
+              image: imgSrc,
+            })
             .then((user) => {
                 const updatedUser = {
                     ...currentUser,
@@ -52,6 +58,8 @@ export default function ChangeProfilePicture({ currentUser }) {
 
                 hide()
                 dispatch(login(updatedUser))
+                dispatch(fetchPosts())
+                dispatch(fetchComments())
                 cogoToast.success('Update successfully!')
             })
             .catch((err) => {
