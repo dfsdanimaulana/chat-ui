@@ -80,7 +80,9 @@ export default function EditProfile({ currentUser }) {
                     <div className='fw-semibold fs-5'>
                         {currentUser.username}
                     </div>
-                    <Link to='#' className='text-decoration-none'>
+                    <Link
+                        to='/setting/change_profile_picture'
+                        className='text-decoration-none'>
                         <p>Change profile photo</p>
                     </Link>
                 </div>

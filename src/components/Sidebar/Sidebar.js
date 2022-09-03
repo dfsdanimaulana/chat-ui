@@ -1,4 +1,4 @@
-import { SettingLink } from '../../pages/Setting/Setting'
+import SettingLink from '../../pages/Setting/SettingLink'
 
 export default function Sidebar() {
     return (
