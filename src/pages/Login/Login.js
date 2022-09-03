@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user'
 import { loggedIn } from '../../redux/auth'
 import cogoToast from 'cogo-toast'
+import LoginSVG from '../../assets/svg/Login.svg'
 
 /** Styles */
 import './Login.css'
@@ -78,8 +79,9 @@ export default function SignIn() {
                 <div className='col h-100 d-none d-md-inline'>
                     <img
                         className='img-fluid image'
-                        src='https://source.unsplash.com/m2Wd_bTUSGw/640x958'
+                        src={LoginSVG} 
                         alt='login page'></img>
+                  
                 </div>
                 <div className='col p-5'>
                     <form
