@@ -9,7 +9,7 @@ export default function CardComment({ post, height, comments }) {
         <div className='h-100'>
             <div className='card-header bg-white d-flex justify-content-between align-items-center'>
                 <div>
-                    <Avatar width={24} thumbnail='false' />
+                    <Avatar width={24} thumbnail='false' image={post.user.img_thumb}/>
                     <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
                         {post.user.username}
                     </span>

@@ -231,6 +231,7 @@ export default function Post() {
                                 className='form-control h-100'
                                 placeholder='Leave a comment here'
                                 id='caption'
+                                required
                                 value={post.caption}
                                 onChange={handleChange}
                             />

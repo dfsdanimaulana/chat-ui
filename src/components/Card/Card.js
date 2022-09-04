@@ -1,9 +1,14 @@
 import { useState, useRef } from 'react'
 
+// helpers
+import cogoToast from 'cogo-toast'
+
 // state management
 import { useDispatch, useSelector } from 'react-redux'
 import { getCommentsValue } from '../../redux/comments'
 import { getUserValue } from '../../redux/user'
+import { fetchPosts } from '../../redux/posts'
+import { fetchPost } from '../../redux/post'
 
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
@@ -16,8 +21,6 @@ import CardPopup from './CardPopup'
 import CardImage from './CardImage'
 import CardCaption from './CardCaption'
 import CardComment from './CardComment'
-import { fetchPosts } from '../../redux/posts'
-import cogoToast from 'cogo-toast'
 import CardHeader from './CardHeader'
 
 export default function Card({ post, id }) {
@@ -60,6 +63,7 @@ export default function Card({ post, id }) {
             })
             .then(() => {
                 dispatch(fetchPosts())
+                dispatch(fetchPost(currentUser._id))
             })
             .catch((err) => {
                 cogoToast.error(err.message)
