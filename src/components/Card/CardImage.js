@@ -1,6 +1,6 @@
 export default function CardImage({ post, id, width }) {
     const handleImageClass = (w) => {
-        return `d-block w-100 ${w > 768 ? 'rounded-start' : 'rounded-top'}`
+        return `d-block w-100 ${w > 768 && 'rounded-start'}`
     }
 
     const imagesPostStyles = (w) => {

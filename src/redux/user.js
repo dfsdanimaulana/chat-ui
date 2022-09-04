@@ -32,6 +32,10 @@ export const userSlice = createSlice({
     },
 })
 
+export const getUserValue = (state) => state.user.value
+export const getUserStatus = (state) => state.user.status
+export const getUserError = (state) => state.user.error
+
 export const { login, logout } = userSlice.actions
 
 export default userSlice.reducer

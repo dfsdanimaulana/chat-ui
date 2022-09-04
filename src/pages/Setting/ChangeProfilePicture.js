@@ -42,6 +42,11 @@ export default function ChangeProfilePicture({ currentUser }) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        if(imgSrc === currentUser.img_thumb) {
+            cogoToast.info('Nothing to update!')
+            return
+        }
+
         const { hide } = cogoToast.loading('Updating...')
 
         axiosPrivate
@@ -75,8 +80,12 @@ export default function ChangeProfilePicture({ currentUser }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className='row text-center justify-content-center'>
-            <div className='mb-3 w-50 position-relative'>
+            className={`row ${width < 768 && 'vh-100'} text-center justify-content-center`}>
+            <div
+                className='mb-3 w-50 position-relative mt-5 mt-md-0'
+                style={{
+                    height: width < 768 ? '200px' : 'max-content',
+                }}>
                 <img src={imgSrc} alt='...' style={imageStyle} />
                 <input
                     type='file'
@@ -90,7 +99,7 @@ export default function ChangeProfilePicture({ currentUser }) {
                 />
                 <label
                     htmlFor='image'
-                    className='position-absolute bottom-0 end-0 me-5'>
+                    className='position-absolute bottom-0 end-0 me-1 me-md-5'>
                     <i className='bi bi-pencil-square fs-3'></i>
                 </label>
             </div>

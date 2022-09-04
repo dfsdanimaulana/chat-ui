@@ -14,7 +14,7 @@ export default function CardComment({ post, height, comments }) {
                         {post.user.username}
                     </span>
                 </div>
-                <i className='bi bi-three-dots'></i>
+                <i className='bi bi-three-dots-vertical'></i>
             </div>
             <div
                 className='card-body p-0 overflow-auto'
@@ -23,9 +23,11 @@ export default function CardComment({ post, height, comments }) {
                 }}>
                 <ul className='list-group list-group-flush '>
                     {comments &&
-                        comments.reverse().map((comment) => (
-                            <Comment key={comment._id} comment={comment} />
-                        ))}
+                        comments
+                            .reverse()
+                            .map((comment) => (
+                                <Comment key={comment._id} comment={comment} />
+                            ))}
                 </ul>
             </div>
         </div>
@@ -54,7 +56,9 @@ function Comment({ comment }) {
                         style={{
                             fontSize: '12px',
                         }}>
-                        <span className='me-2'>{moment(comment.createdAt).fromNow(true)}</span>
+                        <span className='me-2'>
+                            {moment(comment.createdAt).fromNow(true)}
+                        </span>
                         <span className='me-2'>3 likes</span>
                         <span
                             className='me-1 fw-semibold'
@@ -66,8 +70,12 @@ function Comment({ comment }) {
                     </div>
                 </div>
                 <div className='col-3 col-md-2 d-flex justify-content-around pt-2'>
-                    <i className="bi bi-three-dots text-secondary"></i>
-                    <i className='bi bi-heart'></i>
+                    <i
+                        className='bi bi-three-dots text-secondary'
+                        style={{
+                            fontSize: '12px',
+                        }}></i>
+                    <i className='bi bi-heart ms-1'></i>
                 </div>
             </div>
         </li>

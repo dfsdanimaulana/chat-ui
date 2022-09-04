@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react'
 
 // state management
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getCommentsValue } from '../../redux/comments'
+import { getUserValue } from '../../redux/user'
 
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 
 // components
 import CardCommentInput from './CardCommentInput'
@@ -14,15 +16,23 @@ import CardPopup from './CardPopup'
 import CardImage from './CardImage'
 import CardCaption from './CardCaption'
 import CardComment from './CardComment'
+import { fetchPosts } from '../../redux/posts'
+import cogoToast from 'cogo-toast'
+import CardHeader from './CardHeader'
 
 export default function Card({ post, id }) {
+    const axiosPrivate = useAxiosPrivate()
     const allComments = useSelector(getCommentsValue)
+    const currentUser = useSelector(getUserValue)
+    const dispatch = useDispatch()
+
     const comments = allComments.filter(
         (comment) => comment.postId === post._id
     )
 
     const [isOpen, setIsOpen] = useState(false)
     const [commentOpen, setCommentOpen] = useState(false)
+    const [isPending, setIsPending] = useState(false)
 
     const { width } = useWindowDimensions()
     const ref = useRef()
@@ -38,8 +48,43 @@ export default function Card({ post, id }) {
         setCommentOpen((val) => !val)
     }
 
+    const handleLikeClick = async () => {
+        if (isPending) return
+
+        setIsPending(true)
+        // push user id to post like array
+        axiosPrivate
+            .post('/post/like', {
+                postId: post._id,
+                userId: currentUser._id,
+            })
+            .then(() => {
+                dispatch(fetchPosts())
+            })
+            .catch((err) => {
+                cogoToast.error(err.message)
+            })
+            .finally(() => {
+                setIsPending(false)
+            })
+    }
+
+    const likeIconClass = () => {
+        const isLiked = post.like.filter((user) => user._id === currentUser._id)
+
+        return isLiked.length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
+    }
+
     return (
         <div className='card mb-3' style={cardStyle(width)}>
+            <div className='d-flex d-md-none justify-content-between align-items-center p-1 pe-2'>
+                <CardHeader
+                    post={post}
+                    width={width}
+                    setIsOpen={setIsOpen}
+                    id={id}
+                />
+            </div>
             <div className='row g-0 h-100'>
                 <CardImage width={width} post={post} id={id} />
                 <div
@@ -78,7 +123,9 @@ export default function Card({ post, id }) {
                             <span className='fw-lighter text-secondary ms-3'>
                                 {post.like.length}
                             </span>
-                            <i className='bi bi-heart ms-2'></i>
+                            <i
+                                className={likeIconClass()}
+                                onClick={handleLikeClick}></i>
                         </div>
                     </div>
                     <CardPopup id={id} data={post} />

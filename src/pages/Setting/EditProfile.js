@@ -42,7 +42,7 @@ export default function EditProfile({ currentUser }) {
             data.gender === currentUser.gender
         ) {
             hide()
-            cogoToast.error('Nothing to update!')
+            cogoToast.info('Nothing to update!')
             return
         }
         axiosPrivate

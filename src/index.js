@@ -21,7 +21,6 @@ const store = configureStore({
         posts: postsReducer,
         comments: commentsReducer,
     },
-    
 })
 
 // The thunk middleware was automatically added

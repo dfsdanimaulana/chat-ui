@@ -95,6 +95,7 @@ const Register = () => {
                                 className='form-control'
                                 id='username'
                                 name='username'
+                                autoComplete='off'
                                 onChange={handleChange}
                                 required
                             />
