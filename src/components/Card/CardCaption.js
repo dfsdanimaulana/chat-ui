@@ -5,6 +5,9 @@ import Avatar from '../Avatar/Avatar'
 import CardHeader from './CardHeader'
 
 export default function CardCaption({ post, width, setIsOpen, id }) {
+    const likedUser =
+        post.like.length > 3 ? [...post.like].splice(3) : [...post.like]
+
     return (
         <div className='p-2 h-100 d-flex flex-column'>
             <div className='d-none d-md-flex mt-2 mb-3 justify-content-between'>
@@ -17,13 +20,24 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
             </div>
             {post.like.length >= 1 && (
                 <div className='mb-2 px-2 d-md-none'>
-                    <Avatar
-                        width={15}
-                        thumbnail='false'
-                        image={post.like[0].img_thumb}
-                    />
+                    {likedUser.map((like, i) => (
+                        <span
+                            key={i}
+                            style={{
+                                position: 'relative',
+                                marginRight: '-3px'
+                            }}
+                        >
+                            <Avatar
+                                width={15}
+                                thumbnail='false'
+                                border
+                                image={like.img_thumb}
+                            />
+                        </span>
+                    ))}
                     <span
-                        className='ms-1'
+                        className='ms-2'
                         style={{
                             fontSize: '11px'
                         }}
@@ -68,13 +82,25 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                 </p>
                 {post.like.length >= 1 && (
                     <div className='d-none d-md-block'>
-                        <Avatar
-                            width={15}
-                            thumbnail='false'
-                            image={post.like[0].img_thumb}
-                        />
+                        {likedUser.map((like, i) => (
+                            <span
+                                key={i}
+                                style={{
+                                    position: 'relative',
+                                    marginRight: '-3px'
+                                }}
+                            >
+                                <Avatar
+                                    width={15}
+                                    thumbnail='false'
+                                    border
+                                    image={like.img_thumb}
+                                />
+                            </span>
+                        ))}
+
                         <span
-                            className='ms-1'
+                            className='ms-2'
                             style={{
                                 fontSize: '11px'
                             }}

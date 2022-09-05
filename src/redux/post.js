@@ -21,7 +21,7 @@ export const postSlice = createSlice({
     // function to change state value
     reducers: {
         updatePostStatus: (state, action) => {
-            state.value = action.payload
+            state.status = action.payload
         },
         resetPost: (state) => {
             state.value = false

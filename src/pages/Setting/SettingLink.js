@@ -1,8 +1,12 @@
 import { useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+
+// state management
 import { logout } from '../../redux/user'
 import { loggedOut } from '../../redux/auth'
+
+// hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { NavLink } from 'react-router-dom'
 
 export default function SettingLink() {
     const dispatch = useDispatch()

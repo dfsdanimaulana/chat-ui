@@ -1,10 +1,15 @@
 import { useSelector } from 'react-redux'
 
-export default function Avatar({ width, thumbnail, image, placeholder }) {
+export default function Avatar({ width, thumbnail, image, placeholder, border }) {
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
 
     const imagesThumbStyles = () => {
-        return { width: `${width}px`, height: `${width}px`, objectFit: 'cover' }
+        return {
+            width: `${width}px`,
+            height: `${width}px`,
+            objectFit: 'cover',
+            border: border && '1.5px solid #fff'
+        }
     }
 
     if (placeholder) {
