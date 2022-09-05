@@ -7,7 +7,7 @@ import { useUpdatePost } from '../../hooks/useUpdatePost'
 // hooks
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 const listStyle = {
-    cursor: 'pointer',
+    cursor: 'pointer'
 }
 
 export default function CardOptionList({ data, currentUser, setIsOpen }) {

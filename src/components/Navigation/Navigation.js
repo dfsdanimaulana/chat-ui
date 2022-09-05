@@ -6,7 +6,7 @@ export default function Navigation() {
         <div
             className='navbar navbar-expand d-md-none navbar-dark bg-white text-dark fixed-bottom justify-content-around border-top'
             style={{
-                height: '56px',
+                height: '56px'
             }}
         >
             <NavLink className='nav-link fs-5' exact to='/'>

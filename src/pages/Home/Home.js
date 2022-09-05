@@ -4,7 +4,7 @@ import {
     fetchPosts,
     getPostsValue,
     getPostsStatus,
-    getPostsError,
+    getPostsError
 } from '../../redux/posts'
 import { fetchComments } from '../../redux/comments'
 

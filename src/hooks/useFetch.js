@@ -10,9 +10,9 @@ export const useFetch = (url, method = 'GET') => {
         setOptions({
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(postData),
+            body: JSON.stringify(postData)
         })
     }
 
@@ -27,8 +27,8 @@ export const useFetch = (url, method = 'GET') => {
                     ...fetchOptions,
                     signal: controller.signal,
                     headers: {
-                        Authorization: false && `Bearer `,
-                    },
+                        Authorization: false && `Bearer `
+                    }
                 })
                 if (!res.ok) {
                     throw new Error(res.statusText)

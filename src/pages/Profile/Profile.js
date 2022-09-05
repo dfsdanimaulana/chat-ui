@@ -8,7 +8,7 @@ import {
     fetchPost,
     getPostValue,
     getPostStatus,
-    getPostError,
+    getPostError
 } from '../../redux/post'
 
 // hooks

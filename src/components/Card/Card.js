@@ -44,12 +44,8 @@ export default function Card({ post, id }) {
 
     const cardStyle = (w) => {
         return {
-            height: w >= 768 ? '470px' : 'max-content',
+            height: w >= 768 ? '470px' : 'max-content'
         }
-    }
-
-    const handleCommentClick = () => {
-        setCommentOpen((val) => !val)
     }
 
     const handleLikeClick = async () => {
@@ -60,7 +56,7 @@ export default function Card({ post, id }) {
         axiosPrivate
             .post('/post/like', {
                 postId: post._id,
-                userId: currentUser._id,
+                userId: currentUser._id
             })
             .then(() => {
                 dispatch(fetchPosts())
@@ -115,14 +111,17 @@ export default function Card({ post, id }) {
                         ref={ref}
                         className='card-footer d-flex justify-content-between'
                     >
-                        <CardCommentInput postId={post._id} />
+                        <CardCommentInput
+                            postId={post._id}
+                            setCommentOpen={setCommentOpen}
+                        />
                         <div className='d-flex justify-content-around align-items-center text-secondary fw-bold'>
                             <span className='fw-lighter text-secondary ms-3'>
                                 {comments.length}
                             </span>
                             <i
                                 className='bi bi-chat-left-dots ms-2'
-                                onClick={handleCommentClick}
+                                onClick={() => setCommentOpen((val) => !val)}
                             ></i>
                             <span className='fw-lighter text-secondary ms-3'>
                                 {post.like.length}

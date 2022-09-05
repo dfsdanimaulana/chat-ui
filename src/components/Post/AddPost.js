@@ -15,7 +15,7 @@ const AddPost = () => {
         username: currentUser.username,
         caption: '',
         hashtag: '',
-        image: '',
+        image: ''
     })
 
     const [imgSrc, setImgSrc] = useState()
@@ -41,7 +41,7 @@ const AddPost = () => {
         const { id, value } = e.target
         setPost((prevState) => ({
             ...prevState,
-            [id]: value,
+            [id]: value
         }))
     }
 
@@ -61,7 +61,7 @@ const AddPost = () => {
 
                     setPost((prevState) => ({
                         ...prevState,
-                        image: e.target.result,
+                        image: e.target.result
                     }))
                 }
             }

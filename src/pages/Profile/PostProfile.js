@@ -20,7 +20,7 @@ export default function PostProfile() {
 
         window.scrollTo({
             top: offsetPosition,
-            behavior: 'smooth',
+            behavior: 'smooth'
         })
     }, [id])
 

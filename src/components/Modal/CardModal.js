@@ -16,24 +16,24 @@ const itemStyle = {
     height: '40px',
     display: 'grid',
     placeItems: 'center',
-    fontSize: '22px',
+    fontSize: '22px'
 }
 
 const cardStyle = {
     width: '300px',
-    height: '350px',
+    height: '350px'
 }
 const overlyStyle = {
     width: '100vw',
     height: '100vh',
     backgroundColor: 'rgba(0, 0, 0, .25)',
-    zIndex: 9999999,
+    zIndex: 9999999
 }
 const contentStyle = {
     backgroundColor: 'transparent',
     border: 'none',
     display: 'grid',
-    placeItems: 'center',
+    placeItems: 'center'
 }
 
 export default function CardModal({ id, data, isOpen, setIsOpen }) {
@@ -48,7 +48,7 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
             isOpen={isOpen}
             style={{
                 overlay: overlyStyle,
-                content: contentStyle,
+                content: contentStyle
             }}
         >
             <div

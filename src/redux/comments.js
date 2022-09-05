@@ -21,7 +21,7 @@ export const commentsSlice = createSlice({
     initialState: {
         value: [],
         status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-        error: null,
+        error: null
     },
     // function to change state value
     reducers: {
@@ -30,7 +30,7 @@ export const commentsSlice = createSlice({
         },
         resetComments: (state) => {
             state.value = false
-        },
+        }
     },
     extraReducers(builder) {
         builder
@@ -45,7 +45,7 @@ export const commentsSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message
             })
-    },
+    }
 })
 
 export const getCommentsValue = (state) => state.comments.value

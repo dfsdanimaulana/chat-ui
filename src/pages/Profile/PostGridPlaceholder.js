@@ -5,7 +5,7 @@ export default function PostGridPlaceholder() {
     const cardStyles = (w) => {
         return {
             height: w < 768 ? '100px' : '200px',
-            width: '100%',
+            width: '100%'
         }
     }
     return (

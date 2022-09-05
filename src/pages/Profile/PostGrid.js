@@ -3,7 +3,7 @@ import {
     Route,
     Link,
     useRouteMatch,
-    useHistory,
+    useHistory
 } from 'react-router-dom'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
@@ -12,7 +12,7 @@ const fakeImages = [
     'https://picsum.photos/500',
     'https://picsum.photos/500',
     'https://picsum.photos/500',
-    'https://picsum.photos/500',
+    'https://picsum.photos/500'
 ]
 
 export function PostImages({ image, imageStyle, postId }) {
@@ -25,7 +25,7 @@ export function PostImages({ image, imageStyle, postId }) {
                     className='position-absolute top-0 end-0 me-3'
                     style={{
                         fontSize: '12px',
-                        color: '#fff',
+                        color: '#fff'
                     }}
                 >
                     <i className='bi bi-back'></i>
@@ -56,7 +56,7 @@ export default function PostGrid({ posts }) {
         return {
             height: w < 768 ? '100px' : '200px',
             width: '100%',
-            objectFit: 'cover',
+            objectFit: 'cover'
         }
     }
     const { url, path } = useRouteMatch()

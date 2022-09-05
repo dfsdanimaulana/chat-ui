@@ -22,7 +22,7 @@ export default function Post() {
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     const { width } = useWindowDimensions()
     const [imgSrc, setImgSrc] = useState([
-        'https://i.ibb.co/g3ffFKB/camera.png',
+        'https://i.ibb.co/g3ffFKB/camera.png'
     ])
 
     const [post, setPost] = useState({
@@ -31,7 +31,7 @@ export default function Post() {
         uniqueId: '',
         caption: '',
         hashtag: '',
-        image: [],
+        image: []
     })
 
     const imageStyle = (w) => {
@@ -39,7 +39,7 @@ export default function Post() {
         return {
             width: `${size}px`,
             height: `${size}px`,
-            objectFit: 'cover',
+            objectFit: 'cover'
         }
     }
 
@@ -47,7 +47,7 @@ export default function Post() {
         const size = w >= 768 ? 300 : 200
         return {
             width: `${size}px`,
-            height: `${size}px`,
+            height: `${size}px`
         }
     }
 
@@ -72,7 +72,7 @@ export default function Post() {
                     ...prevState,
                     caption: '',
                     hashtag: '',
-                    image: [],
+                    image: []
                 }))
                 hide()
                 cogoToast.success('Posted successfully!')
@@ -85,7 +85,7 @@ export default function Post() {
                     ...prevState,
                     caption: '',
                     hashtag: '',
-                    image: [],
+                    image: []
                 }))
             })
     }
@@ -95,7 +95,7 @@ export default function Post() {
         setPost((prevState) => ({
             ...prevState,
             uniqueId: generateRandomId(),
-            [id]: value,
+            [id]: value
         }))
     }
 
@@ -116,13 +116,13 @@ export default function Post() {
                     return (reader.onload = (e) => {
                         setImgSrc((prevState) => [
                             ...prevState,
-                            e.target.result,
+                            e.target.result
                         ])
 
                         setPost((prevState) => ({
                             ...prevState,
                             uniqueId: generateRandomId(),
-                            image: [...prevState.image, e.target.result],
+                            image: [...prevState.image, e.target.result]
                         }))
                     })
                 })

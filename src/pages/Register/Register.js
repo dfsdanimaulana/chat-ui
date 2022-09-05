@@ -13,7 +13,7 @@ const Register = () => {
         gender: 'male',
         email: '',
         password: '',
-        confirm_password: '',
+        confirm_password: ''
     })
 
     const history = useHistory()
@@ -23,7 +23,7 @@ const Register = () => {
         // handle radio button please...
         setInput((prevState) => ({
             ...prevState,
-            [name]: value,
+            [name]: value
         }))
     }
 
@@ -52,7 +52,7 @@ const Register = () => {
                         {
                             hideAfter: 5,
                             heading: 'Register error!',
-                            onClick: () => hide(),
+                            onClick: () => hide()
                         }
                     )
                 } else {
@@ -72,7 +72,7 @@ const Register = () => {
                         {
                             hideAfter: 5,
                             heading: 'Register error!',
-                            onClick: () => hide(),
+                            onClick: () => hide()
                         }
                     )
                 }

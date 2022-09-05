@@ -17,7 +17,7 @@ export default function ChatBody() {
             msg: 'Hello everyone, how are you doing?',
             timeSend: '12:17 AM Today',
             position: 'left',
-            thumb_img: 'https://source.unsplash.com/random/128x128',
+            thumb_img: 'https://source.unsplash.com/random/128x128'
         },
         {
             id: 2,
@@ -25,8 +25,8 @@ export default function ChatBody() {
             msg: 'Hello everyone, how are you doing?',
             timeSend: '12:30 AM Today',
             position: 'right',
-            thumb_img: 'https://source.unsplash.com/random/128x128',
-        },
+            thumb_img: 'https://source.unsplash.com/random/128x128'
+        }
     ])
 
     return (

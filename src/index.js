@@ -19,8 +19,8 @@ const store = configureStore({
         auth: authReducer,
         post: postReducer,
         posts: postsReducer,
-        comments: commentsReducer,
-    },
+        comments: commentsReducer
+    }
 })
 
 // The thunk middleware was automatically added

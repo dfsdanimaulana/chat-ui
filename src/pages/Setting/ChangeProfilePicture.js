@@ -17,7 +17,7 @@ export default function ChangeProfilePicture({ currentUser }) {
         width: width < 768 ? '200px' : '300px',
         height: width < 768 ? '200px' : '300px',
         objectFit: 'cover',
-        borderRadius: '50%',
+        borderRadius: '50%'
     }
 
     // display image before uploading
@@ -53,12 +53,12 @@ export default function ChangeProfilePicture({ currentUser }) {
             .put(`/user/update/image`, {
                 id: currentUser._id,
                 publicId: currentUser.img_thumb_id,
-                image: imgSrc,
+                image: imgSrc
             })
             .then((user) => {
                 const updatedUser = {
                     ...currentUser,
-                    img_thumb: user.data.img_thumb,
+                    img_thumb: user.data.img_thumb
                 }
 
                 hide()
@@ -87,7 +87,7 @@ export default function ChangeProfilePicture({ currentUser }) {
             <div
                 className='mb-3 w-50 position-relative mt-5 mt-md-0'
                 style={{
-                    height: width < 768 ? '200px' : 'max-content',
+                    height: width < 768 ? '200px' : 'max-content'
                 }}
             >
                 <img src={imgSrc} alt='...' style={imageStyle} />

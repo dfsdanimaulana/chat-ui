@@ -10,12 +10,12 @@ export const useRefreshToken = () => {
     const refreshToken = async () => {
         try {
             const res = await axios.get('/auth/refresh', {
-                withCredentials: true, // allow send cookies with request
+                withCredentials: true // allow send cookies with request
             })
             dispatch(
                 login({
                     ...currentUser,
-                    accessToken: res.data.accessToken,
+                    accessToken: res.data.accessToken
                 })
             )
 

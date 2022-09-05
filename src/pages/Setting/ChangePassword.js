@@ -10,14 +10,14 @@ export default function ChangePassword({ currentUser }) {
         _id: currentUser._id,
         password_old: '',
         password_new: '',
-        password_new_confirm: '',
+        password_new_confirm: ''
     })
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
         setData((prevState) => ({
             ...prevState,
-            [id]: value,
+            [id]: value
         }))
     }
 
@@ -59,7 +59,7 @@ export default function ChangePassword({ currentUser }) {
                         {
                             hideAfter: 5,
                             heading: 'Register error!',
-                            onClick: () => hide(),
+                            onClick: () => hide()
                         }
                     )
                 } else {
@@ -79,7 +79,7 @@ export default function ChangePassword({ currentUser }) {
                         {
                             hideAfter: 5,
                             heading: 'Register error!',
-                            onClick: () => hide(),
+                            onClick: () => hide()
                         }
                     )
                 }

@@ -7,7 +7,7 @@ export default function CardPlaceholder() {
         const size = w < 768 ? '390px' : '470px'
         return {
             height: size,
-            width: '100%',
+            width: '100%'
         }
     }
 

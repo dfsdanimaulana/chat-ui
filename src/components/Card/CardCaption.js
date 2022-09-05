@@ -25,7 +25,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                     <span
                         className='ms-1'
                         style={{
-                            fontSize: '11px',
+                            fontSize: '11px'
                         }}
                     >
                         liked by{' '}
@@ -53,7 +53,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                         key={i}
                         className='text-primary me-1 fw-light'
                         style={{
-                            cursor: 'pointer',
+                            cursor: 'pointer'
                         }}
                     >
                         #{h}
@@ -76,7 +76,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                         <span
                             className='ms-1'
                             style={{
-                                fontSize: '11px',
+                                fontSize: '11px'
                             }}
                         >
                             liked by{' '}

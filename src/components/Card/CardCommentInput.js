@@ -6,7 +6,7 @@ import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { fetchComments } from '../../redux/comments'
 import cogoToast from 'cogo-toast'
 
-export default function CardCommentInput({ postId }) {
+export default function CardCommentInput({ postId, setCommentOpen }) {
     const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
     const currentUser = useSelector((state) => state.user.value)
@@ -28,12 +28,13 @@ export default function CardCommentInput({ postId }) {
         const data = {
             msg: inputText,
             senderId: currentUser._id,
-            postId,
+            postId
         }
 
         try {
             await axiosPrivate.post('/comment', data)
             dispatch(fetchComments(postId))
+            setCommentOpen(true)
             setInputText('')
         } catch (err) {
             cogoToast.error(err.message)
@@ -77,7 +78,7 @@ export default function CardCommentInput({ postId }) {
                     className='position-absolute'
                     style={{
                         zIndex: 9999,
-                        top: '-340px',
+                        top: '-340px'
                     }}
                 >
                     <Picker innerRef={ref} onEmojiClick={onEmojiClick} />

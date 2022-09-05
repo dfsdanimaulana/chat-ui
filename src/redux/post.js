@@ -16,7 +16,7 @@ export const postSlice = createSlice({
     initialState: {
         value: [],
         status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-        error: null,
+        error: null
     },
     // function to change state value
     reducers: {
@@ -25,7 +25,7 @@ export const postSlice = createSlice({
         },
         resetPost: (state) => {
             state.value = false
-        },
+        }
     },
     extraReducers(builder) {
         builder
@@ -40,7 +40,7 @@ export const postSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message
             })
-    },
+    }
 })
 
 export const getPostValue = (state) => state.post.value

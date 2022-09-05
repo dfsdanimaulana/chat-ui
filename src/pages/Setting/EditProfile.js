@@ -16,14 +16,14 @@ export default function EditProfile({ currentUser }) {
         name: currentUser.name,
         email: currentUser.email,
         desc: currentUser.desc,
-        gender: currentUser.gender,
+        gender: currentUser.gender
     })
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
         setData((prevState) => ({
             ...prevState,
-            [id]: value,
+            [id]: value
         }))
     }
 
@@ -54,7 +54,7 @@ export default function EditProfile({ currentUser }) {
                     name: user.data.name,
                     email: user.data.email,
                     desc: user.data.desc,
-                    gender: user.data.gender,
+                    gender: user.data.gender
                 }
                 hide()
                 dispatch(login(updatedUser))
@@ -172,7 +172,7 @@ export function FormInput({
     desc,
     type,
     value,
-    handleChange,
+    handleChange
 }) {
     return (
         <div className='row mb-3'>

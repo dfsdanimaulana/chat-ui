@@ -8,7 +8,7 @@ export default function CardImage({ post, id, width }) {
         return {
             height: size,
             width: '100%',
-            objectFit: 'cover',
+            objectFit: 'cover'
         }
     }
 

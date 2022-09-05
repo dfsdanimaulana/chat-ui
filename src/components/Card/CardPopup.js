@@ -8,7 +8,7 @@ const itemStyle = {
     display: 'grid',
     placeItems: 'center',
     color: '#fff',
-    fontSize: '22px',
+    fontSize: '22px'
 }
 
 export default function CardPopup({ data, id }) {
@@ -21,7 +21,7 @@ export default function CardPopup({ data, id }) {
             id={'offcanvasCard' + id}
             aria-labelledby='offcanvasCardLabel'
             style={{
-                minHeight: '40vh',
+                minHeight: '40vh'
             }}
         >
             <div className='offcanvas-header px-4'>

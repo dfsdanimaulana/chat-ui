@@ -12,14 +12,14 @@ const initialStateValue = {
     followers: [],
     following: [],
     post: [],
-    accessToken: '',
+    accessToken: ''
 }
 
 export const userSlice = createSlice({
     // state name
     name: 'user',
     initialState: {
-        value: initialStateValue,
+        value: initialStateValue
     },
     // function to change state value
     reducers: {
@@ -28,8 +28,8 @@ export const userSlice = createSlice({
         },
         logout: (state) => {
             state.value = initialStateValue
-        },
-    },
+        }
+    }
 })
 
 export const getUserValue = (state) => state.user.value

@@ -12,7 +12,7 @@ export default function Qrcode() {
             id,
             {
                 width: 400,
-                margin: 2,
+                margin: 2
             },
             (err, url) => {
                 if (err) {
@@ -36,7 +36,7 @@ export default function Qrcode() {
                             style={{
                                 width: '200px',
                                 height: '200px',
-                                objectFit: 'cover',
+                                objectFit: 'cover'
                             }}
                         />
                         <div className='card-body text-center'>

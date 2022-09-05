@@ -42,7 +42,7 @@ export default function Post({ post }) {
             .post(`${BASE_URL}/comment`, {
                 senderId: currentUser._id,
                 postId: post._id,
-                msg: commentMessage,
+                msg: commentMessage
             })
             .then((res) => {
                 setCommentMessage('')

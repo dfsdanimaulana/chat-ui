@@ -16,7 +16,7 @@ export default function SignIn() {
     const history = useHistory()
     const [input, setInput] = useState({
         username: '',
-        password: '',
+        password: ''
     })
 
     // handle input user
@@ -24,7 +24,7 @@ export default function SignIn() {
         const { id, value } = e.target
         setInput((prevState) => ({
             ...prevState,
-            [id]: value,
+            [id]: value
         }))
     }
 
@@ -55,7 +55,7 @@ export default function SignIn() {
         try {
             const user = await axios.post(`/auth/login`, {
                 username: 'guest',
-                password: '123456',
+                password: '123456'
             })
 
             hide()

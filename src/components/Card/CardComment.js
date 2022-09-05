@@ -23,7 +23,7 @@ export default function CardComment({ post, height, comments }) {
             <div
                 className='card-body p-0 overflow-auto'
                 style={{
-                    height: `${height - 45}px`,
+                    height: `${height - 45}px`
                 }}
             >
                 <ul className='list-group list-group-flush '>
@@ -59,7 +59,7 @@ function Comment({ comment }) {
                     </div>
                     <div
                         style={{
-                            fontSize: '12px',
+                            fontSize: '12px'
                         }}
                     >
                         <span className='me-2'>
@@ -69,7 +69,7 @@ function Comment({ comment }) {
                         <span
                             className='me-1 fw-semibold'
                             style={{
-                                cursor: 'pointer',
+                                cursor: 'pointer'
                             }}
                         >
                             Replay
@@ -80,7 +80,7 @@ function Comment({ comment }) {
                     <i
                         className='bi bi-three-dots text-secondary'
                         style={{
-                            fontSize: '12px',
+                            fontSize: '12px'
                         }}
                     ></i>
                     <i className='bi bi-heart ms-1'></i>
