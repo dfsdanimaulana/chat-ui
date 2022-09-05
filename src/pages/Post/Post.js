@@ -139,7 +139,8 @@ export default function Post() {
                             id='postImageCarousel'
                             className='carousel slide m-2 m-md-3 border'
                             data-bs-ride='carousel'
-                            style={carouselStyle(width)}>
+                            style={carouselStyle(width)}
+                        >
                             <div className='carousel-inner'>
                                 <div className='carousel-item active'>
                                     <img
@@ -168,7 +169,8 @@ export default function Post() {
                                 className='carousel-control-prev'
                                 type='button'
                                 data-bs-target='#postImageCarousel'
-                                data-bs-slide='prev'>
+                                data-bs-slide='prev'
+                            >
                                 <span
                                     className='carousel-control-prev-icon'
                                     aria-hidden='true'
@@ -181,7 +183,8 @@ export default function Post() {
                                 className='carousel-control-next'
                                 type='button'
                                 data-bs-target='#postImageCarousel'
-                                data-bs-slide='next'>
+                                data-bs-slide='next'
+                            >
                                 <span
                                     className='carousel-control-next-icon'
                                     aria-hidden='true'
@@ -202,7 +205,8 @@ export default function Post() {
                     <div className='m-3'>
                         <label
                             htmlFor='image'
-                            className='btn btn-sm btn-outline-success'>
+                            className='btn btn-sm btn-outline-success'
+                        >
                             Select Image
                         </label>
                         <input
@@ -245,7 +249,8 @@ export default function Post() {
                         <div className='input-group mb-3'>
                             <span
                                 className='input-group-text'
-                                id='basic-addon1'>
+                                id='basic-addon1'
+                            >
                                 #
                             </span>
                             <input

@@ -74,7 +74,8 @@ const AddPost = () => {
                 {error && (
                     <div
                         className='alert alert-danger alert-dismissible fade show'
-                        role='alert'>
+                        role='alert'
+                    >
                         <strong>Upss</strong> Failed to send your post.
                         <button
                             type='button'
@@ -108,7 +109,8 @@ const AddPost = () => {
                     <button
                         type='button'
                         className='btn btn-tool'
-                        title='More Options'>
+                        title='More Options'
+                    >
                         <i className='far fa-circle'></i>
                     </button>
                 </div>
@@ -177,7 +179,8 @@ const AddPost = () => {
                             <button
                                 className='btn btn-primary'
                                 type='button'
-                                disabled>
+                                disabled
+                            >
                                 Posting
                                 <span
                                     className='spinner-border spinner-border-sm'

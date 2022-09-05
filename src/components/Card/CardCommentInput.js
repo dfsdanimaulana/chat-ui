@@ -46,7 +46,8 @@ export default function CardCommentInput({ postId }) {
         <form onSubmit={handleSubmit} className='input-group w-75 w-md-50'>
             <span
                 className='input-group-text'
-                onClick={() => setIsEmojiChosen((val) => !val)}>
+                onClick={() => setIsEmojiChosen((val) => !val)}
+            >
                 <i className='bi bi-emoji-smile'></i>
             </span>
             <input
@@ -64,7 +65,8 @@ export default function CardCommentInput({ postId }) {
                     <span
                         className='spinner-border spinner-border-sm text-secondary'
                         role='status'
-                        aria-hidden='true'></span>
+                        aria-hidden='true'
+                    ></span>
                 ) : (
                     <i className='bi bi-send'></i>
                 )}
@@ -76,7 +78,8 @@ export default function CardCommentInput({ postId }) {
                     style={{
                         zIndex: 9999,
                         top: '-340px',
-                    }}>
+                    }}
+                >
                     <Picker innerRef={ref} onEmojiClick={onEmojiClick} />
                 </div>
             )}

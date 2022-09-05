@@ -6,14 +6,16 @@ function Chat({ chat }) {
                 chat.position === 'right'
                     ? 'direct-chat-msg right'
                     : 'direct-chat-msg'
-            }>
+            }
+        >
             <div className='direct-chat-infos clearfix'>
                 <span
                     className={
                         chat.position === 'right'
                             ? 'direct-chat-name float-right'
                             : 'direct-chat-name float-left'
-                    }>
+                    }
+                >
                     {chat.username}
                 </span>
                 <span
@@ -21,7 +23,8 @@ function Chat({ chat }) {
                         chat.position === 'right'
                             ? 'direct-chat-timestamp float-left'
                             : 'direct-chat-timestamp float-right'
-                    }>
+                    }
+                >
                     {chat.timeSend}
                 </span>
             </div>

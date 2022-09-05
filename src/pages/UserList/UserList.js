@@ -21,7 +21,7 @@ const UserList = () => {
                 setIsPending(false)
                 setError(true)
             })
-    },[])
+    }, [])
     return (
         <div className='container'>
             <div className='row'>
@@ -33,7 +33,8 @@ const UserList = () => {
                 <div className='col text-center'>
                     <Link
                         to='/register'
-                        className='btn btn-primary m-3 d-block'>
+                        className='btn btn-primary m-3 d-block'
+                    >
                         Register
                     </Link>
                 </div>
@@ -49,7 +50,8 @@ const UserList = () => {
                     users.map((user) => (
                         <div
                             className='col-md-6 col-lg-4 col-xl-3'
-                            key={user._id}>
+                            key={user._id}
+                        >
                             <ProfileCard user={user} />
                         </div>
                     ))

@@ -9,7 +9,8 @@ export default function Sidebar() {
             aria-labelledby='offcanvasRightLabel'
             style={{
                 minHeight: '50vh',
-            }}>
+            }}
+        >
             <div className='offcanvas-header px-4'>
                 <h5 className='offcanvas-title' id='offcanvasRightLabel'>
                     Settings

@@ -40,7 +40,8 @@ export default function ChatBody() {
                         <div className='card-tools'>
                             <span
                                 title='3 New Messages'
-                                className='badge badge-primary'>
+                                className='badge badge-primary'
+                            >
                                 3
                             </span>
 
@@ -48,7 +49,8 @@ export default function ChatBody() {
                                 type='button'
                                 className='btn btn-tool'
                                 title='Contacts'
-                                data-widget='chat-pane-toggle'>
+                                data-widget='chat-pane-toggle'
+                            >
                                 <i className='fas fa-comments' />
                             </button>
                             <button type='button' className='btn btn-tool'>
@@ -94,7 +96,8 @@ export default function ChatBody() {
                                 <span className='input-group-append'>
                                     <button
                                         type='button'
-                                        className='btn btn-primary'>
+                                        className='btn btn-primary'
+                                    >
                                         Send
                                     </button>
                                 </span>

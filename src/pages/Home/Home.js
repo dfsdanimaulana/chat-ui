@@ -30,12 +30,6 @@ const Home = () => {
         <div className='container mt-3'>
             <div className='row px-lg-5 pb-5 pb-md-0'>
                 <div className='col'>
-                    {postsStatus === 'loading' && (
-                        <>
-                            <CardPlaceholder />
-                            <CardPlaceholder />
-                        </>
-                    )}
                     {posts &&
                         posts.map((post) => (
                             <Card
@@ -45,6 +39,12 @@ const Home = () => {
                             />
                         ))}
                     {error && <h1>Filed to fetch data</h1>}
+                    {postsStatus === 'loading' && posts.length === 0 && (
+                        <>
+                            <CardPlaceholder />
+                            <CardPlaceholder />
+                        </>
+                    )}
                 </div>
             </div>
         </div>

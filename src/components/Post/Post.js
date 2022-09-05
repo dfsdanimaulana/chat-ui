@@ -78,7 +78,8 @@ export default function Post({ post }) {
                     <button
                         type='button'
                         className='btn btn-tool'
-                        title='Mark as read'>
+                        title='Mark as read'
+                    >
                         <i className='far fa-circle' />
                     </button>
                 </div>
@@ -95,7 +96,8 @@ export default function Post({ post }) {
                 <button
                     type='button'
                     className='btn btn-default btn-sm'
-                    onClick={handleLikes}>
+                    onClick={handleLikes}
+                >
                     {likes ? (
                         <i className='fas fa-heart' />
                     ) : (
@@ -108,7 +110,8 @@ export default function Post({ post }) {
                     data-bs-toggle='collapse'
                     data-bs-target={`#comment${post._id}`}
                     aria-expanded='false'
-                    aria-controls='commentArea'>
+                    aria-controls='commentArea'
+                >
                     <i className='far fa-comment' />
                 </button>
                 <button type='button' className='btn btn-default btn-sm'>

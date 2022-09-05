@@ -17,7 +17,8 @@ export default function CardPlaceholder() {
                 <div className='col-md-6 border'>
                     <div
                         className='placeholder rounded col-10'
-                        style={imgSize(width)}></div>
+                        style={imgSize(width)}
+                    ></div>
                 </div>
                 <div className='col-md-6 d-flex flex-column justify-content-between'>
                     <div className='card-body d-flex flex-column'>

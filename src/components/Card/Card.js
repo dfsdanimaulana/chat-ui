@@ -7,7 +7,7 @@ import cogoToast from 'cogo-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCommentsValue } from '../../redux/comments'
 import { getUserValue } from '../../redux/user'
-import { fetchPosts } from '../../redux/posts'
+import { fetchPosts, getPostsStatus } from '../../redux/posts'
 import { fetchPost } from '../../redux/post'
 
 // hooks
@@ -27,6 +27,7 @@ export default function Card({ post, id }) {
     const axiosPrivate = useAxiosPrivate()
     const allComments = useSelector(getCommentsValue)
     const currentUser = useSelector(getUserValue)
+    const postsStatus = useSelector(getPostsStatus)
     const dispatch = useDispatch()
 
     const comments = allComments.filter(
@@ -52,10 +53,10 @@ export default function Card({ post, id }) {
     }
 
     const handleLikeClick = async () => {
-        if (isPending) return
+        if (postsStatus === 'loading' || isPending) return
 
-        setIsPending(true)
         // push user id to post like array
+        setIsPending(true)
         axiosPrivate
             .post('/post/like', {
                 postId: post._id,
@@ -65,12 +66,8 @@ export default function Card({ post, id }) {
                 dispatch(fetchPosts())
                 dispatch(fetchPost(currentUser._id))
             })
-            .catch((err) => {
-                cogoToast.error(err.message)
-            })
-            .finally(() => {
-                setIsPending(false)
-            })
+            .catch((err) => cogoToast.error(err.message))
+            .finally(() => setIsPending(false))
     }
 
     const likeIconClass = () => {
@@ -93,7 +90,8 @@ export default function Card({ post, id }) {
                 <CardImage width={width} post={post} id={id} />
                 <div
                     ref={cardBodyRef}
-                    className='col-md-6 d-flex flex-column justify-content-between'>
+                    className='col-md-6 d-flex flex-column justify-content-between'
+                >
                     <div className='card-body d-flex flex-column p-0'>
                         {commentOpen ? (
                             <CardComment
@@ -115,7 +113,8 @@ export default function Card({ post, id }) {
                     </div>
                     <div
                         ref={ref}
-                        className='card-footer d-flex justify-content-between'>
+                        className='card-footer d-flex justify-content-between'
+                    >
                         <CardCommentInput postId={post._id} />
                         <div className='d-flex justify-content-around align-items-center text-secondary fw-bold'>
                             <span className='fw-lighter text-secondary ms-3'>
@@ -123,13 +122,23 @@ export default function Card({ post, id }) {
                             </span>
                             <i
                                 className='bi bi-chat-left-dots ms-2'
-                                onClick={handleCommentClick}></i>
+                                onClick={handleCommentClick}
+                            ></i>
                             <span className='fw-lighter text-secondary ms-3'>
                                 {post.like.length}
                             </span>
-                            <i
-                                className={likeIconClass()}
-                                onClick={handleLikeClick}></i>
+                            {postsStatus === 'loading' || isPending ? (
+                                <span
+                                    className='spinner-border spinner-border-sm text-secondary ms-2'
+                                    role='status'
+                                    aria-hidden='true'
+                                ></span>
+                            ) : (
+                                <i
+                                    className={likeIconClass()}
+                                    onClick={handleLikeClick}
+                                ></i>
+                            )}
                         </div>
                     </div>
                     <CardPopup id={id} data={post} />

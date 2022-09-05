@@ -9,7 +9,11 @@ export default function CardComment({ post, height, comments }) {
         <div className='h-100'>
             <div className='card-header bg-white d-flex justify-content-between align-items-center'>
                 <div>
-                    <Avatar width={24} thumbnail='false' image={post.user.img_thumb}/>
+                    <Avatar
+                        width={24}
+                        thumbnail='false'
+                        image={post.user.img_thumb}
+                    />
                     <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
                         {post.user.username}
                     </span>
@@ -20,7 +24,8 @@ export default function CardComment({ post, height, comments }) {
                 className='card-body p-0 overflow-auto'
                 style={{
                     height: `${height - 45}px`,
-                }}>
+                }}
+            >
                 <ul className='list-group list-group-flush '>
                     {comments &&
                         comments
@@ -55,7 +60,8 @@ function Comment({ comment }) {
                     <div
                         style={{
                             fontSize: '12px',
-                        }}>
+                        }}
+                    >
                         <span className='me-2'>
                             {moment(comment.createdAt).fromNow(true)}
                         </span>
@@ -64,7 +70,8 @@ function Comment({ comment }) {
                             className='me-1 fw-semibold'
                             style={{
                                 cursor: 'pointer',
-                            }}>
+                            }}
+                        >
                             Replay
                         </span>
                     </div>
@@ -74,7 +81,8 @@ function Comment({ comment }) {
                         className='bi bi-three-dots text-secondary'
                         style={{
                             fontSize: '12px',
-                        }}></i>
+                        }}
+                    ></i>
                     <i className='bi bi-heart ms-1'></i>
                 </div>
             </div>

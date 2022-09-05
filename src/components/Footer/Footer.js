@@ -6,7 +6,8 @@ const Footer = () => {
             className='navbar navbar-expand navbar-dark bg-light text-center d-none d-md-flex flex-column mt-auto'
             style={{
                 fontSize: '12px',
-            }}>
+            }}
+        >
             <ul className='nav justify-content-center'>
                 <li className='nav-item text-light'>
                     <Link className='nav-link' to='#'>
@@ -44,7 +45,8 @@ const Footer = () => {
                             border: 'none',
                             color: '#0b61de',
                             backgroundColor: '#f8f9fa',
-                        }}>
+                        }}
+                    >
                         <option defaultValue={'english'}>English</option>
                         <option value='indonesia'>Indonesia</option>
                         <option value='china'>China</option>

@@ -42,7 +42,7 @@ export default function ChangeProfilePicture({ currentUser }) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(imgSrc === currentUser.img_thumb) {
+        if (imgSrc === currentUser.img_thumb) {
             cogoToast.info('Nothing to update!')
             return
         }
@@ -50,10 +50,10 @@ export default function ChangeProfilePicture({ currentUser }) {
         const { hide } = cogoToast.loading('Updating...')
 
         axiosPrivate
-            .put(`/user/update/image`, { 
-              id: currentUser._id,
-              publicId: currentUser.img_thumb_id,
-              image: imgSrc,
+            .put(`/user/update/image`, {
+                id: currentUser._id,
+                publicId: currentUser.img_thumb_id,
+                image: imgSrc,
             })
             .then((user) => {
                 const updatedUser = {
@@ -80,12 +80,16 @@ export default function ChangeProfilePicture({ currentUser }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className={`row ${width < 768 && 'vh-100'} text-center justify-content-center`}>
+            className={`row ${
+                width < 768 && 'vh-100'
+            } text-center justify-content-center`}
+        >
             <div
                 className='mb-3 w-50 position-relative mt-5 mt-md-0'
                 style={{
                     height: width < 768 ? '200px' : 'max-content',
-                }}>
+                }}
+            >
                 <img src={imgSrc} alt='...' style={imageStyle} />
                 <input
                     type='file'
@@ -99,7 +103,8 @@ export default function ChangeProfilePicture({ currentUser }) {
                 />
                 <label
                     htmlFor='image'
-                    className='position-absolute bottom-0 end-0 me-1 me-md-5'>
+                    className='position-absolute bottom-0 end-0 me-1 me-md-5'
+                >
                     <i className='bi bi-pencil-square fs-3'></i>
                 </label>
             </div>

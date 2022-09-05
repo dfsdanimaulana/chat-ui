@@ -51,7 +51,8 @@ export default function Profile() {
                         <button className='btn btn-sm btn-outline-info me-3 d-none d-md-block'>
                             <Link
                                 to='/setting'
-                                className='text-decoration-none'>
+                                className='text-decoration-none'
+                            >
                                 Edit profile
                             </Link>
                         </button>

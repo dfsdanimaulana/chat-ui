@@ -122,7 +122,8 @@ const Register = () => {
                                 <div className='mb-3'>
                                     <label
                                         htmlFor='password'
-                                        className='form-label'>
+                                        className='form-label'
+                                    >
                                         Password
                                     </label>
                                     <input
@@ -139,7 +140,8 @@ const Register = () => {
                                 <div className='mb-3'>
                                     <label
                                         htmlFor='confirm_password'
-                                        className='form-label'>
+                                        className='form-label'
+                                    >
                                         Confirm Password
                                     </label>
                                     <input
@@ -186,7 +188,8 @@ const Register = () => {
                                         />
                                         <label
                                             className='form-check-label'
-                                            htmlFor='exampleRadios1'>
+                                            htmlFor='exampleRadios1'
+                                        >
                                             Male
                                         </label>
                                     </div>
@@ -203,7 +206,8 @@ const Register = () => {
                                         />
                                         <label
                                             className='form-check-label'
-                                            htmlFor='exampleRadios2'>
+                                            htmlFor='exampleRadios2'
+                                        >
                                             Female
                                         </label>
                                     </div>

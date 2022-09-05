@@ -49,11 +49,13 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
             style={{
                 overlay: overlyStyle,
                 content: contentStyle,
-            }}>
+            }}
+        >
             <div
                 ref={cardRef}
                 className='card rounded-4 bg-light'
-                style={cardStyle}>
+                style={cardStyle}
+            >
                 <div className='card-body mt-3'>
                     <CardOptionList
                         currentUser={currentUser}
@@ -72,7 +74,8 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
                         className='bg-light rounded-circle'
                         style={itemStyle}
                         data-bs-dismiss='modal'
-                        aria-label='Close'>
+                        aria-label='Close'
+                    >
                         <Link to={'/qr/' + data._id} className='text-dark'>
                             <i className='bi bi-qr-code-scan'></i>
                         </Link>

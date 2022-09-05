@@ -82,7 +82,8 @@ export default function EditProfile({ currentUser }) {
                     </div>
                     <Link
                         to='/setting/change_profile_picture'
-                        className='text-decoration-none'>
+                        className='text-decoration-none'
+                    >
                         <p>Change profile photo</p>
                     </Link>
                 </div>
@@ -141,12 +142,14 @@ export default function EditProfile({ currentUser }) {
                         className='form-select text-capitalize'
                         aria-label='Default select example'
                         id='gender'
-                        onChange={handleInputChange}>
+                        onChange={handleInputChange}
+                    >
                         <option defaultValue={data.gender}>
                             {data.gender}
                         </option>
                         <option
-                            value={data.gender === 'male' ? 'female' : 'male'}>
+                            value={data.gender === 'male' ? 'female' : 'male'}
+                        >
                             {data.gender === 'male' ? 'Female' : 'Male'}
                         </option>
                     </select>

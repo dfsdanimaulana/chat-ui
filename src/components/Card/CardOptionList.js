@@ -53,7 +53,8 @@ export default function CardOptionList({ data, currentUser, setIsOpen }) {
                     data-bs-dismiss='offcanvas'
                     className='list-group-item bg-light text-danger'
                     onClick={handleDelete}
-                    style={listStyle}>
+                    style={listStyle}
+                >
                     Delete post
                 </li>
             )}

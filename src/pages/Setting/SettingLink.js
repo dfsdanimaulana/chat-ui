@@ -16,7 +16,10 @@ export default function SettingLink() {
         <ul className='list-group list-group-flush'>
             <ListItem title='Edit Profile' />
             <ListItem title='Change Password' path='/change_password' />
-            <ListItem title='Change Profile Picture' path='/change_profile_picture' />
+            <ListItem
+                title='Change Profile Picture'
+                path='/change_profile_picture'
+            />
 
             <ListItem title='About' />
             <ListItem title='Contact Us' />
@@ -29,7 +32,8 @@ export default function SettingLink() {
                 <button
                     className='btn btn-sm btn-outline-danger mt-3'
                     type='button'
-                    onClick={handleLogout}>
+                    onClick={handleLogout}
+                >
                     Logout
                 </button>
             </li>
@@ -45,10 +49,12 @@ function ListItem({ title, path, listStyle }) {
             className='list-group-item bg-light'
             data-bs-toggle={width < 768 && 'offcanvas'}
             data-bs-target={width < 768 && '#offcanvasRight'}
-            aria-controls={width < 768 && 'offcanvasRight'}>
+            aria-controls={width < 768 && 'offcanvasRight'}
+        >
             <NavLink
                 to={`/setting${path ? path : ''}`}
-                className='text-decoration-none text-secondary'>
+                className='text-decoration-none text-secondary'
+            >
                 <span className={listStyle && listStyle}>{title}</span>
             </NavLink>
         </li>

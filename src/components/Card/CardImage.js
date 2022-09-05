@@ -60,7 +60,8 @@ export default function CardImage({ post, id, width }) {
                         className='carousel-control-prev'
                         type='button'
                         data-bs-target={`#${id}`}
-                        data-bs-slide='prev'>
+                        data-bs-slide='prev'
+                    >
                         <span
                             className='carousel-control-prev-icon'
                             aria-hidden='true'
@@ -71,7 +72,8 @@ export default function CardImage({ post, id, width }) {
                         className='carousel-control-next'
                         type='button'
                         data-bs-target={`#${id}`}
-                        data-bs-slide='next'>
+                        data-bs-slide='next'
+                    >
                         <span
                             className='carousel-control-next-icon'
                             aria-hidden='true'

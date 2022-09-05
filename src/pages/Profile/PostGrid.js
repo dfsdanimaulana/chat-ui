@@ -1,4 +1,10 @@
-import { Switch, Route, Link, useRouteMatch, useHistory } from 'react-router-dom'
+import {
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useHistory,
+} from 'react-router-dom'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
 const fakeImages = [
@@ -11,18 +17,26 @@ const fakeImages = [
 
 export function PostImages({ image, imageStyle, postId }) {
     const history = useHistory()
-    
+
     return (
         <div className='col-4 mb-3 position-relative'>
-            { image.length > 1 && (
-              <div className="position-absolute top-0 end-0 me-3" style={{
-                fontSize: '12px',
-                color: '#fff'
-              }}>
-                  <i className="bi bi-back"></i>
-              </div>
+            {image.length > 1 && (
+                <div
+                    className='position-absolute top-0 end-0 me-3'
+                    style={{
+                        fontSize: '12px',
+                        color: '#fff',
+                    }}
+                >
+                    <i className='bi bi-back'></i>
+                </div>
             )}
-            <img src={image[0]} alt='...' style={imageStyle} onClick={()=> history.push('/profile/posts/' + postId)}/>
+            <img
+                src={image[0]}
+                alt='...'
+                style={imageStyle}
+                onClick={() => history.push('/profile/posts/' + postId)}
+            />
         </div>
     )
 }
@@ -54,7 +68,8 @@ export default function PostGrid({ posts }) {
                     <Link
                         className='nav-link text-secondary'
                         aria-current='page'
-                        to={url}>
+                        to={url}
+                    >
                         <i className='bi bi-grid me-1'></i>
                         POSTS
                     </Link>
@@ -62,7 +77,8 @@ export default function PostGrid({ posts }) {
                 <li className='nav-item'>
                     <Link
                         className='nav-link text-secondary'
-                        to={`${url}/reels`}>
+                        to={`${url}/reels`}
+                    >
                         <i className='bi bi-file-play me-1'></i>
                         REELS
                     </Link>
@@ -70,7 +86,8 @@ export default function PostGrid({ posts }) {
                 <li className='nav-item'>
                     <Link
                         className='nav-link text-secondary'
-                        to={`${url}/saved`}>
+                        to={`${url}/saved`}
+                    >
                         <i className='bi bi-bi bi-bookmark me-1'></i>
                         SAVED
                     </Link>
@@ -79,14 +96,15 @@ export default function PostGrid({ posts }) {
             <Switch>
                 <Route exact path={path}>
                     <div className='row'>
-                        {posts && posts.map((post) => (
-                            <PostImages
-                                key={post._id}
-                                postId={post.uniqueId}
-                                image={post.img_post_url}
-                                imageStyle={imageStyles(width)}
-                            />
-                        ))}
+                        {posts &&
+                            posts.map((post) => (
+                                <PostImages
+                                    key={post._id}
+                                    postId={post.uniqueId}
+                                    image={post.img_post_url}
+                                    imageStyle={imageStyles(width)}
+                                />
+                            ))}
                     </div>
                 </Route>
                 <Route path={`${path}/reels`}>

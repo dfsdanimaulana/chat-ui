@@ -26,14 +26,18 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                         className='ms-1'
                         style={{
                             fontSize: '11px',
-                        }}>
+                        }}
+                    >
                         liked by{' '}
                         <span className='fw-semibold'>
                             {post.like[0].username}
                         </span>{' '}
                         {post.like.length > 1 && (
                             <span>
-                                and <span className='fw-semibold'>{post.like.length - 1} others</span>
+                                and{' '}
+                                <span className='fw-semibold'>
+                                    {post.like.length - 1} others
+                                </span>
                             </span>
                         )}
                     </span>
@@ -50,7 +54,8 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                         className='text-primary me-1 fw-light'
                         style={{
                             cursor: 'pointer',
-                        }}>
+                        }}
+                    >
                         #{h}
                     </span>
                 ))}
@@ -72,7 +77,8 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                             className='ms-1'
                             style={{
                                 fontSize: '11px',
-                            }}>
+                            }}
+                        >
                             liked by{' '}
                             <span className='fw-semibold'>
                                 {post.like[0].username}
@@ -80,7 +86,9 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                             {post.like.length > 1 && (
                                 <span>
                                     and{' '}
-                                    <span className='fw-semibold'>{post.like.length - 1} others</span>
+                                    <span className='fw-semibold'>
+                                        {post.like.length - 1} others
+                                    </span>
                                 </span>
                             )}
                         </span>

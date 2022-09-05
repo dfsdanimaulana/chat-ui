@@ -20,7 +20,8 @@ export default function PostGridPlaceholder() {
                     <div key={i} className='col-4 mb-3'>
                         <div
                             className='placeholder col-1 rounded'
-                            style={cardStyles(width)}></div>
+                            style={cardStyles(width)}
+                        ></div>
                     </div>
                 ))}
             </div>

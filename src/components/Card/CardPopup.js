@@ -22,7 +22,8 @@ export default function CardPopup({ data, id }) {
             aria-labelledby='offcanvasCardLabel'
             style={{
                 minHeight: '40vh',
-            }}>
+            }}
+        >
             <div className='offcanvas-header px-4'>
                 <div className='bg-info rounded-circle' style={itemStyle}>
                     <i className='bi bi-share'></i>
@@ -33,7 +34,8 @@ export default function CardPopup({ data, id }) {
                 <div
                     className='bg-info rounded-circle'
                     style={itemStyle}
-                    aria-label='Close'>
+                    aria-label='Close'
+                >
                     <Link to={'/qr/' + data._id} className='text-light'>
                         <i className='bi bi-qr-code-scan'></i>
                     </Link>

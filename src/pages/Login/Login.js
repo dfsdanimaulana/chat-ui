@@ -79,21 +79,23 @@ export default function SignIn() {
                 <div className='col h-100 d-none d-md-inline'>
                     <img
                         className='img-fluid image'
-                        src={LoginSVG} 
-                        alt='login page'></img>
-                  
+                        src={LoginSVG}
+                        alt='login page'
+                    ></img>
                 </div>
                 <div className='col p-5'>
                     <form
                         className='p-4 mx-auto border p-3'
-                        onSubmit={handleSubmit}>
+                        onSubmit={handleSubmit}
+                    >
                         <h3 className='mb-4 text-center fw-bold'>Login</h3>
 
                         <hr className='mb-3' />
                         <div className='mb-3'>
                             <label
                                 htmlFor='username'
-                                className='form-label fw-normal'>
+                                className='form-label fw-normal'
+                            >
                                 Email or Username
                             </label>
                             <input
@@ -108,7 +110,8 @@ export default function SignIn() {
                         <div className='mb-3'>
                             <label
                                 htmlFor='password'
-                                className='form-label fw-normal'>
+                                className='form-label fw-normal'
+                            >
                                 Password
                             </label>
                             <input
@@ -126,13 +129,15 @@ export default function SignIn() {
                         <div className='mb-3 d-flex flex-column align-items-center'>
                             <button
                                 type='submit'
-                                className='btn btn-primary mb-3 px-5'>
+                                className='btn btn-primary mb-3 px-5'
+                            >
                                 Login
                             </button>
                             <button
                                 onClick={setGuest}
                                 type='button'
-                                className='btn btn-outline-primary'>
+                                className='btn btn-outline-primary'
+                            >
                                 Login As Guest
                             </button>
                         </div>
@@ -140,17 +145,20 @@ export default function SignIn() {
                         <div className='d-flex justify-content-evenly my-3'>
                             <button
                                 type='button'
-                                className='btn btn-outline-primary rounded-circle'>
+                                className='btn btn-outline-primary rounded-circle'
+                            >
                                 <i className='bi bi-google'></i>
                             </button>
                             <button
                                 type='button'
-                                className='btn btn-outline-primary rounded-circle'>
+                                className='btn btn-outline-primary rounded-circle'
+                            >
                                 <i className='bi bi-facebook'></i>
                             </button>
                             <button
                                 type='button'
-                                className='btn btn-outline-primary rounded-circle'>
+                                className='btn btn-outline-primary rounded-circle'
+                            >
                                 <i className='bi bi-twitter'></i>
                             </button>
                         </div>

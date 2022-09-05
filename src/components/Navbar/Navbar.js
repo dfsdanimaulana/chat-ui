@@ -20,7 +20,8 @@ export default function Navbar() {
                         />
                         <button
                             className='btn btn-sm btn-outline-secondary'
-                            type='button'>
+                            type='button'
+                        >
                             <i className='bi bi-search'></i>
                         </button>
                     </form>
@@ -28,19 +29,22 @@ export default function Navbar() {
                         <NavLink
                             className='nav-link fs-5 ms-2 d-none d-md-inline'
                             exact
-                            to='/'>
+                            to='/'
+                        >
                             <i className='bi bi-house-door'></i>
                         </NavLink>
                         {path !== '/setting' && (
                             <NavLink
                                 className='nav-link fs-5 ms-3 d-md-none'
-                                to='/post/create'>
+                                to='/post/create'
+                            >
                                 <i className='bi bi-plus-square'></i>
                             </NavLink>
                         )}
                         <NavLink
                             className='nav-link fs-5 ms-3 d-none d-md-flex'
-                            to='/post/create'>
+                            to='/post/create'
+                        >
                             <i className='bi bi-plus-square'></i>
                         </NavLink>
                         {path === '/profile' || path === '/setting' ? (
@@ -48,21 +52,24 @@ export default function Navbar() {
                                 {path !== '/setting' && (
                                     <NavLink
                                         className='nav-link fs-5 ms-3 d-md-none'
-                                        data-bs-toggle='offcanvas' 
+                                        data-bs-toggle='offcanvas'
                                         data-bs-target='#offcanvasRight'
                                         aria-controls='offcanvasRight'
-                                        to='/setting'>
+                                        to='/setting'
+                                    >
                                         <i className='bi bi-gear'></i>
                                     </NavLink>
                                 )}
                                 <NavLink
                                     className='nav-link fs-5 ms-3 d-none d-md-inline'
-                                    to='#'>
+                                    to='#'
+                                >
                                     <i className='bi bi-heart'></i>
                                 </NavLink>
                                 <NavLink
                                     className='nav-link fs-5 ms-3 d-none d-md-inline position-relative'
-                                    to='#'>
+                                    to='#'
+                                >
                                     <i className='bi bi-chat-square-dots'></i>
                                     <span className='position-absolute top-0 start-100 translate-middle p-1 mt-1 bg-primary border border-light rounded-circle'>
                                         <span className='visually-hidden'>
@@ -78,7 +85,8 @@ export default function Navbar() {
                                 </NavLink>
                                 <NavLink
                                     className='nav-link fs-5 ms-3 position-relative'
-                                    to='#'>
+                                    to='#'
+                                >
                                     <i className='bi bi-chat-square-dots'></i>
                                     <span className='position-absolute top-0 start-100 translate-middle p-1 mt-1 bg-primary border border-light rounded-circle'>
                                         <span className='visually-hidden'>
@@ -90,7 +98,8 @@ export default function Navbar() {
                         )}
                         <NavLink // md avatar
                             className='nav-link fs-5 ms-3 d-none d-md-flex align-items-center'
-                            to='/profile'>
+                            to='/profile'
+                        >
                             <Avatar width={23} thumbnail='false' />
                         </NavLink>
                     </div>
