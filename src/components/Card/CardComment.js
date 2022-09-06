@@ -65,7 +65,7 @@ function Comment({ comment }) {
                         <span className='me-2'>
                             {moment(comment.createdAt).fromNow(true)}
                         </span>
-                        <span className='me-2'>3 likes</span>
+                        <span className='me-2'>{ comment.like.length } likes</span>
                         <span
                             className='me-1 fw-semibold'
                             style={{

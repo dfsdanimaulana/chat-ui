@@ -6,7 +6,7 @@ import CardHeader from './CardHeader'
 
 export default function CardCaption({ post, width, setIsOpen, id }) {
     const likedUser =
-        post.like.length > 3 ? [...post.like].splice(3) : [...post.like]
+        post.like.length > 3 ? [...post.like].slice(0, 3) : [...post.like]
 
     return (
         <div className='p-2 h-100 d-flex flex-column'>
@@ -19,7 +19,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                 />
             </div>
             {post.like.length >= 1 && (
-                <div className='mb-2 px-2 d-md-none'>
+                <div className='mb-2 pe-2 d-md-none'>
                     {likedUser.map((like, i) => (
                         <span
                             key={i}
