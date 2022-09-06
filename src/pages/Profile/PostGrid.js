@@ -49,7 +49,7 @@ export function PostReels({ image, imageStyle }) {
     )
 }
 
-export default function PostGrid({ posts }) {
+export default function PostGrid({ posts, currentUser }) {
     const { width } = useWindowDimensions()
 
     const imageStyles = (w) => {
@@ -120,10 +120,11 @@ export default function PostGrid({ posts }) {
                 </Route>
                 <Route path={`${path}/saved`}>
                     <div className='row'>
-                        {fakeImages.slice(3).map((image, i) => (
-                            <PostReels
-                                key={i}
-                                image={image}
+                        {currentUser.savedPost.map((post) => (
+                            <PostImages
+                                key={post._id}
+                                postId={post.uniqueId}
+                                image={post.img_post_url}
                                 imageStyle={imageStyles(width)}
                             />
                         ))}

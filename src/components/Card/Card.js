@@ -54,7 +54,7 @@ export default function Card({ post, id }) {
         // push user id to post like array
         setIsPending(true)
         axiosPrivate
-            .post('/post/like', {
+            .put('/post/like', {
                 postId: post._id,
                 userId: currentUser._id
             })
@@ -80,6 +80,7 @@ export default function Card({ post, id }) {
                     width={width}
                     setIsOpen={setIsOpen}
                     id={id}
+                    currentUser={currentUser}
                 />
             </div>
             <div className='row g-0 h-100'>

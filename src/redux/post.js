@@ -3,7 +3,7 @@ import axios from '../api/axios'
 
 export const fetchPost = createAsyncThunk('post/fetchPost', async (userId) => {
     try {
-        const response = await axios.get('/post/' + userId)
+        const response = await axios.get('/post/user/' + userId)
         return [...response.data]
     } catch (err) {
         return err.message

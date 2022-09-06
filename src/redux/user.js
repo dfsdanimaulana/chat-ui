@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from '../api/axios'
 
 const initialStateValue = {
     _id: '',
@@ -12,8 +13,18 @@ const initialStateValue = {
     followers: [],
     following: [],
     post: [],
+    savedPost: [],
     accessToken: ''
 }
+
+export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
+    try {
+        const response = await axios.get('/user/' + userId)
+        return response.data
+    } catch (err) {
+        return err.message
+    }
+})
 
 export const userSlice = createSlice({
     // state name
@@ -29,6 +40,23 @@ export const userSlice = createSlice({
         logout: (state) => {
             state.value = initialStateValue
         }
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(fetchUser.pending, (state, action) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchUser.fulfilled, (state, action) => {
+                state.status = 'succeeded'
+                state.value = {
+                    ...action.payload,
+                    accessToken: state.value.accessToken
+                }
+            })
+            .addCase(fetchUser.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
     }
 })
 

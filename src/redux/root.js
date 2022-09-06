@@ -5,23 +5,20 @@ import postReducer from './post'
 import postsReducer from './posts'
 import commentsReducer from './comments'
 
-const appReducer = combineReducers({
+const combinedReducers = combineReducers({
     user: userReducer,
     auth: authReducer,
     post: postReducer,
     posts: postsReducer,
-    comment: commentsReducer
+    comments: commentsReducer
 })
 
 const rootReducer = (state, action) => {
-
     if (action.type === 'USER_LOGOUT') {
-        return appReducer(undefined, action)
+        return combinedReducers(undefined, action)
     }
-    
-    return appReducer(state, action)
+
+    return combinedReducers(state, action)
 }
 
 export default rootReducer
-
-
