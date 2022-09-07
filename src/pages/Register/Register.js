@@ -41,40 +41,7 @@ const Register = () => {
             .catch((err) => {
                 hide()
                 if (err.response?.data !== undefined) {
-                    const { hide } = cogoToast.error(
-                        <ul className='list-group list-group-flush'>
-                            {err.response.data.error.map((err, i) => (
-                                <li key={i} className='list-group-item'>
-                                    {err}
-                                </li>
-                            ))}
-                        </ul>,
-                        {
-                            hideAfter: 5,
-                            heading: 'Register error!',
-                            onClick: () => hide()
-                        }
-                    )
-                } else {
-                    const { hide } = cogoToast.error(
-                        <div className='error-wrapper'>
-                            <div className='alert alert-danger' role='alert'>
-                                <ul>
-                                    {['something went wrong', err.message].map(
-                                        (err, i) => (
-                                            <li key={i}>{err}</li>
-                                        )
-                                    )}
-                                </ul>
-                            </div>
-                            <hr />
-                        </div>,
-                        {
-                            hideAfter: 5,
-                            heading: 'Register error!',
-                            onClick: () => hide()
-                        }
-                    )
+                    cogoToast.error(err.response.data.error)
                 }
             })
     }
