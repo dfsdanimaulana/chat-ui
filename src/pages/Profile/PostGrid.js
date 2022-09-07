@@ -120,7 +120,7 @@ export default function PostGrid({ posts, currentUser }) {
                 </Route>
                 <Route path={`${path}/saved`}>
                     <div className='row'>
-                        {currentUser.savedPost.map((post) => (
+                        {[...currentUser.savedPost].reverse().map((post) => (
                             <PostImages
                                 key={post._id}
                                 postId={post.uniqueId}
