@@ -49,9 +49,9 @@ export default function ChangePassword({ currentUser }) {
                 // handle invalid token error please
                 if (err.response?.data !== undefined) {
                     const { hide } = cogoToast.error(
-                        <ul className='list-group list-group-flush'>
+                        <ul className="list-group list-group-flush">
                             {err.response.data.error.map((err, i) => (
-                                <li key={i} className='list-group-item'>
+                                <li key={i} className="list-group-item">
                                     {err}
                                 </li>
                             ))}
@@ -64,14 +64,12 @@ export default function ChangePassword({ currentUser }) {
                     )
                 } else {
                     const { hide } = cogoToast.error(
-                        <div className='error-wrapper'>
-                            <div className='alert alert-danger' role='alert'>
+                        <div className="error-wrapper">
+                            <div className="alert alert-danger" role="alert">
                                 <ul>
-                                    {['something went wrong', err.message].map(
-                                        (err, i) => (
-                                            <li key={i}>{err}</li>
-                                        )
-                                    )}
+                                    {['something went wrong', err.message].map((err, i) => (
+                                        <li key={i}>{err}</li>
+                                    ))}
                                 </ul>
                             </div>
                             <hr />
@@ -88,41 +86,39 @@ export default function ChangePassword({ currentUser }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className='row align-items-center my-3'>
-                <div className='col-3 text-end pe-3'>
-                    <Avatar width={42} thumbnail='false' />
+            <div className="row align-items-center my-3">
+                <div className="col-3 text-end pe-3">
+                    <Avatar width={42} thumbnail="false" />
                 </div>
-                <div className='col-9 pe-5'>
-                    <div className='fw-semibold fs-5'>
-                        {currentUser.username}
-                    </div>
+                <div className="col-9 pe-5">
+                    <div className="fw-semibold fs-5">{currentUser.username}</div>
                 </div>
             </div>
             <FormInput
-                type='password'
+                type="password"
                 handleChange={handleInputChange}
-                label='Old Password'
-                id='password_old'
+                label="Old Password"
+                id="password_old"
                 value={data.password_old}
             />
             <FormInput
-                type='password'
+                type="password"
                 handleChange={handleInputChange}
-                label='New Password'
-                id='password_new'
+                label="New Password"
+                id="password_new"
                 value={data.password_new}
             />
             <FormInput
-                type='password'
+                type="password"
                 handleChange={handleInputChange}
-                label='Confirm New Password'
-                id='password_new_confirm'
+                label="Confirm New Password"
+                id="password_new_confirm"
                 value={data.password_new_confirm}
             />
-            <div className='row align-items-center my-3'>
-                <div className='col-3 text-end pe-3'></div>
-                <div className='col-9 pe-5 text-end'>
-                    <button className='btn btn-outline-primary'>Update</button>
+            <div className="row align-items-center my-3">
+                <div className="col-3 text-end pe-3"></div>
+                <div className="col-9 pe-5 text-end">
+                    <button className="btn btn-outline-primary">Update</button>
                 </div>
             </div>
         </form>

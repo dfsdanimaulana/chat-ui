@@ -47,75 +47,69 @@ const Register = () => {
     }
 
     return (
-        <div className='container'>
-            <form className='m-2 m-lg-5 p-3 border' onSubmit={handleSubmit}>
-                <h4 className='text-center'>Register form</h4>
+        <div className="container">
+            <form className="m-2 m-lg-5 p-3 border" onSubmit={handleSubmit}>
+                <h4 className="text-center">Register form</h4>
 
-                <div className='row'>
-                    <div className='col-lg-6'>
-                        <div className='mb-3'>
-                            <label htmlFor='username' className='form-label'>
+                <div className="row">
+                    <div className="col-lg-6">
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label">
                                 Username
                             </label>
                             <input
-                                type='text'
-                                className='form-control'
-                                id='username'
-                                name='username'
-                                autoComplete='off'
+                                type="text"
+                                className="form-control"
+                                id="username"
+                                name="username"
+                                autoComplete="off"
                                 onChange={handleChange}
                                 required
                             />
                         </div>
-                        <div className='mb-3'>
-                            <label htmlFor='email' className='form-label'>
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">
                                 Email address
                             </label>
                             <input
-                                type='email'
-                                className='form-control'
-                                id='email'
-                                name='email'
+                                type="email"
+                                className="form-control"
+                                id="email"
+                                name="email"
                                 onChange={handleChange}
-                                aria-describedby='emailHelp'
+                                aria-describedby="emailHelp"
                                 required
                             />
-                            <div id='emailHelp' className='form-text'>
+                            <div id="emailHelp" className="form-text">
                                 We'll never share your email with anyone else.
                             </div>
                         </div>
-                        <div className='row'>
-                            <div className='col'>
-                                <div className='mb-3'>
-                                    <label
-                                        htmlFor='password'
-                                        className='form-label'
-                                    >
+                        <div className="row">
+                            <div className="col">
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">
                                         Password
                                     </label>
                                     <input
-                                        type='password'
-                                        className='form-control'
-                                        id='password'
-                                        name='password'
+                                        type="password"
+                                        className="form-control"
+                                        id="password"
+                                        name="password"
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
                             </div>
-                            <div className='col'>
-                                <div className='mb-3'>
-                                    <label
-                                        htmlFor='confirm_password'
-                                        className='form-label'
-                                    >
+                            <div className="col">
+                                <div className="mb-3">
+                                    <label htmlFor="confirm_password" className="form-label">
                                         Confirm Password
                                     </label>
                                     <input
-                                        type='password'
-                                        className='form-control'
-                                        id='confirm_password'
-                                        name='confirm_password'
+                                        type="password"
+                                        className="form-control"
+                                        id="confirm_password"
+                                        name="confirm_password"
                                         onChange={handleChange}
                                         required
                                     />
@@ -123,58 +117,52 @@ const Register = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-lg-6'>
-                        <div className='mb-3'>
-                            <label htmlFor='birthday' className='form-label'>
+                    <div className="col-lg-6">
+                        <div className="mb-3">
+                            <label htmlFor="birthday" className="form-label">
                                 Birthday
                             </label>
                             <input
-                                type='date'
-                                className='form-control'
-                                id='birthday'
-                                name='birthday'
+                                type="date"
+                                className="form-control"
+                                id="birthday"
+                                name="birthday"
                                 onChange={handleChange}
                                 required
                             />
                         </div>
-                        <div className='mb-3'>
-                            <label htmlFor='email' className='form-label'>
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">
                                 Gender
                             </label>
-                            <div className='row d-flex flex-column'>
-                                <div className='col-4'>
-                                    <div className='form-check'>
+                            <div className="row d-flex flex-column">
+                                <div className="col-4">
+                                    <div className="form-check">
                                         <input
-                                            className='form-check-input'
-                                            type='radio'
-                                            name='gender'
-                                            id='exampleRadios1'
-                                            defaultValue='male'
+                                            className="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="exampleRadios1"
+                                            defaultValue="male"
                                             onChange={handleChange}
                                             defaultChecked
                                         />
-                                        <label
-                                            className='form-check-label'
-                                            htmlFor='exampleRadios1'
-                                        >
+                                        <label className="form-check-label" htmlFor="exampleRadios1">
                                             Male
                                         </label>
                                     </div>
                                 </div>
-                                <div className='col-4'>
-                                    <div className='form-check'>
+                                <div className="col-4">
+                                    <div className="form-check">
                                         <input
-                                            className='form-check-input'
-                                            type='radio'
-                                            name='gender'
+                                            className="form-check-input"
+                                            type="radio"
+                                            name="gender"
                                             onChange={handleChange}
-                                            value='female'
-                                            id='exampleRadios2'
+                                            value="female"
+                                            id="exampleRadios2"
                                         />
-                                        <label
-                                            className='form-check-label'
-                                            htmlFor='exampleRadios2'
-                                        >
+                                        <label className="form-check-label" htmlFor="exampleRadios2">
                                             Female
                                         </label>
                                     </div>
@@ -183,12 +171,12 @@ const Register = () => {
                         </div>
                     </div>
                 </div>
-                <div className='text-center'>
-                    <button type='submit' className='btn btn-primary w-50 mb-3'>
+                <div className="text-center">
+                    <button type="submit" className="btn btn-primary w-50 mb-3">
                         Submit
                     </button>
                     <p>
-                        Have an account? <Link to='/login'>Log in</Link>
+                        Have an account? <Link to="/login">Log in</Link>
                     </p>
                 </div>
             </form>

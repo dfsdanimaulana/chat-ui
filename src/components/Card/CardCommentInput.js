@@ -44,38 +44,35 @@ export default function CardCommentInput({ postId, setCommentOpen }) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className='input-group w-75 w-md-50'>
-            <span
-                className='input-group-text'
-                onClick={() => setIsEmojiChosen((val) => !val)}
-            >
-                <i className='bi bi-emoji-smile'></i>
+        <form onSubmit={handleSubmit} className="input-group w-75 w-md-50">
+            <span className="input-group-text" onClick={() => setIsEmojiChosen((val) => !val)}>
+                <i className="bi bi-emoji-smile"></i>
             </span>
             <input
-                type='text'
+                type="text"
                 required
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                className='form-control'
-                placeholder='Add a comment...'
+                className="form-control"
+                placeholder="Add a comment..."
                 aria-label="Recipient's username"
-                aria-describedby='basic-addon2'
+                aria-describedby="basic-addon2"
             />
-            <button className='input-group-text'>
+            <button className="input-group-text">
                 {isPending ? (
                     <span
-                        className='spinner-border spinner-border-sm text-secondary'
-                        role='status'
-                        aria-hidden='true'
+                        className="spinner-border spinner-border-sm text-secondary"
+                        role="status"
+                        aria-hidden="true"
                     ></span>
                 ) : (
-                    <i className='bi bi-send'></i>
+                    <i className="bi bi-send"></i>
                 )}
             </button>
             {isEmojiChosen && (
                 <div
                     ref={ref}
-                    className='position-absolute'
+                    className="position-absolute"
                     style={{
                         zIndex: 9999,
                         top: '-340px'

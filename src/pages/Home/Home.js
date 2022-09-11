@@ -1,11 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-    fetchPosts,
-    getPostsValue,
-    getPostsStatus,
-    getPostsError
-} from '../../redux/posts'
+import { fetchPosts, getPostsValue, getPostsStatus, getPostsError } from '../../redux/posts'
 import { fetchComments } from '../../redux/comments'
 
 // components
@@ -27,17 +22,10 @@ const Home = () => {
     }, [postsStatus, dispatch])
 
     return (
-        <div className='container mt-3'>
-            <div className='row px-lg-5 pb-5 pb-md-0'>
-                <div className='col'>
-                    {posts &&
-                        posts.map((post) => (
-                            <Card
-                                key={post._id}
-                                id={post.uniqueId}
-                                post={post}
-                            />
-                        ))}
+        <div className="container mt-3">
+            <div className="row px-lg-5 pb-5 pb-md-0">
+                <div className="col">
+                    {posts && posts.map((post) => <Card key={post._id} id={post.uniqueId} post={post} />)}
                     {error && <h1>Filed to fetch data</h1>}
                     {postsStatus === 'loading' && posts.length === 0 && (
                         <>

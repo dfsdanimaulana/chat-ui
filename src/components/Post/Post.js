@@ -58,74 +58,56 @@ export default function Post({ post }) {
     }
 
     return (
-        <div className='card card-widget'>
-            <div className='card-header'>
-                <div className='user-block'>
+        <div className="card card-widget">
+            <div className="card-header">
+                <div className="user-block">
                     <img
-                        className='img-circle post-profile-image'
-                        src='https://source.unsplash.com/random/128x128'
-                        alt='Not found'
+                        className="img-circle post-profile-image"
+                        src="https://source.unsplash.com/random/128x128"
+                        alt="Not found"
                     />
-                    <span className='username'>
-                        <Link to='/'>{post.user.username}</Link>
+                    <span className="username">
+                        <Link to="/">{post.user.username}</Link>
                     </span>
-                    <span className='description'>
-                        Shared publicly -{moment(post.createdAt).fromNow()}
-                    </span>
+                    <span className="description">Shared publicly -{moment(post.createdAt).fromNow()}</span>
                 </div>
                 {/* /.user-block */}
-                <div className='card-tools'>
-                    <button
-                        type='button'
-                        className='btn btn-tool'
-                        title='Mark as read'
-                    >
-                        <i className='far fa-circle' />
+                <div className="card-tools">
+                    <button type="button" className="btn btn-tool" title="Mark as read">
+                        <i className="far fa-circle" />
                     </button>
                 </div>
                 {/* /.card-tools */}
             </div>
             {/* /.card-header */}
-            <div className='card-body'>
-                <img
-                    className='img-fluid pad mb-3 post-image'
-                    src={post.img_post_url}
-                    alt='Not Found'
-                />
+            <div className="card-body">
+                <img className="img-fluid pad mb-3 post-image" src={post.img_post_url} alt="Not Found" />
 
-                <button
-                    type='button'
-                    className='btn btn-default btn-sm'
-                    onClick={handleLikes}
-                >
-                    {likes ? (
-                        <i className='fas fa-heart' />
-                    ) : (
-                        <i className='far fa-heart' />
-                    )}
+                <button type="button" className="btn btn-default btn-sm" onClick={handleLikes}>
+                    {likes ? <i className="fas fa-heart" /> : <i className="far fa-heart" />}
                 </button>
                 <button
-                    type='button'
-                    className='btn btn-default btn-sm'
-                    data-bs-toggle='collapse'
+                    type="button"
+                    className="btn btn-default btn-sm"
+                    data-bs-toggle="collapse"
                     data-bs-target={`#comment${post._id}`}
-                    aria-expanded='false'
-                    aria-controls='commentArea'
+                    aria-expanded="false"
+                    aria-controls="commentArea"
                 >
-                    <i className='far fa-comment' />
+                    <i className="far fa-comment" />
                 </button>
-                <button type='button' className='btn btn-default btn-sm'>
-                    <i className='fas fa-share' />
+                <button type="button" className="btn btn-default btn-sm">
+                    <i className="fas fa-share" />
                 </button>
 
-                <span className='float-right text-muted'>
+                <span className="float-right text-muted">
                     {likeCount} likes - {post.comment.length} comments
                 </span>
-                <p className='mt-3'>{post.caption}</p>
+                <p className="mt-3">{post.caption}</p>
                 {post.hashtag.length > 0 && (
-                    <div className='my-2 fst-italic'>
+                    <div className="my-2 fst-italic">
                         {post.hashtag.map((v, i) => (
-                            <Link to='#' key={i} className='fst-italic'>
+                            <Link to="#" key={i} className="fst-italic">
                                 {`#${v} `}
                             </Link>
                         ))}
@@ -144,20 +126,20 @@ export default function Post({ post }) {
             </div>*/}
             {/* /.card-comment */}
             {/* /.card-footer */}
-            <div className='card-footer'>
+            <div className="card-footer">
                 <form onSubmit={handleComment}>
                     <img
-                        className='img-fluid img-circle img-sm'
-                        src='https://source.unsplash.com/random/128x128'
-                        alt='Alt Text'
+                        className="img-fluid img-circle img-sm"
+                        src="https://source.unsplash.com/random/128x128"
+                        alt="Alt Text"
                     />
                     {/* .img-push is used to add margin to elements next to floating images */}
-                    <div className='img-push'>
+                    <div className="img-push">
                         <input
-                            type='text'
+                            type="text"
                             value={commentMessage}
-                            className='form-control form-control-sm'
-                            placeholder='Press enter to post comment'
+                            className="form-control form-control-sm"
+                            placeholder="Press enter to post comment"
                             onChange={(e) => setCommentMessage(e.target.value)}
                         />
                     </div>

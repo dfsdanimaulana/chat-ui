@@ -21,9 +21,7 @@ export default function Post() {
     const axiosPrivate = useAxiosPrivate()
     const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
     const { width } = useWindowDimensions()
-    const [imgSrc, setImgSrc] = useState([
-        'https://i.ibb.co/g3ffFKB/camera.png'
-    ])
+    const [imgSrc, setImgSrc] = useState(['https://i.ibb.co/g3ffFKB/camera.png'])
 
     const [post, setPost] = useState({
         userId: currentUser._id,
@@ -114,10 +112,7 @@ export default function Post() {
                     const reader = new FileReader()
                     reader.readAsDataURL(file)
                     return (reader.onload = (e) => {
-                        setImgSrc((prevState) => [
-                            ...prevState,
-                            e.target.result
-                        ])
+                        setImgSrc((prevState) => [...prevState, e.target.result])
 
                         setPost((prevState) => ({
                             ...prevState,
@@ -131,90 +126,70 @@ export default function Post() {
     }
 
     return (
-        <form className='container mt-3 mb-5 my-lg-5' onSubmit={handleSubmit}>
-            <div className='row text-center'>
-                <div className='col-12 col-md-6 d-flex flex-column justify-content-center align-items-center'>
+        <form className="container mt-3 mb-5 my-lg-5" onSubmit={handleSubmit}>
+            <div className="row text-center">
+                <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
                     {imgSrc.length > 2 ? (
                         <div
-                            id='postImageCarousel'
-                            className='carousel slide m-2 m-md-3 border'
-                            data-bs-ride='carousel'
+                            id="postImageCarousel"
+                            className="carousel slide m-2 m-md-3 border"
+                            data-bs-ride="carousel"
                             style={carouselStyle(width)}
                         >
-                            <div className='carousel-inner'>
-                                <div className='carousel-item active'>
+                            <div className="carousel-inner">
+                                <div className="carousel-item active">
                                     <img
-                                        src={
-                                            imgSrc.length > 1
-                                                ? imgSrc[1]
-                                                : imgSrc[0]
-                                        }
-                                        className='img-thumbnail'
-                                        alt='...'
+                                        src={imgSrc.length > 1 ? imgSrc[1] : imgSrc[0]}
+                                        className="img-thumbnail"
+                                        alt="..."
                                         style={imageStyle(width)}
                                     />
                                 </div>
                                 {imgSrc.slice(2).map((img, i) => (
-                                    <div key={i} className='carousel-item'>
-                                        <img
-                                            src={img}
-                                            className='img-thumbnail'
-                                            alt='...'
-                                            style={imageStyle(width)}
-                                        />
+                                    <div key={i} className="carousel-item">
+                                        <img src={img} className="img-thumbnail" alt="..." style={imageStyle(width)} />
                                     </div>
                                 ))}
                             </div>
                             <button
-                                className='carousel-control-prev'
-                                type='button'
-                                data-bs-target='#postImageCarousel'
-                                data-bs-slide='prev'
+                                className="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#postImageCarousel"
+                                data-bs-slide="prev"
                             >
-                                <span
-                                    className='carousel-control-prev-icon'
-                                    aria-hidden='true'
-                                />
-                                <span className='visually-hidden'>
-                                    Previous
-                                </span>
+                                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                                <span className="visually-hidden">Previous</span>
                             </button>
                             <button
-                                className='carousel-control-next'
-                                type='button'
-                                data-bs-target='#postImageCarousel'
-                                data-bs-slide='next'
+                                className="carousel-control-next"
+                                type="button"
+                                data-bs-target="#postImageCarousel"
+                                data-bs-slide="next"
                             >
-                                <span
-                                    className='carousel-control-next-icon'
-                                    aria-hidden='true'
-                                />
-                                <span className='visually-hidden'>Next</span>
+                                <span className="carousel-control-next-icon" aria-hidden="true" />
+                                <span className="visually-hidden">Next</span>
                             </button>
                         </div>
                     ) : (
-                        <div className='m-2 m-md-3'>
+                        <div className="m-2 m-md-3">
                             <img
-                                className='img-thumbnail'
+                                className="img-thumbnail"
                                 src={imgSrc.length > 1 ? imgSrc[1] : imgSrc[0]}
-                                alt='...'
+                                alt="..."
                                 style={imageStyle(width)}
                             />
                         </div>
                     )}
-                    <div className='m-3'>
-                        <label
-                            htmlFor='image'
-                            className='btn btn-sm btn-outline-success'
-                        >
+                    <div className="m-3">
+                        <label htmlFor="image" className="btn btn-sm btn-outline-success">
                             Select Image
                         </label>
                         <input
-                            type='file'
+                            type="file"
                             multiple
-                            name='image'
-                            id='image'
-                            accept='image/*'
+                            name="image"
+                            id="image"
+                            accept="image/*"
                             onChange={(e) => {
                                 imagePreview(e)
                             }}
@@ -222,54 +197,45 @@ export default function Post() {
                         />
                     </div>
                 </div>
-                <div className='col-12 col-md-6 text-start d-flex flex-column'>
-                    <div className='m-3 d-none d-md-flex align-items-center'>
-                        <Avatar width={32} thumbnail='false' />
-                        <span className='fw-semibold ms-3'>
-                            {currentUser.username}
-                        </span>
+                <div className="col-12 col-md-6 text-start d-flex flex-column">
+                    <div className="m-3 d-none d-md-flex align-items-center">
+                        <Avatar width={32} thumbnail="false" />
+                        <span className="fw-semibold ms-3">{currentUser.username}</span>
                     </div>
-                    <div className='mb-3 flex-fill'>
-                        <div className='form-floating h-100'>
+                    <div className="mb-3 flex-fill">
+                        <div className="form-floating h-100">
                             <textarea
-                                className='form-control h-100'
-                                placeholder='Leave a comment here'
-                                id='caption'
+                                className="form-control h-100"
+                                placeholder="Leave a comment here"
+                                id="caption"
                                 required
                                 value={post.caption}
                                 onChange={handleChange}
                             />
-                            <label htmlFor='caption'>Captions</label>
+                            <label htmlFor="caption">Captions</label>
                         </div>
                     </div>
-                    <div className='mb-3'>
-                        <div className='form-text mb-1 ms-1 text-italic'>
-                            Separate by space
-                        </div>
-                        <div className='input-group mb-3'>
-                            <span
-                                className='input-group-text'
-                                id='basic-addon1'
-                            >
+                    <div className="mb-3">
+                        <div className="form-text mb-1 ms-1 text-italic">Separate by space</div>
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="basic-addon1">
                                 #
                             </span>
                             <input
-                                type='text'
-                                className='form-control'
-                                id='hashtag'
-                                placeholder='Hashtag'
-                                aria-label='Hashtag'
-                                aria-describedby='basic-addon1'
-                                autoComplete='off'
+                                type="text"
+                                className="form-control"
+                                id="hashtag"
+                                placeholder="Hashtag"
+                                aria-label="Hashtag"
+                                aria-describedby="basic-addon1"
+                                autoComplete="off"
                                 onChange={handleChange}
                                 value={post.hashtag}
                             />
                         </div>
                     </div>
-                    <div className='mb-3 mt-auto align-self-center align-self-md-end me-3 '>
-                        <button className='btn btn-outline-primary px-5'>
-                            Post
-                        </button>
+                    <div className="mb-3 mt-auto align-self-center align-self-md-end me-3 ">
+                        <button className="btn btn-outline-primary px-5">Post</button>
                     </div>
                 </div>
             </div>

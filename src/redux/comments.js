@@ -3,17 +3,14 @@ import axios from '../api/axios'
 
 // handle side effect fetch an api outside reducers, because we can't do that inside reducer
 // create an action creator
-export const fetchComments = createAsyncThunk(
-    'comments/fetchComments',
-    async () => {
-        try {
-            const response = await axios.get('/comment')
-            return [...response.data]
-        } catch (err) {
-            return err.message
-        }
+export const fetchComments = createAsyncThunk('comments/fetchComments', async () => {
+    try {
+        const response = await axios.get('/comment')
+        return [...response.data]
+    } catch (err) {
+        return err.message
     }
-)
+})
 
 export const commentsSlice = createSlice({
     // state name

@@ -23,40 +23,34 @@ const UserList = () => {
             })
     }, [])
     return (
-        <div className='container'>
-            <div className='row'>
-                <div className='col text-center'>
-                    <Link to='/' className='btn btn-primary m-3 d-block'>
+        <div className="container">
+            <div className="row">
+                <div className="col text-center">
+                    <Link to="/" className="btn btn-primary m-3 d-block">
                         Home
                     </Link>
                 </div>
-                <div className='col text-center'>
-                    <Link
-                        to='/register'
-                        className='btn btn-primary m-3 d-block'
-                    >
+                <div className="col text-center">
+                    <Link to="/register" className="btn btn-primary m-3 d-block">
                         Register
                     </Link>
                 </div>
             </div>
-            <div className='row'>
+            <div className="row">
                 {isPending ? (
-                    <div className='d-flex justify-content-center'>
-                        <div className='spinner-border' role='status'>
-                            <span className='visually-hidden'>Loading...</span>
+                    <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 ) : !error ? (
                     users.map((user) => (
-                        <div
-                            className='col-md-6 col-lg-4 col-xl-3'
-                            key={user._id}
-                        >
+                        <div className="col-md-6 col-lg-4 col-xl-3" key={user._id}>
                             <ProfileCard user={user} />
                         </div>
                     ))
                 ) : (
-                    <div className='m-3'>No User</div>
+                    <div className="m-3">No User</div>
                 )}
             </div>
         </div>

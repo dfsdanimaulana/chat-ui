@@ -2,7 +2,7 @@
     "name": "app-client",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://localhost:3003",
+    "proxy": "http://localhost:3003/v1",
     "dependencies": {
         "@reduxjs/toolkit": "^1.6.1",
         "@testing-library/jest-dom": "^5.11.4",

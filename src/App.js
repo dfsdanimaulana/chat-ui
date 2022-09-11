@@ -23,46 +23,46 @@ import Qrcode from './components/QRCode/Qrcode'
 
 const App = () => {
     return (
-        <div className='bg-light'>
+        <div className="bg-light">
             <Router>
                 <Switch>
-                    <ProtectedRoute exact path='/'>
+                    <ProtectedRoute exact path="/">
                         <Navbar />
                         <Home />
                         <Navigation />
                         <Footer />
                     </ProtectedRoute>
-                    <Route exact path='/login'>
+                    <Route exact path="/login">
                         <Login />
                     </Route>
-                    <Route exact path='/register'>
+                    <Route exact path="/register">
                         <Register />
                     </Route>
-                    <ProtectedRoute path='/profile/posts/:id'>
+                    <ProtectedRoute path="/profile/posts/:id">
                         <PostProfile />
                         <Navigation />
                         <Footer />
                     </ProtectedRoute>
-                    <ProtectedRoute path='/profile'>
+                    <ProtectedRoute path="/profile">
                         <Navbar />
                         <Profile />
                         <Navigation />
                         <Footer />
                     </ProtectedRoute>
-                    <ProtectedRoute path='/post/create'>
+                    <ProtectedRoute path="/post/create">
                         <Navbar />
                         <Post />
                         <Navigation />
                     </ProtectedRoute>
-                    <ProtectedRoute path='/setting'>
+                    <ProtectedRoute path="/setting">
                         <Setting />
                         <Navigation />
                         <Footer />
                     </ProtectedRoute>
-                    <ProtectedRoute path='/qr/:id'>
+                    <ProtectedRoute path="/qr/:id">
                         <Qrcode />
                     </ProtectedRoute>
-                    <Route exact path='*'>
+                    <Route exact path="*">
                         <PageNotFound />
                     </Route>
                 </Switch>

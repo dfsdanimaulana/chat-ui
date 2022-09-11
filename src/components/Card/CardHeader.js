@@ -33,25 +33,21 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
         <>
             <div>
                 <Avatar width={42} image={post.user.img_thumb} />
-                <span className='card-title fs-6 fw-bold ms-2 text-secondary'>
-                    {post.user.username}
-                </span>
+                <span className="card-title fs-6 fw-bold ms-2 text-secondary">{post.user.username}</span>
             </div>
-            <div className='fs-6'>
+            <div className="fs-6">
                 {isPending ? (
                     <span
-                        className='spinner-border spinner-border-sm text-secondary ms-2'
-                        role='status'
-                        aria-hidden='true'
+                        className="spinner-border spinner-border-sm text-secondary ms-2"
+                        role="status"
+                        aria-hidden="true"
                     ></span>
                 ) : (
                     <span>
                         <i
                             className={
                                 currentUser.savedPost &&
-                                currentUser.savedPost.filter(
-                                    (savedPost) => savedPost._id === post._id
-                                ).length === 0
+                                currentUser.savedPost.filter((savedPost) => savedPost._id === post._id).length === 0
                                     ? 'bi bi-bookmark'
                                     : 'bi bi-bookmark-fill'
                             }
@@ -66,7 +62,7 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
                     aria-controls={width < 768 && 'offcanvasCard'}
                     onClick={() => width >= 768 && setIsOpen(true)}
                 >
-                    <i className='bi bi-three-dots-vertical ms-3'></i>
+                    <i className="bi bi-three-dots-vertical ms-3"></i>
                 </span>
             </div>
         </>

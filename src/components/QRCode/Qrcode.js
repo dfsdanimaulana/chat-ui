@@ -25,28 +25,26 @@ export default function Qrcode() {
     }, [id])
 
     return (
-        <div className='container d-flex justify-content-center align-item-center'>
-            <div className='card'>
+        <div className="container d-flex justify-content-center align-item-center">
+            <div className="card">
                 {qr && (
                     <>
                         <img
                             src={qr}
-                            alt='...'
-                            className='card-img-top'
+                            alt="..."
+                            className="card-img-top"
                             style={{
                                 width: '200px',
                                 height: '200px',
                                 objectFit: 'cover'
                             }}
                         />
-                        <div className='card-body text-center'>
-                            <button className='btn btn-outline-info'>
-                                Download
-                            </button>
+                        <div className="card-body text-center">
+                            <button className="btn btn-outline-info">Download</button>
                         </div>
                     </>
                 )}
-                {error && <div className='my-5'>Failed to generate QRCode</div>}
+                {error && <div className="my-5">Failed to generate QRCode</div>}
             </div>
         </div>
     )

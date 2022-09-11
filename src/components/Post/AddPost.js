@@ -69,127 +69,93 @@ const AddPost = () => {
     }
 
     return (
-        <div className='card m-2 mx-md-5 mb-5 mb-sm-0'>
-            <div className='card-header'>
+        <div className="card m-2 mx-md-5 mb-5 mb-sm-0">
+            <div className="card-header">
                 {error && (
-                    <div
-                        className='alert alert-danger alert-dismissible fade show'
-                        role='alert'
-                    >
+                    <div className="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Upss</strong> Failed to send your post.
-                        <button
-                            type='button'
-                            className='btn-close'
-                            data-bs-dismiss='alert'
-                            aria-label='Close'
-                        />
+                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
                     </div>
                 )}
 
-                <div className='user-block'>
-                    <img
-                        className='img-circle'
-                        src='https://source.unsplash.com/random/128x128'
-                        alt='Not found'
-                    />
-                    <span className='username'>
-                        {currentUser.username
-                            ? currentUser.username
-                            : 'No User'}
-                    </span>
-                    <span className='description'>
+                <div className="user-block">
+                    <img className="img-circle" src="https://source.unsplash.com/random/128x128" alt="Not found" />
+                    <span className="username">{currentUser.username ? currentUser.username : 'No User'}</span>
+                    <span className="description">
                         Edit post location
-                        <Link to='#'>
-                            <i className='far fa-edit ms-2'></i>
+                        <Link to="#">
+                            <i className="far fa-edit ms-2"></i>
                         </Link>
                     </span>
                 </div>
                 {/* /.user-block */}
-                <div className='card-tools'>
-                    <button
-                        type='button'
-                        className='btn btn-tool'
-                        title='More Options'
-                    >
-                        <i className='far fa-circle'></i>
+                <div className="card-tools">
+                    <button type="button" className="btn btn-tool" title="More Options">
+                        <i className="far fa-circle"></i>
                     </button>
                 </div>
                 {/* /.card-tools */}
             </div>
             {/* /.card-header */}
-            <div className='card-body'>
+            <div className="card-body">
                 <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor='image' className='form-label'>
+                    <div className="mb-3">
+                        <label htmlFor="image" className="form-label">
                             {imgSrc ? (
-                                <img
-                                    className='img-fluid pad mb-3'
-                                    src={imgSrc}
-                                    alt='Not Found'
-                                />
+                                <img className="img-fluid pad mb-3" src={imgSrc} alt="Not Found" />
                             ) : (
-                                <div className='card'>
-                                    <div className='card-body'>
-                                        Select Image
-                                    </div>
+                                <div className="card">
+                                    <div className="card-body">Select Image</div>
                                 </div>
                             )}
                         </label>
                         <input
-                            className='form-control'
-                            id='image'
-                            type='file'
-                            accept='image/*'
+                            className="form-control"
+                            id="image"
+                            type="file"
+                            accept="image/*"
                             onChange={(e) => {
                                 imagePreview(e)
                             }}
                             hidden={true}
                         />
                     </div>
-                    <div className='form-floating mb-3'>
+                    <div className="form-floating mb-3">
                         <textarea
-                            className='form-control'
-                            placeholder='Leave a caption here'
-                            id='caption'
+                            className="form-control"
+                            placeholder="Leave a caption here"
+                            id="caption"
                             required
                             defaultValue={''}
                             onChange={handleChange}
                         />
-                        <label htmlFor='floatingTextarea'>
-                            <p className='fw-normal fst-italic'>Caption</p>
+                        <label htmlFor="floatingTextarea">
+                            <p className="fw-normal fst-italic">Caption</p>
                         </label>
                     </div>
 
                     <div className='input-group aria-describedby="hashHelp"'>
-                        <span className='input-group-text'>#</span>
+                        <span className="input-group-text">#</span>
                         <input
-                            type='text'
-                            className='form-control'
-                            placeholder='Hashtag'
-                            id='hashtag'
-                            autoComplete='off'
+                            type="text"
+                            className="form-control"
+                            placeholder="Hashtag"
+                            id="hashtag"
+                            autoComplete="off"
                             onChange={handleChange}
                         />
                     </div>
-                    <div className='form-text' id='hashHelp'>
+                    <div className="form-text" id="hashHelp">
                         Separate by space.
                     </div>
-                    <div className='d-grid my-3'>
+                    <div className="d-grid my-3">
                         {isPending ? (
-                            <button
-                                className='btn btn-primary'
-                                type='button'
-                                disabled
-                            >
+                            <button className="btn btn-primary" type="button" disabled>
                                 Posting
-                                <span
-                                    className='spinner-border spinner-border-sm'
-                                    role='status'
-                                    aria-hidden='true'
-                                />
+                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
                             </button>
                         ) : (
-                            <button type='submit' className='btn btn-primary'>
+                            <button type="submit" className="btn btn-primary">
                                 Post
                             </button>
                         )}

@@ -30,9 +30,7 @@ export default function Card({ post, id }) {
     const postsStatus = useSelector(getPostsStatus)
     const dispatch = useDispatch()
 
-    const comments = allComments.filter(
-        (comment) => comment.postId === post._id
-    )
+    const comments = allComments.filter((comment) => comment.postId === post._id)
 
     const [isOpen, setIsOpen] = useState(false)
     const [commentOpen, setCommentOpen] = useState(false)
@@ -73,81 +71,43 @@ export default function Card({ post, id }) {
     }
 
     return (
-        <div className='card mb-3' style={cardStyle(width)}>
-            <div className='d-flex d-md-none justify-content-between align-items-center p-1 pe-2'>
-                <CardHeader
-                    post={post}
-                    width={width}
-                    setIsOpen={setIsOpen}
-                    id={id}
-                    currentUser={currentUser}
-                />
+        <div className="card mb-3" style={cardStyle(width)}>
+            <div className="d-flex d-md-none justify-content-between align-items-center p-1 pe-2">
+                <CardHeader post={post} width={width} setIsOpen={setIsOpen} id={id} currentUser={currentUser} />
             </div>
-            <div className='row g-0 h-100'>
+            <div className="row g-0 h-100">
                 <CardImage width={width} post={post} id={id} />
-                <div
-                    ref={cardBodyRef}
-                    className='col-md-6 d-flex flex-column justify-content-between'
-                >
-                    <div className='card-body d-flex flex-column p-0'>
+                <div ref={cardBodyRef} className="col-md-6 d-flex flex-column justify-content-between">
+                    <div className="card-body d-flex flex-column p-0">
                         {commentOpen ? (
                             <CardComment
                                 post={post}
-                                height={
-                                    cardBodyRef.current.clientHeight -
-                                    ref.current.clientHeight
-                                }
+                                height={cardBodyRef.current.clientHeight - ref.current.clientHeight}
                                 comments={comments}
                             />
                         ) : (
-                            <CardCaption
-                                id={id}
-                                post={post}
-                                width={width}
-                                setIsOpen={setIsOpen}
-                            />
+                            <CardCaption id={id} post={post} width={width} setIsOpen={setIsOpen} />
                         )}
                     </div>
-                    <div
-                        ref={ref}
-                        className='card-footer d-flex justify-content-between'
-                    >
-                        <CardCommentInput
-                            postId={post._id}
-                            setCommentOpen={setCommentOpen}
-                        />
-                        <div className='d-flex justify-content-around align-items-center text-secondary fw-bold'>
-                            <span className='fw-lighter text-secondary ms-3'>
-                                {comments.length}
-                            </span>
-                            <i
-                                className='bi bi-chat-left-dots ms-2'
-                                onClick={() => setCommentOpen((val) => !val)}
-                            ></i>
-                            <span className='fw-lighter text-secondary ms-3'>
-                                {post.like.length}
-                            </span>
+                    <div ref={ref} className="card-footer d-flex justify-content-between">
+                        <CardCommentInput postId={post._id} setCommentOpen={setCommentOpen} />
+                        <div className="d-flex justify-content-around align-items-center text-secondary fw-bold">
+                            <span className="fw-lighter text-secondary ms-3">{comments.length}</span>
+                            <i className="bi bi-chat-left-dots ms-2" onClick={() => setCommentOpen((val) => !val)}></i>
+                            <span className="fw-lighter text-secondary ms-3">{post.like.length}</span>
                             {postsStatus === 'loading' || isPending ? (
                                 <span
-                                    className='spinner-border spinner-border-sm text-secondary ms-2'
-                                    role='status'
-                                    aria-hidden='true'
+                                    className="spinner-border spinner-border-sm text-secondary ms-2"
+                                    role="status"
+                                    aria-hidden="true"
                                 ></span>
                             ) : (
-                                <i
-                                    className={likeIconClass()}
-                                    onClick={handleLikeClick}
-                                ></i>
+                                <i className={likeIconClass()} onClick={handleLikeClick}></i>
                             )}
                         </div>
                     </div>
                     <CardPopup id={id} data={post} />
-                    <CardModal
-                        id={id}
-                        data={post}
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                    />
+                    <CardModal id={id} data={post} isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
             </div>
         </div>

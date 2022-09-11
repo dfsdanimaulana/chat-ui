@@ -35,7 +35,7 @@ export default function CardOptionList({ data, setIsOpen }) {
                 cogoToast.error('Failed to delete post!')
             })
     }
-    
+
     const handleSavePost = async () => {
         setIsOpen && setIsOpen(false)
         try {
@@ -51,32 +51,28 @@ export default function CardOptionList({ data, setIsOpen }) {
     }
 
     return (
-        <ul className='list-group list-group-flush'>
+        <ul className="list-group list-group-flush">
             {data.user._id === currentUser._id && (
-                <li className='list-group-item bg-light' style={listStyle}>
+                <li className="list-group-item bg-light" style={listStyle}>
                     Edit post
                 </li>
             )}
-            <li className='list-group-item bg-light' style={listStyle} onClick={handleSavePost} data-bs-dismiss='offcanvas'>
-                {
-                      currentUser.savedPost &&
-                      currentUser.savedPost.filter(
-                          (savedPost) => savedPost._id === data._id
-                      ).length === 0
-                          ? 'Add to favorites'
-                          : 'Remove from favorites'
-                  }
+            <li className="list-group-item bg-light" style={listStyle} onClick={handleSavePost} data-bs-dismiss="offcanvas">
+                {currentUser.savedPost &&
+                currentUser.savedPost.filter((savedPost) => savedPost._id === data._id).length === 0
+                    ? 'Add to favorites'
+                    : 'Remove from favorites'}
             </li>
-            <li className='list-group-item bg-light' style={listStyle}>
+            <li className="list-group-item bg-light" style={listStyle}>
                 About this account
             </li>
-            <li className='list-group-item bg-light' style={listStyle}>
+            <li className="list-group-item bg-light" style={listStyle}>
                 Unfollow
             </li>
             {data.user._id === currentUser._id && (
                 <li
-                    data-bs-dismiss='offcanvas'
-                    className='list-group-item bg-light text-danger'
+                    data-bs-dismiss="offcanvas"
+                    className="list-group-item bg-light text-danger"
                     onClick={handleDelete}
                     style={listStyle}
                 >

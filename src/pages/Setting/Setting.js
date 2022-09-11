@@ -15,13 +15,13 @@ export default function Setting() {
 
     return (
         <>
-            {width < 768 ? <Nav title='Setting' /> : <Navbar />}
-            <div className='container mb-5'>
-                <div className='row mt-md-3'>
-                    <div className='col-md-4 border d-none d-md-block'>
+            {width < 768 ? <Nav title="Setting" /> : <Navbar />}
+            <div className="container mb-5">
+                <div className="row mt-md-3">
+                    <div className="col-md-4 border d-none d-md-block">
                         <SettingLink />
                     </div>
-                    <div className='col-md-8 border p-md-3'>
+                    <div className="col-md-8 border p-md-3">
                         <Switch>
                             <Route exact path={path}>
                                 <EditProfile currentUser={currentUser} />
@@ -30,9 +30,7 @@ export default function Setting() {
                                 <ChangePassword currentUser={currentUser} />
                             </Route>
                             <Route path={`${path}/change_profile_picture`}>
-                                <ChangeProfilePicture
-                                    currentUser={currentUser}
-                                />
+                                <ChangeProfilePicture currentUser={currentUser} />
                             </Route>
                         </Switch>
                     </div>

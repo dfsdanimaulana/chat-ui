@@ -16,35 +16,31 @@ export default function CardPopup({ data, id }) {
 
     return (
         <div
-            className='offcanvas offcanvas-md offcanvas-bottom rounded-5 rounded-bottom d-md-none bg-light'
+            className="offcanvas offcanvas-md offcanvas-bottom rounded-5 rounded-bottom d-md-none bg-light"
             tabIndex={-1}
             id={'offcanvasCard' + id}
-            aria-labelledby='offcanvasCardLabel'
+            aria-labelledby="offcanvasCardLabel"
             style={{
                 minHeight: '40vh'
             }}
         >
-            <div className='offcanvas-header px-4'>
-                <div className='bg-info rounded-circle' style={itemStyle}>
-                    <i className='bi bi-share'></i>
+            <div className="offcanvas-header px-4">
+                <div className="bg-info rounded-circle" style={itemStyle}>
+                    <i className="bi bi-share"></i>
                 </div>
-                <div className='bg-info rounded-circle' style={itemStyle}>
-                    <i className='bi bi-link-45deg'></i>
+                <div className="bg-info rounded-circle" style={itemStyle}>
+                    <i className="bi bi-link-45deg"></i>
                 </div>
-                <div
-                    className='bg-info rounded-circle'
-                    style={itemStyle}
-                    aria-label='Close'
-                >
-                    <Link to={'/qr/' + data._id} className='text-light'>
-                        <i className='bi bi-qr-code-scan'></i>
+                <div className="bg-info rounded-circle" style={itemStyle} aria-label="Close">
+                    <Link to={'/qr/' + data._id} className="text-light">
+                        <i className="bi bi-qr-code-scan"></i>
                     </Link>
                 </div>
-                <div className='bg-info rounded-circle' style={itemStyle}>
-                    <i className='bi bi-flag'></i>
+                <div className="bg-info rounded-circle" style={itemStyle}>
+                    <i className="bi bi-flag"></i>
                 </div>
             </div>
-            <div className='offcanvas-body'>
+            <div className="offcanvas-body">
                 <CardOptionList data={data} currentUser={currentUser} />
             </div>
         </div>

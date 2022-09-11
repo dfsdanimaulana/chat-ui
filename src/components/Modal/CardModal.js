@@ -51,37 +51,24 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
                 content: contentStyle
             }}
         >
-            <div
-                ref={cardRef}
-                className='card rounded-4 bg-light'
-                style={cardStyle}
-            >
-                <div className='card-body mt-3'>
-                    <CardOptionList
-                        currentUser={currentUser}
-                        data={data}
-                        setIsOpen={setIsOpen}
-                    />
+            <div ref={cardRef} className="card rounded-4 bg-light" style={cardStyle}>
+                <div className="card-body mt-3">
+                    <CardOptionList currentUser={currentUser} data={data} setIsOpen={setIsOpen} />
                 </div>
-                <div className='card-footer d-flex justify-content-between'>
-                    <div className='bg-light rounded-circle' style={itemStyle}>
-                        <i className='bi bi-share'></i>
+                <div className="card-footer d-flex justify-content-between">
+                    <div className="bg-light rounded-circle" style={itemStyle}>
+                        <i className="bi bi-share"></i>
                     </div>
-                    <div className='bg-light rounded-circle' style={itemStyle}>
-                        <i className='bi bi-link-45deg'></i>
+                    <div className="bg-light rounded-circle" style={itemStyle}>
+                        <i className="bi bi-link-45deg"></i>
                     </div>
-                    <div
-                        className='bg-light rounded-circle'
-                        style={itemStyle}
-                        data-bs-dismiss='modal'
-                        aria-label='Close'
-                    >
-                        <Link to={'/qr/' + data._id} className='text-dark'>
-                            <i className='bi bi-qr-code-scan'></i>
+                    <div className="bg-light rounded-circle" style={itemStyle} data-bs-dismiss="modal" aria-label="Close">
+                        <Link to={'/qr/' + data._id} className="text-dark">
+                            <i className="bi bi-qr-code-scan"></i>
                         </Link>
                     </div>
-                    <div className='bg-light rounded-circle' style={itemStyle}>
-                        <i className='bi bi-flag'></i>
+                    <div className="bg-light rounded-circle" style={itemStyle}>
+                        <i className="bi bi-flag"></i>
                     </div>
                 </div>
             </div>
