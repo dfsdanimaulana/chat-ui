@@ -5,7 +5,7 @@ import axios from '../api/axios'
 // create an action creator
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     try {
-        const response = await axios.get('/post')
+        const response = await axios.get('/post?populate=user,like&sortBy=createdAt:desc')
         return [...response.data]
     } catch (err) {
         return err.message
@@ -13,14 +13,12 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 })
 
 export const postsSlice = createSlice({
-    // state name
     name: 'posts',
     initialState: {
         value: [],
         status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
         error: null
     },
-    // function to change state value
     reducers: {
         updatePostsStatus: async (state, action) => {
             state.status = action.payload

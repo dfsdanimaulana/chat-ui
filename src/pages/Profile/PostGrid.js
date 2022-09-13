@@ -9,36 +9,7 @@ const fakeImages = [
     'https://picsum.photos/500'
 ]
 
-export function PostImages({ image, imageStyle, postId }) {
-    const history = useHistory()
-
-    return (
-        <div className="col-4 mb-3 position-relative">
-            {image.length > 1 && (
-                <div
-                    className="position-absolute top-0 end-0 me-3"
-                    style={{
-                        fontSize: '12px',
-                        color: '#fff'
-                    }}
-                >
-                    <i className="bi bi-back"></i>
-                </div>
-            )}
-            <img src={image[0]} alt="..." style={imageStyle} onClick={() => history.push('/profile/posts/' + postId)} />
-        </div>
-    )
-}
-
-export function PostReels({ image, imageStyle }) {
-    return (
-        <div className="col-4 mb-3">
-            <img src={image} alt="..." style={imageStyle} />
-        </div>
-    )
-}
-
-export default function PostGrid({ posts, currentUser }) {
+export default function PostGrid({ post, currentUser }) {
     const { width } = useWindowDimensions()
 
     const imageStyles = (w) => {
@@ -75,12 +46,12 @@ export default function PostGrid({ posts, currentUser }) {
             <Switch>
                 <Route exact path={path}>
                     <div className="row">
-                        {posts &&
-                            posts.map((post) => (
+                        {post &&
+                            post.map((pst) => (
                                 <PostImages
-                                    key={post._id}
-                                    postId={post.uniqueId}
-                                    image={post.img_post_url}
+                                    key={pst._id}
+                                    postId={pst.uniqueId}
+                                    image={pst.img_post_url}
                                     imageStyle={imageStyles(width)}
                                 />
                             ))}
@@ -107,5 +78,34 @@ export default function PostGrid({ posts, currentUser }) {
                 </Route>
             </Switch>
         </>
+    )
+}
+
+export function PostImages({ image, imageStyle, postId }) {
+    const history = useHistory()
+
+    return (
+        <div className="col-4 mb-3 position-relative">
+            {image.length > 1 && (
+                <div
+                    className="position-absolute top-0 end-0 me-3"
+                    style={{
+                        fontSize: '12px',
+                        color: '#fff'
+                    }}
+                >
+                    <i className="bi bi-back"></i>
+                </div>
+            )}
+            <img src={image[0]} alt="..." style={imageStyle} onClick={() => history.push('/profile/posts/' + postId)} />
+        </div>
+    )
+}
+
+export function PostReels({ image, imageStyle }) {
+    return (
+        <div className="col-4 mb-3">
+            <img src={image} alt="..." style={imageStyle} />
+        </div>
     )
 }

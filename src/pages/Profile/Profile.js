@@ -84,7 +84,7 @@ export default function Profile() {
             </div>
             <div className="row justify-content-center">
                 {postStatus === 'loading' && <PostGridPlaceholder />}
-                {userPosts && <PostGrid posts={userPosts} currentUser={currentUser} />}
+                {userPosts && <PostGrid post={userPosts} currentUser={currentUser} />}
                 {error && <h1>Not found</h1>}
             </div>
         </div>

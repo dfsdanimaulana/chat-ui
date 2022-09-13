@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../Avatar/Avatar'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
 import { fetchUser, getUserValue } from '../../redux/user'
+import { fetchPosts } from '../../redux/posts'
+import { fetchPost } from '../../redux/post'
 
 export default function CardHeader({ post, width, setIsOpen, id }) {
     const currentUser = useSelector(getUserValue)
@@ -23,6 +25,8 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
             setIsPending(false)
             cogoToast.success(savePost.data.message)
             dispatch(fetchUser(currentUser._id))
+            dispatch(fetchPosts())
+            dispatch(fetchPost(currentUser._id))
         } catch (err) {
             cogoToast.error(err.message)
             setIsPending(false)
@@ -47,9 +51,9 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
                         <i
                             className={
                                 currentUser.savedPost &&
-                                currentUser.savedPost.filter((savedPost) => savedPost._id === post._id).length === 0
-                                    ? 'bi bi-bookmark'
-                                    : 'bi bi-bookmark-fill'
+                                currentUser.savedPost.filter((savedPost) => savedPost._id === post._id).length
+                                    ? 'bi bi-bookmark-fill'
+                                    : 'bi bi-bookmark'
                             }
                             onClick={handleSavePost}
                         ></i>

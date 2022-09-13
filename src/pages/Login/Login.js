@@ -3,7 +3,7 @@ import { useState } from 'react'
 import axios from '../../api/axios'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { login } from '../../redux/user'
+import { fetchUser, login } from '../../redux/user'
 import { loggedIn } from '../../redux/auth'
 import cogoToast from 'cogo-toast'
 import LoginSVG from '../../assets/svg/Login.svg'
@@ -61,6 +61,7 @@ export default function SignIn() {
             hide()
 
             dispatch(login(user.data))
+            dispatch(fetchUser(user.data._id))
             dispatch(loggedIn())
             history.push('/')
         } catch (err) {

@@ -5,7 +5,7 @@ import axios from '../api/axios'
 // create an action creator
 export const fetchComments = createAsyncThunk('comments/fetchComments', async () => {
     try {
-        const response = await axios.get('/comment')
+        const response = await axios.get('/comment?populate=sender')
         return [...response.data]
     } catch (err) {
         return err.message

@@ -3,7 +3,7 @@ import axios from '../api/axios'
 
 export const fetchPost = createAsyncThunk('post/fetchPost', async (userId) => {
     try {
-        const response = await axios.get('/post/user/' + userId)
+        const response = await axios.get('/post?populate=user&userId=' + userId)
         return [...response.data]
     } catch (err) {
         return err.message
@@ -11,14 +11,12 @@ export const fetchPost = createAsyncThunk('post/fetchPost', async (userId) => {
 })
 
 export const postSlice = createSlice({
-    // state name
     name: 'post',
     initialState: {
         value: [],
         status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
         error: null
     },
-    // function to change state value
     reducers: {
         updatePostStatus: (state, action) => {
             state.status = action.payload
@@ -29,7 +27,7 @@ export const postSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchPost.pending, (state, action) => {
+            .addCase(fetchPost.pending, (state) => {
                 state.status = 'loading'
             })
             .addCase(fetchPost.fulfilled, (state, action) => {
