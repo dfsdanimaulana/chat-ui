@@ -74,6 +74,17 @@ export default function SignIn() {
         }
     }
 
+    const google = () => {
+        window.open('http://localhost:3003/v1/auth/google', '_self')
+    }
+    const facebook = () => {
+        // require https domain in order to work
+        window.open('http://localhost:3003/v1/auth/facebook', '_self')
+    }
+    const github = () => {
+        window.open('http://localhost:3003/v1/auth/github', '_self')
+    }
+
     return (
         <div className="container">
             <div className="row align-items-center">
@@ -124,14 +135,14 @@ export default function SignIn() {
                         </div>
                         <p className="line my-3">or</p>
                         <div className="d-flex justify-content-evenly my-3">
-                            <button type="button" className="btn btn-outline-primary rounded-circle">
+                            <button type="button" className="btn btn-outline-primary rounded-circle" onClick={google}>
                                 <i className="bi bi-google"></i>
                             </button>
-                            <button type="button" className="btn btn-outline-primary rounded-circle">
+                            <button type="button" className="btn btn-outline-primary rounded-circle" onClick={facebook}>
                                 <i className="bi bi-facebook"></i>
                             </button>
-                            <button type="button" className="btn btn-outline-primary rounded-circle">
-                                <i className="bi bi-twitter"></i>
+                            <button type="button" className="btn btn-outline-primary rounded-circle" onClick={github}>
+                                <i className="bi bi-github"></i>
                             </button>
                         </div>
                         <p className="small text-center">
