@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../Avatar/Avatar'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
-import { fetchUser, getUserValue } from '../../redux/user'
-import { fetchPosts } from '../../redux/posts'
-import { fetchPost } from '../../redux/post'
+import { useUser } from '../../hooks/useUser'
+import { usePosts } from '../../hooks/usePosts'
+import { usePost } from '../../hooks/usePost'
 
 export default function CardHeader({ post, width, setIsOpen, id }) {
-    const currentUser = useSelector(getUserValue)
-    const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
+    const { user, getUser } = useUser()
+    const { getPosts } = usePosts()
+    const { getPost } = usePost()
     const [isPending, setIsPending] = useState(false)
 
     const handleSavePost = async () => {
@@ -19,14 +19,14 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
         try {
             const savePost = await axiosPrivate.put('/post/save', {
                 postId: post._id,
-                userId: currentUser._id
+                userId: user._id
             })
 
             setIsPending(false)
             cogoToast.success(savePost.data.message)
-            dispatch(fetchUser(currentUser._id))
-            dispatch(fetchPosts())
-            dispatch(fetchPost(currentUser._id))
+            getUser(user._id)
+            getPosts()
+            getPost(user._id)
         } catch (err) {
             cogoToast.error(err.message)
             setIsPending(false)
@@ -50,8 +50,7 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
                     <span>
                         <i
                             className={
-                                currentUser.savedPost &&
-                                currentUser.savedPost.filter((savedPost) => savedPost._id === post._id).length
+                                user.savedPost && user.savedPost.filter((savedPost) => savedPost._id === post._id).length
                                     ? 'bi bi-bookmark-fill'
                                     : 'bi bi-bookmark'
                             }

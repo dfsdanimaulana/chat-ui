@@ -3,16 +3,12 @@ import { useState, useRef } from 'react'
 // helpers
 import cogoToast from 'cogo-toast'
 
-// state management
-import { useDispatch, useSelector } from 'react-redux'
-import { getCommentsValue } from '../../redux/comments'
-import { getUserValue } from '../../redux/user'
-import { fetchPosts, getPostsStatus } from '../../redux/posts'
-import { fetchPost } from '../../redux/post'
-
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import { useComments } from '../../hooks/useComments'
+import { useUser } from '../../hooks/useUser'
+import { usePosts } from '../../hooks/usePosts'
 
 // components
 import CardCommentInput from './CardCommentInput'
@@ -25,10 +21,9 @@ import CardHeader from './CardHeader'
 
 export default function Card({ post, id }) {
     const axiosPrivate = useAxiosPrivate()
-    const allComments = useSelector(getCommentsValue)
-    const currentUser = useSelector(getUserValue)
-    const postsStatus = useSelector(getPostsStatus)
-    const dispatch = useDispatch()
+    const { comments: allComments } = useComments()
+    const { user, getUser } = useUser()
+    const { status, getPosts } = usePosts()
 
     const comments = allComments.filter((comment) => comment.postId === post._id)
 
@@ -47,33 +42,30 @@ export default function Card({ post, id }) {
     }
 
     const handleLikeClick = async () => {
-        if (postsStatus === 'loading' || isPending) return
+        if (status === 'loading' || isPending) return
 
         // push user id to post like array
         setIsPending(true)
         axiosPrivate
             .put('/post/like', {
                 postId: post._id,
-                userId: currentUser._id
+                userId: user._id
             })
             .then(() => {
-                dispatch(fetchPosts())
-                dispatch(fetchPost(currentUser._id))
+                getPosts()
+                getUser(user._id)
             })
             .catch((err) => cogoToast.error(err.message))
             .finally(() => setIsPending(false))
     }
 
-    const likeIconClass = () => {
-        const isLiked = post.like.filter((user) => user._id === currentUser._id)
-
-        return isLiked.length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
-    }
+    const likeIconClass = () =>
+        post.like.filter((user) => user._id === user._id).length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
 
     return (
         <div className="card mb-3" style={cardStyle(width)}>
             <div className="d-flex d-md-none justify-content-between align-items-center p-1 pe-2">
-                <CardHeader post={post} width={width} setIsOpen={setIsOpen} id={id} currentUser={currentUser} />
+                <CardHeader post={post} width={width} setIsOpen={setIsOpen} id={id} />
             </div>
             <div className="row g-0 h-100">
                 <CardImage width={width} post={post} id={id} />
@@ -95,7 +87,7 @@ export default function Card({ post, id }) {
                             <span className="fw-lighter text-secondary ms-3">{comments.length}</span>
                             <i className="bi bi-chat-left-dots ms-2" onClick={() => setCommentOpen((val) => !val)}></i>
                             <span className="fw-lighter text-secondary ms-3">{post.like.length}</span>
-                            {postsStatus === 'loading' || isPending ? (
+                            {status === 'loading' || isPending ? (
                                 <span
                                     className="spinner-border spinner-border-sm text-secondary ms-2"
                                     role="status"

@@ -1,16 +1,17 @@
 import Picker from 'emoji-picker-react'
 import { useState, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
-import { fetchComments } from '../../redux/comments'
 import cogoToast from 'cogo-toast'
+import { useUser } from '../../hooks/useUser'
+import { useComments } from '../../hooks/useComments'
 
 export default function CardCommentInput({ postId, setCommentOpen }) {
-    const dispatch = useDispatch()
     const axiosPrivate = useAxiosPrivate()
-    const currentUser = useSelector((state) => state.user.value)
     const ref = useRef()
+    const { user } = useUser()
+    const { getComments } = useComments()
+
     const [inputText, setInputText] = useState('')
     const [isEmojiChosen, setIsEmojiChosen] = useState(false)
     const [isPending, setIsPending] = useState(false)
@@ -27,13 +28,13 @@ export default function CardCommentInput({ postId, setCommentOpen }) {
 
         const data = {
             msg: inputText,
-            senderId: currentUser._id,
+            senderId: user._id,
             postId
         }
 
         try {
             await axiosPrivate.post('/comment', data)
-            dispatch(fetchComments(postId))
+            getComments(postId)
             setCommentOpen(true)
             setInputText('')
         } catch (err) {
