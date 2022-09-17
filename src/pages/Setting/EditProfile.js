@@ -1,22 +1,23 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import Avatar from '../../components/Avatar/Avatar'
-import { useDispatch } from 'react-redux'
-import { login } from '../../redux/user'
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
+import { Link } from 'react-router-dom'
+import { useUser } from '../../hooks/useUser'
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 
-export default function EditProfile({ currentUser }) {
+// components
+import Avatar from '../../components/Avatar/Avatar'
+
+export default function EditProfile({ user }) {
+    const { login } = useUser()
     const axiosPrivate = useAxiosPrivate()
-    const dispatch = useDispatch()
 
     const [data, setData] = useState({
-        _id: currentUser._id,
-        username: currentUser.username,
-        name: currentUser.name,
-        email: currentUser.email,
-        desc: currentUser.desc,
-        gender: currentUser.gender
+        _id: user._id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        desc: user.desc,
+        gender: user.gender
     })
 
     const handleInputChange = (e) => {
@@ -34,12 +35,12 @@ export default function EditProfile({ currentUser }) {
 
         // check if there's any update
         if (
-            data._id === currentUser._id &&
-            data.username === currentUser.username &&
-            data.name === currentUser.name &&
-            data.email === currentUser.email &&
-            data.desc === currentUser.desc &&
-            data.gender === currentUser.gender
+            data._id === user._id &&
+            data.username === user.username &&
+            data.name === user.name &&
+            data.email === user.email &&
+            data.desc === user.desc &&
+            data.gender === user.gender
         ) {
             hide()
             cogoToast.info('Nothing to update!')
@@ -49,7 +50,7 @@ export default function EditProfile({ currentUser }) {
             .put(`/user/update`, data)
             .then((user) => {
                 const updatedUser = {
-                    ...currentUser,
+                    ...user,
                     username: user.data.username,
                     name: user.data.name,
                     email: user.data.email,
@@ -57,7 +58,7 @@ export default function EditProfile({ currentUser }) {
                     gender: user.data.gender
                 }
                 hide()
-                dispatch(login(updatedUser))
+                login(updatedUser)
                 cogoToast.success('Update successfully!')
             })
             .catch((err) => {
@@ -77,7 +78,7 @@ export default function EditProfile({ currentUser }) {
                     <Avatar width={42} thumbnail="false" />
                 </div>
                 <div className="col-9 pe-5">
-                    <div className="fw-semibold fs-5">{currentUser.username}</div>
+                    <div className="fw-semibold fs-5">{user.username}</div>
                     <Link to="/setting/change_profile_picture" className="text-decoration-none">
                         <p>Change profile photo</p>
                     </Link>

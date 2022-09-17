@@ -9,16 +9,17 @@ const fakeImages = [
     'https://picsum.photos/500'
 ]
 
-export default function PostGrid({ post, currentUser }) {
+const imageStyles = (w) => {
+    return {
+        height: w < 768 ? '100px' : '200px',
+        width: '100%',
+        objectFit: 'cover'
+    }
+}
+
+export default function PostGrid({ post, user }) {
     const { width } = useWindowDimensions()
 
-    const imageStyles = (w) => {
-        return {
-            height: w < 768 ? '100px' : '200px',
-            width: '100%',
-            objectFit: 'cover'
-        }
-    }
     const { url, path } = useRouteMatch()
 
     return (
@@ -66,7 +67,7 @@ export default function PostGrid({ post, currentUser }) {
                 </Route>
                 <Route path={`${path}/saved`}>
                     <div className="row">
-                        {[...currentUser.savedPost].reverse().map((post) => (
+                        {[...user.savedPost].reverse().map((post) => (
                             <PostImages
                                 key={post._id}
                                 postId={post.uniqueId}

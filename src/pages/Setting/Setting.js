@@ -1,17 +1,19 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import ChangePassword from './ChangePassword'
-import EditProfile from './EditProfile'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { useUser } from '../../hooks/useUser'
+
+// components
+import SettingLink from './SettingLink'
+import EditProfile from './EditProfile'
+import ChangePassword from './ChangePassword'
 import Nav from '../../components/Navbar/Nav'
 import Navbar from '../../components/Navbar/Navbar'
 import ChangeProfilePicture from './ChangeProfilePicture'
-import SettingLink from './SettingLink'
 
 export default function Setting() {
     const { path } = useRouteMatch()
-    const currentUser = useSelector((state) => state.user.value)
     const { width } = useWindowDimensions()
+    const { user } = useUser()
 
     return (
         <>
@@ -24,13 +26,13 @@ export default function Setting() {
                     <div className="col-md-8 border p-md-3">
                         <Switch>
                             <Route exact path={path}>
-                                <EditProfile currentUser={currentUser} />
+                                <EditProfile user={user} />
                             </Route>
                             <Route path={`${path}/change_password`}>
-                                <ChangePassword currentUser={currentUser} />
+                                <ChangePassword user={user} />
                             </Route>
                             <Route path={`${path}/change_profile_picture`}>
-                                <ChangeProfilePicture currentUser={currentUser} />
+                                <ChangeProfilePicture user={user} />
                             </Route>
                         </Switch>
                     </div>

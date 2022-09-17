@@ -2,23 +2,26 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useState } from 'react'
 import cogoToast from 'cogo-toast'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
-import { useDispatch } from 'react-redux'
-import { login } from '../../redux/user'
-import { fetchPosts } from '../../redux/posts'
-import { fetchComments } from '../../redux/comments'
+import { usePosts } from '../../hooks/usePosts'
+import { useComments } from '../../hooks/useComments'
+import { useUser } from '../../hooks/useUser'
 
-export default function ChangeProfilePicture({ currentUser }) {
-    const dispatch = useDispatch()
-    const axiosPrivate = useAxiosPrivate()
-    const { width } = useWindowDimensions()
-    const [imgSrc, setImgSrc] = useState(currentUser.img_thumb)
-
-    const imageStyle = {
-        width: width < 768 ? '200px' : '300px',
-        height: width < 768 ? '200px' : '300px',
+const imageStyle = (w) => {
+    return {
+        width: w < 768 ? '200px' : '300px',
+        height: w < 768 ? '200px' : '300px',
         objectFit: 'cover',
         borderRadius: '50%'
     }
+}
+
+export default function ChangeProfilePicture({ user }) {
+    const { login } = useUser()
+    const { getPosts } = usePosts()
+    const { getComments } = useComments()
+    const axiosPrivate = useAxiosPrivate()
+    const { width } = useWindowDimensions()
+    const [imgSrc, setImgSrc] = useState(user.img_thumb)
 
     // display image before uploading
     const imagePreview = (event) => {
@@ -42,7 +45,7 @@ export default function ChangeProfilePicture({ currentUser }) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (imgSrc === currentUser.img_thumb) {
+        if (imgSrc === user.img_thumb) {
             cogoToast.info('Nothing to update!')
             return
         }
@@ -51,20 +54,20 @@ export default function ChangeProfilePicture({ currentUser }) {
 
         axiosPrivate
             .put(`/user/update/image`, {
-                id: currentUser._id,
-                publicId: currentUser.img_thumb_id,
+                id: user._id,
+                publicId: user.img_thumb_id,
                 image: imgSrc
             })
             .then((user) => {
                 const updatedUser = {
-                    ...currentUser,
+                    ...user,
                     img_thumb: user.data.img_thumb
                 }
 
                 hide()
-                dispatch(login(updatedUser))
-                dispatch(fetchPosts())
-                dispatch(fetchComments())
+                login(updatedUser)
+                getPosts()
+                getComments()
                 cogoToast.success('Update successfully!')
             })
             .catch((err) => {
@@ -85,7 +88,7 @@ export default function ChangeProfilePicture({ currentUser }) {
                     height: width < 768 ? '200px' : 'max-content'
                 }}
             >
-                <img src={imgSrc} alt="..." style={imageStyle} />
+                <img src={imgSrc} alt="..." style={imageStyle(width)} />
                 <input
                     type="file"
                     name="image"

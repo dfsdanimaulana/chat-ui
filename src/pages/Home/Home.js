@@ -1,33 +1,29 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchPosts, getPostsValue, getPostsStatus, getPostsError } from '../../redux/posts'
-import { fetchComments } from '../../redux/comments'
+import { usePosts } from '../../hooks/usePosts'
+import { useComments } from '../../hooks/useComments'
 
 // components
 import Card from '../../components/Card/Card'
 import CardPlaceholder from '../../components/Card/CardPlaceholder'
 
 const Home = () => {
-    const dispatch = useDispatch()
-
-    const posts = useSelector(getPostsValue)
-    const postsStatus = useSelector(getPostsStatus)
-    const error = useSelector(getPostsError)
+    const { posts, status, error, getPosts } = usePosts()
+    const { getComments } = useComments()
 
     useEffect(() => {
-        if (postsStatus === 'idle') {
-            dispatch(fetchPosts())
-            dispatch(fetchComments())
+        if (status === 'idle') {
+            getPosts()
+            getComments()
         }
-    }, [postsStatus, dispatch])
+    }, [status, getPosts, getComments])
 
     return (
         <div className="container mt-3">
             <div className="row px-lg-5 pb-5 pb-md-0">
                 <div className="col">
                     {posts && posts.map((post) => <Card key={post._id} id={post.uniqueId} post={post} />)}
-                    {error && <h1>Filed to fetch data</h1>}
-                    {postsStatus === 'loading' && posts.length === 0 && (
+                    {error && <h1>Failed to fetch data</h1>}
+                    {status === 'loading' && posts.length === 0 && (
                         <>
                             <CardPlaceholder />
                             <CardPlaceholder />

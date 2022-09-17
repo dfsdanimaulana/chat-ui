@@ -1,8 +1,10 @@
-import { FormInput } from './EditProfile'
 import { useState } from 'react'
-import Avatar from '../../components/Avatar/Avatar'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
+
+// components
+import Avatar from '../../components/Avatar/Avatar'
+import { FormInput } from './EditProfile'
 
 export default function ChangePassword({ currentUser }) {
     const axiosPrivate = useAxiosPrivate()
@@ -27,14 +29,12 @@ export default function ChangePassword({ currentUser }) {
         if (data.password_old === data.password_new) {
             hide()
             cogoToast.error('old password and new password is same!')
-
             return
         }
 
         if (data.password_new_confirm !== data.password_new) {
             hide()
             cogoToast.error('wrong confirm password!')
-
             return
         }
 

@@ -1,13 +1,15 @@
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
+const cardStyles = (w) => {
+    return {
+        height: w < 768 ? '100px' : '200px',
+        width: '100%'
+    }
+}
+
 export default function PostGridPlaceholder() {
     const { width } = useWindowDimensions()
-    const cardStyles = (w) => {
-        return {
-            height: w < 768 ? '100px' : '200px',
-            width: '100%'
-        }
-    }
+
     return (
         <>
             <div className="row text-center placeholder-glow justify-content-center mb-3">

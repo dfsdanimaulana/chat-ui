@@ -1,12 +1,10 @@
-/** React dependencies */
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import cogoToast from 'cogo-toast'
-
-/** utils */
 import axios from 'axios'
 
 const Register = () => {
+    const history = useHistory()
     const [input, setInput] = useState({
         username: '',
         birthday: '',
@@ -15,8 +13,6 @@ const Register = () => {
         password: '',
         confirm_password: ''
     })
-
-    const history = useHistory()
 
     const handleChange = (e) => {
         const { name, value } = e.target

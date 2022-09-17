@@ -2,17 +2,18 @@ import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 // state management
-import { logout } from '../../redux/user'
 import { loggedOut } from '../../redux/auth'
 
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { useUser } from '../../hooks/useUser'
 
 export default function SettingLink() {
+    const { logout } = useUser()
     const dispatch = useDispatch()
 
     const handleLogout = () => {
-        dispatch(logout())
+        logout()
         dispatch(loggedOut())
     }
 

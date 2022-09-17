@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import ReactModal from 'react-modal'
-
-// state management
-import { useSelector } from 'react-redux'
-
-//hooks
+import { useUser } from '../../hooks/useUser'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 
 // components
@@ -37,7 +33,7 @@ const contentStyle = {
 }
 
 export default function CardModal({ id, data, isOpen, setIsOpen }) {
-    const currentUser = useSelector((state) => state.user.value)
+    const { user } = useUser()
     const cardRef = useRef()
 
     useOnClickOutside(cardRef, () => setIsOpen(false))
@@ -46,6 +42,7 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
         <ReactModal
             id={id}
             isOpen={isOpen}
+            ariaHideApp={false}
             style={{
                 overlay: overlyStyle,
                 content: contentStyle
@@ -53,7 +50,7 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
         >
             <div ref={cardRef} className="card rounded-4 bg-light" style={cardStyle}>
                 <div className="card-body mt-3">
-                    <CardOptionList currentUser={currentUser} data={data} setIsOpen={setIsOpen} />
+                    <CardOptionList user={user} data={data} setIsOpen={setIsOpen} />
                 </div>
                 <div className="card-footer d-flex justify-content-between">
                     <div className="bg-light rounded-circle" style={itemStyle}>

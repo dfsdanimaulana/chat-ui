@@ -3,15 +3,15 @@ import { useState } from 'react'
 import axios from '../../api/axios'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { fetchUser, login } from '../../redux/user'
 import { loggedIn } from '../../redux/auth'
 import cogoToast from 'cogo-toast'
+import { useUser } from '../../hooks/useUser'
+
+import './Login.css'
 import LoginSVG from '../../assets/svg/Login.svg'
 
-/** Styles */
-import './Login.css'
-
 export default function SignIn() {
+    const { login, getUser } = useUser()
     const dispatch = useDispatch()
     const history = useHistory()
     const [input, setInput] = useState({
@@ -35,7 +35,8 @@ export default function SignIn() {
         try {
             const user = await axios.post(`/auth/login`, input)
             hide()
-            dispatch(login(user.data))
+            login(user.data)
+            getUser(user.data._id)
             dispatch(loggedIn())
             history.push('/')
         } catch (err) {
@@ -60,8 +61,7 @@ export default function SignIn() {
 
             hide()
 
-            dispatch(login(user.data))
-            dispatch(fetchUser(user.data._id))
+            login(user.data)
             dispatch(loggedIn())
             history.push('/')
         } catch (err) {

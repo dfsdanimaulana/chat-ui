@@ -34,10 +34,10 @@ export const userSlice = createSlice({
     },
     // function to change state value
     reducers: {
-        login: (state, action) => {
+        userLogin: (state, action) => {
             state.value = action.payload
         },
-        logout: (state) => {
+        userLogout: (state) => {
             state.value = initialStateValue
         }
     },
@@ -64,6 +64,6 @@ export const getUserValue = (state) => state.user.value
 export const getUserStatus = (state) => state.user.status
 export const getUserError = (state) => state.user.error
 
-export const { login, logout } = userSlice.actions
+export const { userLogin, userLogout } = userSlice.actions
 
 export default userSlice.reducer

@@ -1,72 +1,67 @@
 import { useState } from 'react'
-
-// helpers
 import cogoToast from 'cogo-toast'
 import { generateRandomId } from '../../helpers/generateRandomId'
-
-// state management
-import { useSelector, useDispatch } from 'react-redux'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { fetchPosts } from '../../redux/posts'
-import { fetchPost } from '../../redux/post'
-
-// hooks
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import { useUser } from '../../hooks/useUser'
+import { usePost } from '../../hooks/usePost'
+import { usePosts } from '../../hooks/usePosts'
 
 // components
 import Avatar from '../../components/Avatar/Avatar'
 
-export default function Post() {
-    const dispatch = useDispatch()
-    const axiosPrivate = useAxiosPrivate()
-    const currentUser = useSelector((state) => state.user.value) // @typeof currentUser Object
-    const { width } = useWindowDimensions()
-    const [imgSrc, setImgSrc] = useState(['https://i.ibb.co/g3ffFKB/camera.png'])
+const imageStyle = (w) => {
+    const size = w > 768 ? 300 : 200
+    return {
+        width: `${size}px`,
+        height: `${size}px`,
+        objectFit: 'cover'
+    }
+}
 
-    const [post, setPost] = useState({
-        userId: currentUser._id,
-        username: currentUser.username,
+const carouselStyle = (w) => {
+    const size = w >= 768 ? 300 : 200
+    return {
+        width: `${size}px`,
+        height: `${size}px`
+    }
+}
+
+export default function Post() {
+    const axiosPrivate = useAxiosPrivate()
+    const { width } = useWindowDimensions()
+    const { user } = useUser()
+    const { getPost } = usePost()
+    const { getPosts } = usePosts()
+
+    const [imgSrc, setImgSrc] = useState(['https://i.ibb.co/g3ffFKB/camera.png'])
+    const [data, setData] = useState({
+        userId: user._id,
+        username: user.username,
         uniqueId: '',
         caption: '',
         hashtag: '',
         image: []
     })
 
-    const imageStyle = (w) => {
-        const size = w > 768 ? 300 : 200
-        return {
-            width: `${size}px`,
-            height: `${size}px`,
-            objectFit: 'cover'
-        }
-    }
-
-    const carouselStyle = (w) => {
-        const size = w >= 768 ? 300 : 200
-        return {
-            width: `${size}px`,
-            height: `${size}px`
-        }
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
 
         const { hide } = cogoToast.loading('Loading...')
 
-        if (post.image.length < 1) {
+        if (data.image.length < 1) {
             hide()
             cogoToast.error('Please select an image')
             return
         }
 
         axiosPrivate
-            .post(`/post`, post)
+            .post(`/post`, data)
             .then((res) => {
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
-                dispatch(fetchPosts())
-                dispatch(fetchPost(currentUser._id))
-                setPost((prevState) => ({
+                getPost(user._id)
+                getPosts()
+                setData((prevState) => ({
                     ...prevState,
                     caption: '',
                     hashtag: '',
@@ -79,7 +74,7 @@ export default function Post() {
                 hide()
                 cogoToast.error(err?.error || 'failed to upload')
                 setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
-                setPost((prevState) => ({
+                setData((prevState) => ({
                     ...prevState,
                     caption: '',
                     hashtag: '',
@@ -90,7 +85,7 @@ export default function Post() {
 
     const handleChange = (e) => {
         const { id, value } = e.target
-        setPost((prevState) => ({
+        setData((prevState) => ({
             ...prevState,
             uniqueId: generateRandomId(),
             [id]: value
@@ -114,7 +109,7 @@ export default function Post() {
                     return (reader.onload = (e) => {
                         setImgSrc((prevState) => [...prevState, e.target.result])
 
-                        setPost((prevState) => ({
+                        setData((prevState) => ({
                             ...prevState,
                             uniqueId: generateRandomId(),
                             image: [...prevState.image, e.target.result]
@@ -200,7 +195,7 @@ export default function Post() {
                 <div className="col-12 col-md-6 text-start d-flex flex-column">
                     <div className="m-3 d-none d-md-flex align-items-center">
                         <Avatar width={32} thumbnail="false" />
-                        <span className="fw-semibold ms-3">{currentUser.username}</span>
+                        <span className="fw-semibold ms-3">{user.username}</span>
                     </div>
                     <div className="mb-3 flex-fill">
                         <div className="form-floating h-100">
@@ -209,7 +204,7 @@ export default function Post() {
                                 placeholder="Leave a comment here"
                                 id="caption"
                                 required
-                                value={post.caption}
+                                value={data.caption}
                                 onChange={handleChange}
                             />
                             <label htmlFor="caption">Captions</label>
@@ -230,7 +225,7 @@ export default function Post() {
                                 aria-describedby="basic-addon1"
                                 autoComplete="off"
                                 onChange={handleChange}
-                                value={post.hashtag}
+                                value={data.hashtag}
                             />
                         </div>
                     </div>
