@@ -1,5 +1,9 @@
 // helpers
 import moment from 'moment'
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import { useUser } from '../../hooks/useUser'
+import { useComments } from '../../hooks/useComments'
+import cogoToast from 'cogo-toast'
 
 // components
 import Avatar from '../Avatar/Avatar'
@@ -29,6 +33,28 @@ export default function CardComment({ post, height, comments }) {
 }
 
 function Comment({ comment }) {
+    const axiosPrivate = useAxiosPrivate()
+    const { user } = useUser()
+    const { getComments } = useComments()
+
+    const handleLike = () => {
+        axiosPrivate
+            .post('/comment/' + comment._id, {
+                userId: user._id
+            })
+            .then((res) => {
+                getComments()
+                cogoToast.success(res.data.message)
+            })
+            .catch((err) => {
+                cogoToast.error(err.message)
+            })
+    }
+
+    const likeClass = () => {
+        return comment.like.includes(user._id) ? 'bi bi-heart-fill ms-1' : 'bi bi-heart ms-1'
+    }
+
     return (
         <li className="list-group-item border-none">
             <div className="row">
@@ -64,7 +90,7 @@ function Comment({ comment }) {
                             fontSize: '12px'
                         }}
                     ></i>
-                    <i className="bi bi-heart ms-1"></i>
+                    <i className={likeClass()} onClick={handleLike}></i>
                 </div>
             </div>
         </li>
