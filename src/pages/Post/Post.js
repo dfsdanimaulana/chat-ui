@@ -27,6 +27,8 @@ const carouselStyle = (w) => {
     }
 }
 
+const initialImgSrc = ['https://i.ibb.co/g3ffFKB/camera.png']
+
 export default function Post() {
     const axiosPrivate = useAxiosPrivate()
     const { width } = useWindowDimensions()
@@ -34,7 +36,9 @@ export default function Post() {
     const { getPost } = usePost()
     const { getPosts } = usePosts()
 
-    const [imgSrc, setImgSrc] = useState(['https://i.ibb.co/g3ffFKB/camera.png'])
+    const [imgSrc, setImgSrc] = useState(initialImgSrc)
+    const [videoSrc, setVideoSrc] = useState(null)
+    const [fileType, setFileType] = useState('image')
     const [data, setData] = useState({
         userId: user._id,
         username: user.username,
@@ -58,7 +62,7 @@ export default function Post() {
         axiosPrivate
             .post(`/post`, data)
             .then((res) => {
-                setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
+                setImgSrc(initialImgSrc)
                 getPost(user._id)
                 getPosts()
                 setData((prevState) => ({
@@ -73,7 +77,7 @@ export default function Post() {
             .catch((err) => {
                 hide()
                 cogoToast.error(err?.error || 'failed to upload')
-                setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
+                setImgSrc(initialImgSrc)
                 setData((prevState) => ({
                     ...prevState,
                     caption: '',
@@ -93,16 +97,16 @@ export default function Post() {
     }
 
     // display image before uploading
-    const imagePreview = (event) => {
-        setImgSrc(['https://i.ibb.co/g3ffFKB/camera.png'])
-        const allowedExt = /(\.jpg|\.jpeg|\.png)$/i
-        if (!allowedExt.exec(event.target.value)) {
-            cogoToast.error('File not allowed!')
-            event.target.value = ''
-        } else {
-            // multiple images
+    const imageVideoPreview = (event) => {
+        setImgSrc(initialImgSrc)
+        const allowedImageExt = /(\.jpg|\.jpeg|\.png)$/i
+        const allowedVideoExt = /(\.mp4|\.webm|\.ogg)$/i
+        if (allowedImageExt.exec(event.target.value)) {
+            // handle images
             if (event.target.files && event.target.files[0]) {
                 const files = [...event.target.files]
+                setFileType('image')
+                setVideoSrc(null)
                 files.map((file) => {
                     const reader = new FileReader()
                     reader.readAsDataURL(file)
@@ -117,14 +121,29 @@ export default function Post() {
                     })
                 })
             }
+            return
         }
+        if (allowedVideoExt.exec(event.target.value)) {
+            // handle video
+            if (event.target.files && event.target.files[0]) {
+                let file = event.target.files[0]
+                let blobURL = URL.createObjectURL(file)
+                setFileType('video')
+                setImgSrc(initialImgSrc)
+                setVideoSrc(blobURL)
+            }
+            return
+        }
+        cogoToast.error('File not allowed!')
+        setFileType('image')
+        event.target.value = ''
     }
 
     return (
         <form className="container mt-3 mb-5 my-lg-5" onSubmit={handleSubmit}>
             <div className="row text-center">
                 <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
-                    {imgSrc.length > 2 ? (
+                    {fileType === 'image' && imgSrc.length > 2 && (
                         <div
                             id="postImageCarousel"
                             className="carousel slide m-2 m-md-3 border"
@@ -165,7 +184,8 @@ export default function Post() {
                                 <span className="visually-hidden">Next</span>
                             </button>
                         </div>
-                    ) : (
+                    )}
+                    {fileType === 'image' && imgSrc.length <= 2 && (
                         <div className="m-2 m-md-3">
                             <img
                                 className="img-thumbnail"
@@ -175,18 +195,24 @@ export default function Post() {
                             />
                         </div>
                     )}
+                    {fileType === 'video' && (
+                        <video style={imageStyle(width)} controls>
+                            <source src={videoSrc} type="video/*" />
+                            Your browser does not support the video tag.
+                        </video>
+                    )}
                     <div className="m-3">
                         <label htmlFor="image" className="btn btn-sm btn-outline-success">
-                            Select Image
+                            Select Image or Video
                         </label>
                         <input
                             type="file"
                             multiple
                             name="image"
                             id="image"
-                            accept="image/*"
+                            accept="image/*,video/*"
                             onChange={(e) => {
-                                imagePreview(e)
+                                imageVideoPreview(e)
                             }}
                             hidden={true}
                         />
