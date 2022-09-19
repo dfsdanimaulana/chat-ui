@@ -3,11 +3,10 @@ import cogoToast from 'cogo-toast'
 
 // state management
 import { useUpdatePost } from '../../hooks/useUpdatePost'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchUser, getUserValue } from '../../redux/user'
 
 // hooks
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import { useUser } from '../../hooks/useUser'
 const listStyle = {
     cursor: 'pointer'
 }
@@ -15,8 +14,7 @@ const listStyle = {
 export default function CardOptionList({ data, setIsOpen }) {
     const axiosPrivate = useAxiosPrivate()
     const updatePostState = useUpdatePost()
-    const dispatch = useDispatch()
-    const currentUser = useSelector(getUserValue)
+    const { user, getUser } = useUser()
 
     const handleDelete = () => {
         setIsOpen && setIsOpen(false)
@@ -28,7 +26,7 @@ export default function CardOptionList({ data, setIsOpen }) {
                 hide()
                 cogoToast.success('Post deleted')
                 // handle post state after deleting one
-                updatePostState(currentUser._id)
+                updatePostState(user._id)
             })
             .catch(() => {
                 hide()
@@ -41,10 +39,10 @@ export default function CardOptionList({ data, setIsOpen }) {
         try {
             const savePost = await axiosPrivate.put('/post/save', {
                 postId: data._id,
-                userId: currentUser._id
+                userId: user._id
             })
             cogoToast.success(savePost.data.message)
-            dispatch(fetchUser(currentUser._id))
+            getUser(user._id)
         } catch (err) {
             cogoToast.error(err.message)
         }
@@ -52,16 +50,13 @@ export default function CardOptionList({ data, setIsOpen }) {
 
     return (
         <ul className="list-group list-group-flush">
-            {data.user._id === currentUser._id && (
+            {data.user._id === user._id && (
                 <li className="list-group-item bg-light" style={listStyle}>
                     Edit post
                 </li>
             )}
             <li className="list-group-item bg-light" style={listStyle} onClick={handleSavePost} data-bs-dismiss="offcanvas">
-                {currentUser.savedPost &&
-                currentUser.savedPost.filter((savedPost) => savedPost._id === data._id).length === 0
-                    ? 'Add to favorites'
-                    : 'Remove from favorites'}
+                {user.savedPost && user.savedPost.includes(data._id) ? 'Add to favorites' : 'Remove from favorites'}
             </li>
             <li className="list-group-item bg-light" style={listStyle}>
                 About this account
@@ -69,7 +64,7 @@ export default function CardOptionList({ data, setIsOpen }) {
             <li className="list-group-item bg-light" style={listStyle}>
                 Unfollow
             </li>
-            {data.user._id === currentUser._id && (
+            {data.user._id === user._id && (
                 <li
                     data-bs-dismiss="offcanvas"
                     className="list-group-item bg-light text-danger"

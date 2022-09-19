@@ -60,7 +60,7 @@ export default function Card({ post, id }) {
     }
 
     const likeIconClass = () =>
-        post.like.filter((user) => user._id === user._id).length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
+        post.like.filter((u) => u._id === user._id).length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
 
     return (
         <div className="card mb-3" style={cardStyle(width)}>

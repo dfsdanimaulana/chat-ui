@@ -50,7 +50,7 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
                     <span>
                         <i
                             className={
-                                user.savedPost && user.savedPost.filter((savedPost) => savedPost._id === post._id).length
+                                user.savedPost.map((pst) => pst._id).includes(post._id)
                                     ? 'bi bi-bookmark-fill'
                                     : 'bi bi-bookmark'
                             }

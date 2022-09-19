@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useUser } from '../../hooks/useUser'
 import CardOptionList from './CardOptionList'
 
 const itemStyle = {
@@ -12,7 +12,7 @@ const itemStyle = {
 }
 
 export default function CardPopup({ data, id }) {
-    const currentUser = useSelector((state) => state.user.value)
+    const { user } = useUser()
 
     return (
         <div
@@ -41,7 +41,7 @@ export default function CardPopup({ data, id }) {
                 </div>
             </div>
             <div className="offcanvas-body">
-                <CardOptionList data={data} currentUser={currentUser} />
+                <CardOptionList data={data} user={user} />
             </div>
         </div>
     )

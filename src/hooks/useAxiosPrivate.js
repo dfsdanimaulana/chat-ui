@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
 import { axiosPrivate } from '../api/axios'
 import { useRefreshToken } from './useRefreshToken'
-import { useSelector } from 'react-redux'
+import { useUser } from './useUser'
 
 export const useAxiosPrivate = () => {
     const refreshToken = useRefreshToken()
-    const currentUser = useSelector((state) => state.user.value)
+    const { user } = useUser()
 
     useEffect(() => {
         const requestIntercept = axiosPrivate.interceptors.request.use(
             (config) => {
                 if (!config.headers['Authorization']) {
-                    config.headers['Authorization'] = `Bearer ${currentUser?.accessToken}`
+                    config.headers['Authorization'] = `Bearer ${user?.accessToken}`
                 }
                 return config
             },
@@ -37,6 +37,6 @@ export const useAxiosPrivate = () => {
             axiosPrivate.interceptors.request.eject(requestIntercept)
             axiosPrivate.interceptors.response.eject(responseIntercept)
         }
-    }, [currentUser, refreshToken])
+    }, [user, refreshToken])
     return axiosPrivate
 }
