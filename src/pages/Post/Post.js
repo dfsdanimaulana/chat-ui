@@ -45,7 +45,8 @@ export default function Post() {
         uniqueId: '',
         caption: '',
         hashtag: '',
-        image: []
+        image: [],
+        video: null
     })
 
     const handleSubmit = (e) => {
@@ -53,9 +54,9 @@ export default function Post() {
 
         const { hide } = cogoToast.loading('Loading...')
 
-        if (data.image.length < 1) {
+        if (!data.image.length && !data.video) {
             hide()
-            cogoToast.error('Please select an image')
+            cogoToast.error('Please select image or video')
             return
         }
 
@@ -63,14 +64,18 @@ export default function Post() {
             .post(`/post`, data)
             .then((res) => {
                 setImgSrc(initialImgSrc)
+                setFileType('image')
+                setVideoSrc(null)
                 getPost(user._id)
                 getPosts()
                 setData((prevState) => ({
                     ...prevState,
                     caption: '',
                     hashtag: '',
-                    image: []
+                    image: [],
+                    video: null
                 }))
+
                 hide()
                 cogoToast.success('Posted successfully!')
             })
@@ -78,11 +83,14 @@ export default function Post() {
                 hide()
                 cogoToast.error(err?.error || 'failed to upload')
                 setImgSrc(initialImgSrc)
+                setFileType('image')
+                setVideoSrc(null)
                 setData((prevState) => ({
                     ...prevState,
                     caption: '',
                     hashtag: '',
-                    image: []
+                    image: [],
+                    video: null
                 }))
             })
     }
@@ -131,6 +139,11 @@ export default function Post() {
                 setFileType('video')
                 setImgSrc(initialImgSrc)
                 setVideoSrc(blobURL)
+                setData((prevState) => ({
+                    ...prevState,
+                    uniqueId: generateRandomId(),
+                    video: blobURL
+                }))
             }
             return
         }
@@ -197,7 +210,7 @@ export default function Post() {
                     )}
                     {fileType === 'video' && (
                         <video style={imageStyle(width)} controls>
-                            <source src={videoSrc} type="video/*" />
+                            <source src={videoSrc} />
                             Your browser does not support the video tag.
                         </video>
                     )}
