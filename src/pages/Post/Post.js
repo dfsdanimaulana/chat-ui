@@ -36,10 +36,7 @@ export default function Post() {
     const { getPost } = usePost()
     const { getPosts } = usePosts()
 
-    const [imgSrc, setImgSrc] = useState(initialImgSrc)
-    const [videoSrc, setVideoSrc] = useState(null)
-    const [fileType, setFileType] = useState('image')
-    const [data, setData] = useState({
+    const initialData = {
         userId: user._id,
         username: user.username,
         uniqueId: '',
@@ -47,7 +44,19 @@ export default function Post() {
         hashtag: '',
         image: [],
         video: null
-    })
+    }
+
+    const [imgSrc, setImgSrc] = useState(initialImgSrc)
+    const [videoSrc, setVideoSrc] = useState(null)
+    const [fileType, setFileType] = useState('image')
+    const [data, setData] = useState(initialData)
+
+    const setDefault = () => {
+        setImgSrc(initialImgSrc)
+        setFileType('image')
+        setVideoSrc(null)
+        setData(initialData)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -63,18 +72,9 @@ export default function Post() {
         axiosPrivate
             .post(`/post`, data)
             .then((res) => {
-                setImgSrc(initialImgSrc)
-                setFileType('image')
-                setVideoSrc(null)
                 getPost(user._id)
                 getPosts()
-                setData((prevState) => ({
-                    ...prevState,
-                    caption: '',
-                    hashtag: '',
-                    image: [],
-                    video: null
-                }))
+                setDefault()
 
                 hide()
                 cogoToast.success('Posted successfully!')
@@ -82,16 +82,7 @@ export default function Post() {
             .catch((err) => {
                 hide()
                 cogoToast.error(err?.error || 'failed to upload')
-                setImgSrc(initialImgSrc)
-                setFileType('image')
-                setVideoSrc(null)
-                setData((prevState) => ({
-                    ...prevState,
-                    caption: '',
-                    hashtag: '',
-                    image: [],
-                    video: null
-                }))
+                setDefault()
             })
     }
 
@@ -109,8 +100,9 @@ export default function Post() {
         setImgSrc(initialImgSrc)
         const allowedImageExt = /(\.jpg|\.jpeg|\.png)$/i
         const allowedVideoExt = /(\.mp4|\.webm|\.ogg)$/i
+
+        // handle images
         if (allowedImageExt.exec(event.target.value)) {
-            // handle images
             if (event.target.files && event.target.files[0]) {
                 const files = [...event.target.files]
                 setFileType('image')
@@ -131,13 +123,13 @@ export default function Post() {
             }
             return
         }
+
+        // handle video
         if (allowedVideoExt.exec(event.target.value)) {
-            // handle video
             if (event.target.files && event.target.files[0]) {
                 let file = event.target.files[0]
                 let blobURL = URL.createObjectURL(file)
                 setFileType('video')
-                setImgSrc(initialImgSrc)
                 setVideoSrc(blobURL)
                 setData((prevState) => ({
                     ...prevState,
