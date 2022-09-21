@@ -56,7 +56,7 @@ export default function CardOptionList({ data, setIsOpen }) {
                 </li>
             )}
             <li className="list-group-item bg-light" style={listStyle} onClick={handleSavePost} data-bs-dismiss="offcanvas">
-                {user.savedPost && user.savedPost.includes(data._id) ? 'Add to favorites' : 'Remove from favorites'}
+                {user.savedPost && !user.savedPost.filter((post)=> post._id === data._id).length ? 'Add to favorites' : 'Remove from favorites'}
             </li>
             <li className="list-group-item bg-light" style={listStyle}>
                 About this account

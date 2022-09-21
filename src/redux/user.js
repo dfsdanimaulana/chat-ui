@@ -35,7 +35,10 @@ export const userSlice = createSlice({
     // function to change state value
     reducers: {
         userLogin: (state, action) => {
-            state.value = action.payload
+            state.value = { ...state.value,
+              accessToken: action.payload.accessToken,
+              refreshToken: action.payload.refreshToken
+            }
         },
         userLogout: (state) => {
             state.value = initialStateValue

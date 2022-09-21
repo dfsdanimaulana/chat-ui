@@ -87,7 +87,7 @@ export default function Card({ post, id }) {
                             <span className="fw-lighter text-secondary ms-3">{comments.length}</span>
                             <i className="bi bi-chat-left-dots ms-2" onClick={() => setCommentOpen((val) => !val)}></i>
                             <span className="fw-lighter text-secondary ms-3">{post.like.length}</span>
-                            {status === 'loading' || isPending ? (
+                            { isPending ? (
                                 <span
                                     className="spinner-border spinner-border-sm text-secondary ms-2"
                                     role="status"

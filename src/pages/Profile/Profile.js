@@ -18,6 +18,7 @@ export default function Profile() {
     useEffect(() => {
         if (status === 'idle') {
             getPost(user._id)
+            console.log(user)
         }
     }, [status, user, getPost])
 

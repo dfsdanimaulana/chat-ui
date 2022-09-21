@@ -35,8 +35,8 @@ export default function SignIn() {
         try {
             const user = await axios.post(`/auth/login`, input)
             hide()
-            login(user.data)
             getUser(user.data._id)
+            login(user.data)
             dispatch(loggedIn())
             history.push('/')
         } catch (err) {
@@ -58,9 +58,8 @@ export default function SignIn() {
                 username: 'guest',
                 password: 'test123'
             })
-
             hide()
-
+            getUser(user.data._id)
             login(user.data)
             dispatch(loggedIn())
             history.push('/')
