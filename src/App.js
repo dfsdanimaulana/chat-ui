@@ -1,6 +1,7 @@
 /** React dependencies */
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
+import './App.scss'
 
 /** Pages */
 import Home from './pages/Home/Home'

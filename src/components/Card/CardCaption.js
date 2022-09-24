@@ -25,12 +25,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                             <Avatar width={15} thumbnail="false" border image={like.img_thumb} />
                         </span>
                     ))}
-                    <span
-                        className="ms-2"
-                        style={{
-                            fontSize: '11px'
-                        }}
-                    >
+                    <span className="ms-2">
                         liked by <span className="fw-semibold">{post.like[0].username}</span>{' '}
                         {post.like.length > 1 && (
                             <span>
@@ -45,13 +40,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
             </p>
             <div className="my-1 d-flex">
                 {post.hashtag.map((h, i) => (
-                    <span
-                        key={i}
-                        className="text-primary me-1 fw-light"
-                        style={{
-                            cursor: 'pointer'
-                        }}
-                    >
+                    <span key={i} className="text-primary me-1 fw-light cursor-pointer">
                         #{h}
                     </span>
                 ))}
@@ -74,12 +63,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                             </span>
                         ))}
 
-                        <span
-                            className="ms-2"
-                            style={{
-                                fontSize: '11px'
-                            }}
-                        >
+                        <span className="ms-2 fs-7">
                             liked by <span className="fw-semibold">{post.like[0].username}</span>{' '}
                             {post.like.length > 1 && (
                                 <span>
