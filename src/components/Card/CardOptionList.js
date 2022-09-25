@@ -1,15 +1,7 @@
-// helpers
 import cogoToast from 'cogo-toast'
-
-// state management
 import { useUpdatePost } from '../../hooks/useUpdatePost'
-
-// hooks
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useUser } from '../../hooks/useUser'
-const listStyle = {
-    cursor: 'pointer'
-}
 
 export default function CardOptionList({ data, setIsOpen }) {
     const axiosPrivate = useAxiosPrivate()
@@ -50,26 +42,17 @@ export default function CardOptionList({ data, setIsOpen }) {
 
     return (
         <ul className="list-group list-group-flush">
-            {data.user._id === user._id && (
-                <li className="list-group-item bg-light" style={listStyle}>
-                    Edit post
-                </li>
-            )}
-            <li className="list-group-item bg-light" style={listStyle} onClick={handleSavePost} data-bs-dismiss="offcanvas">
+            {data.user._id === user._id && <li className="list-group-item bg-light cursor-pointer">Edit post</li>}
+            <li className="list-group-item bg-light cursor-pointer" onClick={handleSavePost} data-bs-dismiss="offcanvas">
                 {user.savedPost && user.savedPost.includes(data._id) ? 'Add to favorites' : 'Remove from favorites'}
             </li>
-            <li className="list-group-item bg-light" style={listStyle}>
-                About this account
-            </li>
-            <li className="list-group-item bg-light" style={listStyle}>
-                Unfollow
-            </li>
+            <li className="list-group-item bg-light cursor-pointer">About this account</li>
+            <li className="list-group-item bg-light cursor-pointer">Unfollow</li>
             {data.user._id === user._id && (
                 <li
                     data-bs-dismiss="offcanvas"
-                    className="list-group-item bg-light text-danger"
+                    className="list-group-item bg-light text-danger cursor-pointer"
                     onClick={handleDelete}
-                    style={listStyle}
                 >
                     Delete post
                 </li>

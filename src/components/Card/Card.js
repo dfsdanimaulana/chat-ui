@@ -35,12 +35,6 @@ export default function Card({ post, id }) {
     const ref = useRef()
     const cardBodyRef = useRef()
 
-    const cardStyle = (w) => {
-        return {
-            height: w >= 768 ? '470px' : 'max-content'
-        }
-    }
-
     const handleLikeClick = async () => {
         if (status === 'loading' || isPending) return
 
@@ -63,7 +57,12 @@ export default function Card({ post, id }) {
         post.like.filter((u) => u._id === user._id).length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
 
     return (
-        <div className="card mb-3" style={cardStyle(width)}>
+        <div
+            className="card mb-3"
+            style={{
+                height: width >= 768 ? '470px' : 'max-content'
+            }}
+        >
             <div className="d-flex d-md-none justify-content-between align-items-center p-1 pe-2">
                 <CardHeader post={post} width={width} setIsOpen={setIsOpen} id={id} />
             </div>

@@ -6,10 +6,10 @@ import cogoToast from 'cogo-toast'
 import Avatar from '../../components/Avatar/Avatar'
 import { FormInput } from './EditProfile'
 
-export default function ChangePassword({ currentUser }) {
+export default function ChangePassword({ user }) {
     const axiosPrivate = useAxiosPrivate()
     const [data, setData] = useState({
-        _id: currentUser._id,
+        _id: user._id,
         password_old: '',
         password_new: '',
         password_new_confirm: ''
@@ -40,47 +40,14 @@ export default function ChangePassword({ currentUser }) {
 
         axiosPrivate
             .post(`/auth/change_password`, data)
-            .then((user) => {
+            .then(() => {
                 hide()
                 cogoToast.success('Update successfully!')
             })
             .catch((err) => {
                 hide()
                 // handle invalid token error please
-                if (err.response?.data !== undefined) {
-                    const { hide } = cogoToast.error(
-                        <ul className="list-group list-group-flush">
-                            {err.response.data.error.map((err, i) => (
-                                <li key={i} className="list-group-item">
-                                    {err}
-                                </li>
-                            ))}
-                        </ul>,
-                        {
-                            hideAfter: 5,
-                            heading: 'Register error!',
-                            onClick: () => hide()
-                        }
-                    )
-                } else {
-                    const { hide } = cogoToast.error(
-                        <div className="error-wrapper">
-                            <div className="alert alert-danger" role="alert">
-                                <ul>
-                                    {['something went wrong', err.message].map((err, i) => (
-                                        <li key={i}>{err}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <hr />
-                        </div>,
-                        {
-                            hideAfter: 5,
-                            heading: 'Register error!',
-                            onClick: () => hide()
-                        }
-                    )
-                }
+                cogoToast.error(err.message)
             })
     }
 
@@ -91,7 +58,7 @@ export default function ChangePassword({ currentUser }) {
                     <Avatar width={42} thumbnail="false" />
                 </div>
                 <div className="col-9 pe-5">
-                    <div className="fw-semibold fs-5">{currentUser.username}</div>
+                    <div className="fw-semibold fs-5">{user.username}</div>
                 </div>
             </div>
             <FormInput

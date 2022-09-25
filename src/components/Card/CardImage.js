@@ -1,15 +1,10 @@
-const handleImageClass = (w) => {
-    return `d-block w-100 ${w > 768 && 'rounded-start'}`
-}
-
 export default function CardImage({ post, id, width }) {
-    const imagesPostStyles = (w) => {
-        const size = w < 768 ? '390px' : '470px'
-        return {
-            height: size,
-            width: '100%',
-            objectFit: 'cover'
-        }
+    const imageClass = `d-block w-100 ${width > 768 && 'rounded-start'}`
+
+    const imagesPostStyles = {
+        height: width < 768 ? '390px' : '470px',
+        width: '100%',
+        objectFit: 'cover'
     }
 
     return (
@@ -38,21 +33,11 @@ export default function CardImage({ post, id, width }) {
                     </div>
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <img
-                                src={post.img_post_url[0]}
-                                className={handleImageClass(width)}
-                                alt="..."
-                                style={imagesPostStyles(width)}
-                            />
+                            <img src={post.img_post_url[0]} className={imageClass} alt="..." style={imagesPostStyles} />
                         </div>
                         {post.img_post_url.slice(1).map((item, i) => (
                             <div className="carousel-item" key={i}>
-                                <img
-                                    src={item}
-                                    className={handleImageClass(width)}
-                                    alt="..."
-                                    style={imagesPostStyles(width)}
-                                />
+                                <img src={item} className={imageClass} alt="..." style={imagesPostStyles} />
                             </div>
                         ))}
                     </div>
@@ -66,13 +51,7 @@ export default function CardImage({ post, id, width }) {
                     </button>
                 </div>
             ) : (
-                <img
-                    id={id}
-                    src={post.img_post_url[0]}
-                    className={handleImageClass(width)}
-                    alt="..."
-                    style={imagesPostStyles(width)}
-                />
+                <img id={id} src={post.img_post_url[0]} className={imageClass} alt="..." style={imagesPostStyles} />
             )}
         </div>
     )

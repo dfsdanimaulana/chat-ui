@@ -28,15 +28,15 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
             getPosts()
             getPost(user._id)
         } catch (err) {
-            cogoToast.error(err.message)
             setIsPending(false)
+            cogoToast.error(err.message)
         }
     }
 
     return (
         <>
             <div>
-                <Avatar width={42} image={post.user.img_thumb} />
+                <Avatar width={40} image={post.user.img_thumb} />
                 <span className="card-title fs-6 fw-bold ms-2 text-secondary">{post.user.username}</span>
             </div>
             <div className="fs-6">

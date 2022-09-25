@@ -3,19 +3,18 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
 export default function CardPlaceholder() {
     const { width } = useWindowDimensions()
-    const imgSize = (w) => {
-        const size = w < 768 ? '390px' : '470px'
-        return {
-            height: size,
-            width: '100%'
-        }
-    }
 
     return (
         <div className="card mb-3 placeholder-glow" aria-hidden="true">
             <div className="row g-0">
                 <div className="col-md-6 border">
-                    <div className="placeholder rounded col-10" style={imgSize(width)}></div>
+                    <div
+                        className="placeholder rounded col-10"
+                        style={{
+                            height: width < 768 ? '390px' : '470px',
+                            width: '100%'
+                        }}
+                    ></div>
                 </div>
                 <div className="col-md-6 d-flex flex-column justify-content-between">
                     <div className="card-body d-flex flex-column">
