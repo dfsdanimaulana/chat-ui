@@ -1,5 +1,4 @@
 import { Switch, Route, Link, useRouteMatch, useHistory } from 'react-router-dom'
-import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 
 const fakeImages = [
     'https://picsum.photos/500',
@@ -16,8 +15,6 @@ const imageStyles = {
 }
 
 export default function PostGrid({ post, user }) {
-    const { width } = useWindowDimensions()
-
     const { url, path } = useRouteMatch()
 
     return (

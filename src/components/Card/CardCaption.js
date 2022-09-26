@@ -23,7 +23,7 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                             <Avatar width={15} thumbnail="false" border image={like.img_thumb} />
                         </span>
                     ))}
-                    <span className="ms-2">
+                    <span className="ms-2 fs-7">
                         liked by <span className="fw-semibold">{post.like[0].username}</span>{' '}
                         {post.like.length > 1 && (
                             <span>

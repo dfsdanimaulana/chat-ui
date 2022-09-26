@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 // state management
 import { loggedOut } from '../../redux/auth'
@@ -25,7 +25,7 @@ export default function SettingLink() {
 
             <ListItem title="About" />
             <ListItem title="Contact Us" />
-            <ListItem listStyle={'text-danger fw-semibold'} title="Delete Account" path="/change_password" />
+            <ListItem listStyle={'text-danger fw-semibold'} title="Delete Account" />
             <li className="list-group-item">
                 <button className="btn btn-sm btn-outline-danger mt-3" type="button" onClick={handleLogout}>
                     Logout
@@ -37,6 +37,7 @@ export default function SettingLink() {
 
 function ListItem({ title, path, listStyle }) {
     const { width } = useWindowDimensions()
+    const history = useHistory()
 
     return (
         <li
@@ -44,10 +45,9 @@ function ListItem({ title, path, listStyle }) {
             data-bs-toggle={width < 768 && 'offcanvas'}
             data-bs-target={width < 768 && '#offcanvasRight'}
             aria-controls={width < 768 && 'offcanvasRight'}
+            onClick={()=> history.push(`/setting${path ? path : ''}`)}
         >
-            <NavLink to={`/setting${path ? path : ''}`} className="text-decoration-none text-secondary">
                 <span className={listStyle && listStyle}>{title}</span>
-            </NavLink>
         </li>
     )
 }

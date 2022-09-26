@@ -77,13 +77,13 @@ function Comment({ comment }) {
                 <div className="col-3 col-md-2 d-flex justify-content-around pt-2">
                     {isPending ? (
                         <span
-                            className="spinner-border spinner-border-sm text-secondary ms-2"
+                            className="spinner-border spinner-border-sm text-secondary me-2"
                             role="status"
                             aria-hidden="true"
                         ></span>
                     ) : (
                         <i
-                            className={comment.like.includes(user._id) ? 'bi bi-heart-fill ms-1' : 'bi bi-heart ms-1'}
+                            className={comment.like.includes(user._id) ? 'bi bi-heart-fill me-2' : 'bi bi-heart me-2'}
                             onClick={handleLike}
                         ></i>
                     )}
@@ -102,7 +102,7 @@ const CommentPopup = ({ setIsOpen, user, comment }) => {
     useOnClickOutside(ref, () => {
         setIsOpen((val) => !val)
     })
-
+    
     const handleDelete = () => {
         axiosPrivate.delete('/comment/' + comment._id).then(() => {
             getComments()
