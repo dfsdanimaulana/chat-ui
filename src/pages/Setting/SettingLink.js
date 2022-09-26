@@ -26,7 +26,7 @@ export default function SettingLink() {
             <ListItem title="About" />
             <ListItem title="Contact Us" />
             <ListItem listStyle={'text-danger fw-semibold'} title="Delete Account" path="/change_password" />
-            <li className="list-group-item bg-light">
+            <li className="list-group-item">
                 <button className="btn btn-sm btn-outline-danger mt-3" type="button" onClick={handleLogout}>
                     Logout
                 </button>
@@ -40,7 +40,7 @@ function ListItem({ title, path, listStyle }) {
 
     return (
         <li
-            className="list-group-item bg-light"
+            className="list-group-item"
             data-bs-toggle={width < 768 && 'offcanvas'}
             data-bs-target={width < 768 && '#offcanvasRight'}
             aria-controls={width < 768 && 'offcanvasRight'}

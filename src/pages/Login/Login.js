@@ -91,7 +91,7 @@ export default function SignIn() {
                 <div className="col h-100 d-none d-md-inline">
                     <img className="img-fluid" src={LoginSVG} alt="login page"></img>
                 </div>
-                <div className="col p-1 p-md-5">
+                <div className="col p-3 p-md-5">
                     <form className="p-4 mx-auto border p-3 rounded bg-white" onSubmit={handleSubmit}>
                         <h3 className="mb-4 text-center fw-bold">Login</h3>
 

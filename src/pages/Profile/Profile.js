@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useUser } from '../../hooks/useUser'
 import { usePost } from '../../hooks/usePost'
+import './Profile.scss'
 
 // components
 import Avatar from '../../components/Avatar/Avatar'
@@ -21,10 +22,8 @@ export default function Profile() {
         }
     }, [status, user, getPost])
 
-    const containerClass = (w) => `container pb-5 ${w >= 992 ? 'w-50' : ''}`
-
     return (
-        <div className={containerClass(width)}>
+        <div className={`container pb-5 ${width >= 992 ? 'w-50' : ''}`}>
             <div className="row d-flex my-5">
                 <div className="col-6 col-md-4 d-md-flex d-none align-items-center justify-content-center">
                     <Avatar width={150} />

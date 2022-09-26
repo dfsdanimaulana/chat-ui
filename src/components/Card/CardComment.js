@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import moment from 'moment'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
+import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useUser } from '../../hooks/useUser'
 import { useComments } from '../../hooks/useComments'
 import cogoToast from 'cogo-toast'
 
 // components
 import Avatar from '../Avatar/Avatar'
+import { useRef } from 'react'
 
 export default function CardComment({ post, height, comments }) {
     return (
@@ -37,6 +39,7 @@ function Comment({ comment }) {
     const { user } = useUser()
     const { getComments } = useComments()
     const [isPending, setIsPending] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleLike = () => {
         setIsPending(true)
@@ -55,7 +58,7 @@ function Comment({ comment }) {
     }
 
     return (
-        <li className="list-group-item border-none">
+        <li className="list-group-item border-none position-relative">
             <div className="row">
                 <div className="col-2 col-md-1 d-flex justify-content-center pt-2">
                     <Avatar width={24} thumbnail="false" image={comment.sender.img_thumb} />
@@ -72,8 +75,6 @@ function Comment({ comment }) {
                     </div>
                 </div>
                 <div className="col-3 col-md-2 d-flex justify-content-around pt-2">
-                    <i className="bi bi-three-dots text-secondary fs-7"></i>
-
                     {isPending ? (
                         <span
                             className="spinner-border spinner-border-sm text-secondary ms-2"
@@ -86,8 +87,39 @@ function Comment({ comment }) {
                             onClick={handleLike}
                         ></i>
                     )}
+                    <i className="bi bi-three-dots text-secondary fs-7" onClick={() => setIsOpen((val) => !val)}></i>
                 </div>
             </div>
+            {isOpen && <CommentPopup setIsOpen={setIsOpen} user={user} comment={comment} />}
         </li>
+    )
+}
+
+const CommentPopup = ({ setIsOpen, user, comment }) => {
+    const axiosPrivate = useAxiosPrivate()
+    const { getComments } = useComments()
+    const ref = useRef()
+    useOnClickOutside(ref, () => {
+        setIsOpen((val) => !val)
+    })
+
+    const handleDelete = () => {
+        axiosPrivate.delete('/comment/' + comment._id).then(() => {
+            getComments()
+        })
+    }
+    
+    return (
+        <div className="card position-absolute top-0 end-0 mt-1 me-5" ref={ref}>
+            <ul className="list-group list-group-flush">
+                {user._id === comment.sender._id ? (
+                    <li className="list-group-item fs-7 text-secondary cursor-pointer" onClick={handleDelete}>
+                        Delete
+                    </li>
+                ) : (
+                    <li className="list-group-item fs-7 text-secondary cursor-pointer">Report</li>
+                )}
+            </ul>
+        </div>
     )
 }
