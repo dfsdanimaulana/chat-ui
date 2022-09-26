@@ -10,7 +10,7 @@ export default function CardImage({ post, id, width }) {
     return (
         <div className="col-md-6">
             {post.img_post_url.length > 1 ? (
-                <div id={id} className="carousel slide" data-bs-ride="true">
+                <div id={id} className="carousel slide position-relative" data-bs-ride="true">
                     <div className="carousel-indicators">
                         <button
                             type="button"
@@ -21,6 +21,7 @@ export default function CardImage({ post, id, width }) {
                             aria-label="Slide 1"
                         />
                         {post.img_post_url.slice(1).map((_, i) => (
+                        
                             <button
                                 key={i}
                                 type="button"
@@ -29,15 +30,18 @@ export default function CardImage({ post, id, width }) {
                                 aria-current="false"
                                 aria-label={`Slide ${i + 2}`}
                             />
+                            
                         ))}
                     </div>
                     <div className="carousel-inner">
                         <div className="carousel-item active">
                             <img src={post.img_post_url[0]} className={imageClass} alt="..." style={imagesPostStyles} />
+                                                    <div className="badge bg-transparent text-white position-absolute top-0 end-0 m-1">{`1/${post.img_post_url.length}`}</div>
                         </div>
                         {post.img_post_url.slice(1).map((item, i) => (
                             <div className="carousel-item" key={i}>
                                 <img src={item} className={imageClass} alt="..." style={imagesPostStyles} />
+                                                                                    <div className="badge bg-transparent text-white position-absolute top-0 end-0 m-1">{`${i+2}/${post.img_post_url.length}`}</div>
                             </div>
                         ))}
                     </div>
