@@ -37,10 +37,10 @@ export default function CardCommentInput({ postId, setCommentOpen }) {
             getComments(postId)
             setCommentOpen(true)
             setInputText('')
-        } catch (err) {
-            cogoToast.error(err.message)
-        } finally {
             setIsPending(false)
+        } catch (err) {
+            setIsPending(false)
+            cogoToast.error(err.message)
         }
     }
 

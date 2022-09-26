@@ -1,4 +1,4 @@
-// helpers
+import { useState } from 'react'
 import moment from 'moment'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useUser } from '../../hooks/useUser'
@@ -36,23 +36,22 @@ function Comment({ comment }) {
     const axiosPrivate = useAxiosPrivate()
     const { user } = useUser()
     const { getComments } = useComments()
+    const [isPending, setIsPending] = useState(false)
 
     const handleLike = () => {
+        setIsPending(true)
         axiosPrivate
             .post('/comment/' + comment._id, {
                 userId: user._id
             })
             .then((res) => {
                 getComments()
-                cogoToast.success(res.data.message)
+                setIsPending(false)
             })
             .catch((err) => {
+                setIsPending(false)
                 cogoToast.error(err.message)
             })
-    }
-
-    const likeClass = () => {
-        return comment.like.includes(user._id) ? 'bi bi-heart-fill ms-1' : 'bi bi-heart ms-1'
     }
 
     return (
@@ -66,31 +65,27 @@ function Comment({ comment }) {
                         <span className="fw-semibold me-1">{comment.sender.username}</span>
                         <span>{comment.msg}</span>
                     </div>
-                    <div
-                        style={{
-                            fontSize: '12px'
-                        }}
-                    >
+                    <div className="fs-7">
                         <span className="me-2">{moment(comment.createdAt).fromNow(true)}</span>
                         <span className="me-2">{comment.like.length} likes</span>
-                        <span
-                            className="me-1 fw-semibold"
-                            style={{
-                                cursor: 'pointer'
-                            }}
-                        >
-                            Replay
-                        </span>
+                        <span className="me-1 fw-semibold cursor-pointer">Replay</span>
                     </div>
                 </div>
                 <div className="col-3 col-md-2 d-flex justify-content-around pt-2">
-                    <i
-                        className="bi bi-three-dots text-secondary"
-                        style={{
-                            fontSize: '12px'
-                        }}
-                    ></i>
-                    <i className={likeClass()} onClick={handleLike}></i>
+                    <i className="bi bi-three-dots text-secondary fs-7"></i>
+
+                    {isPending ? (
+                        <span
+                            className="spinner-border spinner-border-sm text-secondary ms-2"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                    ) : (
+                        <i
+                            className={comment.like.includes(user._id) ? 'bi bi-heart-fill ms-1' : 'bi bi-heart ms-1'}
+                            onClick={handleLike}
+                        ></i>
+                    )}
                 </div>
             </div>
         </li>

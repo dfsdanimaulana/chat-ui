@@ -12,9 +12,6 @@ import Profile from './pages/Profile/Profile'
 import PostProfile from './pages/Profile/PostProfile'
 import PageNotFound from './pages/404/PageNotFound'
 
-/** Development Pages only */
-// import UserList from './pages/UserList/UserList'
-
 /** Components */
 import Navbar from './components/Navbar/Navbar'
 import Navigation from './components/Navigation/Navigation'
@@ -24,7 +21,7 @@ import Qrcode from './components/QRCode/Qrcode'
 
 const App = () => {
     return (
-        <div className="bg-light">
+        <div className="bg-light min-vh-100">
             <Router>
                 <Switch>
                     <ProtectedRoute exact path="/">
@@ -54,6 +51,7 @@ const App = () => {
                         <Navbar />
                         <Post />
                         <Navigation />
+                        <Footer />
                     </ProtectedRoute>
                     <ProtectedRoute path="/setting">
                         <Setting />

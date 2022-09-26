@@ -1,6 +1,4 @@
-// helpers
 import moment from 'moment'
-
 import Avatar from '../Avatar/Avatar'
 import CardHeader from './CardHeader'
 

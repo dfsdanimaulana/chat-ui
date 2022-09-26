@@ -36,6 +36,11 @@
         &_like {
             grid-area: like;
             text-align: end;
+
+            &_image {
+                position: relative;
+                margin-right: -3px;
+            }
         }
     }
     &_footer {

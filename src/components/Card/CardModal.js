@@ -5,7 +5,7 @@ import { useUser } from '../../hooks/useUser'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 
 // components
-import CardOptionList from '../Card/CardOptionList'
+import CardOptionList from './CardOptionList'
 
 const itemStyle = {
     width: '40px',
@@ -32,7 +32,7 @@ const contentStyle = {
     placeItems: 'center'
 }
 
-export default function CardModal({ id, data, isOpen, setIsOpen }) {
+export default function CardModal({ id, post, isOpen, setIsOpen }) {
     const { user } = useUser()
     const cardRef = useRef()
 
@@ -50,7 +50,7 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
         >
             <div ref={cardRef} className="card rounded-4 bg-light" style={cardStyle}>
                 <div className="card-body mt-3">
-                    <CardOptionList user={user} data={data} setIsOpen={setIsOpen} />
+                    <CardOptionList user={user} post={post} setIsOpen={setIsOpen} />
                 </div>
                 <div className="card-footer d-flex justify-content-between">
                     <div className="bg-light rounded-circle" style={itemStyle}>
@@ -60,7 +60,7 @@ export default function CardModal({ id, data, isOpen, setIsOpen }) {
                         <i className="bi bi-link-45deg"></i>
                     </div>
                     <div className="bg-light rounded-circle" style={itemStyle} data-bs-dismiss="modal" aria-label="Close">
-                        <Link to={'/qr/' + data._id} className="text-dark">
+                        <Link to={'/qr/' + post._id} className="text-dark">
                             <i className="bi bi-qr-code-scan"></i>
                         </Link>
                     </div>

@@ -1,6 +1,6 @@
 import { Link, NavLink, useRouteMatch } from 'react-router-dom'
+import SettingPopUp from '../../pages/Setting/SettingPopUp'
 import Avatar from '../Avatar/Avatar'
-import Sidebar from '../Sidebar/Sidebar'
 
 export default function Navbar() {
     const { path } = useRouteMatch()
@@ -79,7 +79,7 @@ export default function Navbar() {
                     </div>
                 </div>
             </nav>
-            <Sidebar />
+            <SettingPopUp />
         </>
     )
 }

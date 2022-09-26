@@ -145,7 +145,7 @@ export default function Post() {
     }
 
     return (
-        <form className="container mt-3 mb-5 my-lg-5" onSubmit={handleSubmit}>
+        <form className="container mt-3 pb-5 py-lg-5" onSubmit={handleSubmit}>
             <div className="row text-center">
                 <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
                     {fileType === 'image' && imgSrc.length > 2 && (

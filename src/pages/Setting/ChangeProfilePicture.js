@@ -5,6 +5,7 @@ import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { usePosts } from '../../hooks/usePosts'
 import { useComments } from '../../hooks/useComments'
 import { useUser } from '../../hooks/useUser'
+import { usePost } from '../../hooks/usePost'
 
 const imageStyle = (w) => {
     return {
@@ -15,9 +16,10 @@ const imageStyle = (w) => {
     }
 }
 
-export default function ChangeProfilePicture({ user }) {
-    const { login } = useUser()
+export default function ChangeProfilePicture() {
+    const { login, user } = useUser()
     const { getPosts } = usePosts()
+    const { getPost } = usePost()
     const { getComments } = useComments()
     const axiosPrivate = useAxiosPrivate()
     const { width } = useWindowDimensions()
@@ -58,15 +60,16 @@ export default function ChangeProfilePicture({ user }) {
                 publicId: user.img_thumb_id,
                 image: imgSrc
             })
-            .then((user) => {
+            .then((res) => {
                 const updatedUser = {
                     ...user,
-                    img_thumb: user.data.img_thumb
+                    img_thumb: res.data.img_thumb
                 }
 
                 hide()
                 login(updatedUser)
                 getPosts()
+                getPost(user._id)
                 getComments()
                 cogoToast.success('Update successfully!')
             })

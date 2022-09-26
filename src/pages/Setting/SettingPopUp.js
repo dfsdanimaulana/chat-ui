@@ -1,6 +1,6 @@
-import SettingLink from '../../pages/Setting/SettingLink'
+import SettingLink from './SettingLink'
 
-export default function Sidebar() {
+export default function SettingPopUp() {
     return (
         <div
             className="offcanvas offcanvas-md offcanvas-bottom rounded-bottom rounded-5 d-md-none"

@@ -12,7 +12,7 @@ import { usePosts } from '../../hooks/usePosts'
 
 // components
 import CardCommentInput from './CardCommentInput'
-import CardModal from '../Modal/CardModal'
+import CardModal from './CardModal'
 import CardPopup from './CardPopup'
 import CardImage from './CardImage'
 import CardCaption from './CardCaption'
@@ -38,7 +38,6 @@ export default function Card({ post, id }) {
     const handleLikeClick = async () => {
         if (status === 'loading' || isPending) return
 
-        // push user id to post like array
         setIsPending(true)
         axiosPrivate
             .put('/post/like', {
@@ -48,13 +47,18 @@ export default function Card({ post, id }) {
             .then(() => {
                 getPosts()
                 getUser(user._id)
+                setIsPending(false)
             })
-            .catch((err) => cogoToast.error(err.message))
-            .finally(() => setIsPending(false))
+            .catch((err) => {
+                setIsPending(false)
+                cogoToast.error(err.message)
+            })
     }
 
-    const likeIconClass = () =>
-        post.like.filter((u) => u._id === user._id).length > 0 ? 'bi bi-heart-fill ms-2' : 'bi bi-heart ms-2'
+    const handleCommentClick = () => {
+        if (width >= 768) setCommentOpen((val) => !val)
+        // handle comment open in mobile
+    }
 
     return (
         <div
@@ -84,21 +88,28 @@ export default function Card({ post, id }) {
                         <CardCommentInput postId={post._id} setCommentOpen={setCommentOpen} />
                         <div className="d-flex justify-content-around align-items-center text-secondary fw-bold">
                             <span className="fw-lighter text-secondary ms-3">{comments.length}</span>
-                            <i className="bi bi-chat-left-dots ms-2" onClick={() => setCommentOpen((val) => !val)}></i>
+                            <i className="bi bi-chat-left-dots ms-2" onClick={handleCommentClick}></i>
                             <span className="fw-lighter text-secondary ms-3">{post.like.length}</span>
-                            {status === 'loading' || isPending ? (
+                            {isPending ? (
                                 <span
                                     className="spinner-border spinner-border-sm text-secondary ms-2"
                                     role="status"
                                     aria-hidden="true"
                                 ></span>
                             ) : (
-                                <i className={likeIconClass()} onClick={handleLikeClick}></i>
+                                <i
+                                    className={
+                                        post.like.filter((u) => u._id === user._id).length > 0
+                                            ? 'bi bi-heart-fill ms-2'
+                                            : 'bi bi-heart ms-2'
+                                    }
+                                    onClick={handleLikeClick}
+                                ></i>
                             )}
                         </div>
                     </div>
-                    <CardPopup id={id} data={post} />
-                    <CardModal id={id} data={post} isOpen={isOpen} setIsOpen={setIsOpen} />
+                    <CardPopup id={id} post={post} />
+                    <CardModal id={id} post={post} isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
             </div>
         </div>

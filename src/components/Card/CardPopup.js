@@ -11,7 +11,7 @@ const itemStyle = {
     fontSize: '22px'
 }
 
-export default function CardPopup({ data, id }) {
+export default function CardPopup({ post, id }) {
     const { user } = useUser()
 
     return (
@@ -32,7 +32,7 @@ export default function CardPopup({ data, id }) {
                     <i className="bi bi-link-45deg"></i>
                 </div>
                 <div className="bg-info rounded-circle" style={itemStyle} aria-label="Close">
-                    <Link to={'/qr/' + data._id} className="text-light">
+                    <Link to={'/qr/' + post._id} className="text-light">
                         <i className="bi bi-qr-code-scan"></i>
                     </Link>
                 </div>
@@ -41,7 +41,7 @@ export default function CardPopup({ data, id }) {
                 </div>
             </div>
             <div className="offcanvas-body">
-                <CardOptionList data={data} user={user} />
+                <CardOptionList post={post} user={user} />
             </div>
         </div>
     )
