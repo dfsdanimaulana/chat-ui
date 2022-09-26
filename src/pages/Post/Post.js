@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import cogoToast from 'cogo-toast'
-import { generateRandomId } from '../../helpers/generateRandomId'
+import { generateRandomId } from '../../utils/generateRandomId'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useUser } from '../../hooks/useUser'

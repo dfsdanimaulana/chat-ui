@@ -10,7 +10,6 @@
         "@testing-library/user-event": "^12.1.10",
         "axios": "^0.21.4",
         "bootstrap": "^5.2.1",
-        "chalk": "^4.1.2",
         "cogo-toast": "^4.2.3",
         "dotenv": "^10.0.0",
         "emoji-picker-react": "^3.6.1",
@@ -29,7 +28,7 @@
     "scripts": {
         "start": "react-scripts start",
         "dev": "node ./node_modules/react-scripts/scripts/start.js",
-        "commit": "node ./src/helpers/commit.js",
+        "commit": "node ./helpers/commit.js",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",

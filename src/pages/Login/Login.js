@@ -89,10 +89,10 @@ export default function SignIn() {
         <div className="container">
             <div className="row align-items-center">
                 <div className="col h-100 d-none d-md-inline">
-                    <img className="img-fluid image" src={LoginSVG} alt="login page"></img>
+                    <img className="img-fluid" src={LoginSVG} alt="login page"></img>
                 </div>
-                <div className="col p-5">
-                    <form className="p-4 mx-auto border p-3" onSubmit={handleSubmit}>
+                <div className="col p-1 p-md-5">
+                    <form className="p-4 mx-auto border p-3 rounded bg-white" onSubmit={handleSubmit}>
                         <h3 className="mb-4 text-center fw-bold">Login</h3>
 
                         <hr className="mb-3" />
