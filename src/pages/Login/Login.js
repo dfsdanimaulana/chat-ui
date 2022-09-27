@@ -1,18 +1,15 @@
 /** React dependencies */
 import { useState } from 'react'
-import axios from '../../api/axios'
 import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { loggedIn } from '../../redux/auth'
 import cogoToast from 'cogo-toast'
 import { useUser } from '../../hooks/useUser'
+import { login as authLogin } from '../../services/auth.service'
 
-import './Login.css'
+import './Login.scss'
 import LoginSVG from '../../assets/svg/Login.svg'
 
 export default function SignIn() {
     const { login, getUser } = useUser()
-    const dispatch = useDispatch()
     const history = useHistory()
     const [input, setInput] = useState({
         username: '',
@@ -33,19 +30,16 @@ export default function SignIn() {
         e.preventDefault()
         const { hide } = cogoToast.loading('Loading...')
         try {
-            const user = await axios.post(`/auth/login`, input)
+            const res = await authLogin(input.username, input.password)
+
+            // set user state
+            login(res)
+            getUser(res._id)
             hide()
-            login(user.data)
-            getUser(user.data._id)
-            dispatch(loggedIn())
             history.push('/')
         } catch (err) {
             hide()
-            if (err.response?.data !== undefined) {
-                cogoToast.error(err.response.data.error)
-            } else {
-                cogoToast.error('connection error')
-            }
+            cogoToast.error(err.message)
         }
     }
 
@@ -54,23 +48,16 @@ export default function SignIn() {
         const { hide } = cogoToast.loading('Loading...')
 
         try {
-            const user = await axios.post(`/auth/login`, {
-                username: 'guest',
-                password: 'test123'
-            })
+            const res = await authLogin('guest', 'test123')
 
+            // set user state
+            login(res)
+            getUser(res._id)
             hide()
-
-            login(user.data)
-            dispatch(loggedIn())
             history.push('/')
         } catch (err) {
             hide()
-            if (err.response?.data !== undefined) {
-                cogoToast.error(err.response.data.error)
-            } else {
-                cogoToast.error('connection error')
-            }
+            cogoToast.error(err.message)
         }
     }
 

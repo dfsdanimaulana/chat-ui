@@ -8,7 +8,7 @@ import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import Avatar from '../../components/Avatar/Avatar'
 
 export default function EditProfile({ user }) {
-    const { login } = useUser()
+    const { update } = useUser()
     const axiosPrivate = useAxiosPrivate()
 
     const [data, setData] = useState({
@@ -48,17 +48,17 @@ export default function EditProfile({ user }) {
         }
         axiosPrivate
             .put(`/user/update`, data)
-            .then((user) => {
+            .then((res) => {
                 const updatedUser = {
                     ...user,
-                    username: user.data.username,
-                    name: user.data.name,
-                    email: user.data.email,
-                    desc: user.data.desc,
-                    gender: user.data.gender
+                    username: res.data.username,
+                    name: res.data.name,
+                    email: res.data.email,
+                    desc: res.data.desc,
+                    gender: res.data.gender
                 }
                 hide()
-                login(updatedUser)
+                update(updatedUser)
                 cogoToast.success('Update successfully!')
             })
             .catch((err) => {
@@ -135,14 +135,14 @@ export default function EditProfile({ user }) {
             <div className="row align-items-center my-4">
                 <div className="col-3 text-end pe-3"></div>
                 <div className="col-9 pe-5 text-end">
-                    <button className="btn btn-outline-primary">Update</button>
+                    <button className="btn btn-primary">Update</button>
                 </div>
             </div>
         </form>
     )
 }
 
-export function FormInput({ label, id, placeholder, desc, type, value, handleChange }) {
+export function FormInput({ label, id, placeholder, desc, type, value, handleChange, required }) {
     return (
         <div className="row mb-3">
             <div className="col-3 text-end pe-3">
@@ -161,6 +161,7 @@ export function FormInput({ label, id, placeholder, desc, type, value, handleCha
                         aria-label={placeholder}
                         aria-describedby={desc && `${id}_desc`}
                         onChange={handleChange}
+                        required={required}
                     />
                 </div>
                 {desc && (

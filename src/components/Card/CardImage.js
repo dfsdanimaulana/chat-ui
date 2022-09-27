@@ -2,8 +2,7 @@ export default function CardImage({ post, id, width }) {
     const imageClass = `d-block w-100 ${width > 768 && 'rounded-start'}`
 
     const imagesPostStyles = {
-        // height: width < 768 ? '390px' : '470px',
-        aspectRatio: '1/1',
+        height: width < 768 ? '389px' : '469px',
         width: '100%',
         objectFit: 'cover'
     }
@@ -22,7 +21,6 @@ export default function CardImage({ post, id, width }) {
                             aria-label="Slide 1"
                         />
                         {post.img_post_url.slice(1).map((_, i) => (
-                        
                             <button
                                 key={i}
                                 type="button"
@@ -31,18 +29,19 @@ export default function CardImage({ post, id, width }) {
                                 aria-current="false"
                                 aria-label={`Slide ${i + 2}`}
                             />
-                            
                         ))}
                     </div>
                     <div className="carousel-inner">
                         <div className="carousel-item active">
                             <img src={post.img_post_url[0]} className={imageClass} alt="..." style={imagesPostStyles} />
-                                                    <div className="badge bg-transparent text-white position-absolute top-0 end-0 m-1">{`1/${post.img_post_url.length}`}</div>
+                            <div className="badge bg-transparent text-white position-absolute top-0 end-0 m-1">{`1/${post.img_post_url.length}`}</div>
                         </div>
                         {post.img_post_url.slice(1).map((item, i) => (
                             <div className="carousel-item" key={i}>
                                 <img src={item} className={imageClass} alt="..." style={imagesPostStyles} />
-                                                                                    <div className="badge bg-transparent text-white position-absolute top-0 end-0 m-1">{`${i+2}/${post.img_post_url.length}`}</div>
+                                <div className="badge bg-transparent text-white position-absolute top-0 end-0 m-1">{`${
+                                    i + 2
+                                }/${post.img_post_url.length}`}</div>
                             </div>
                         ))}
                     </div>

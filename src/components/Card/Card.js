@@ -79,6 +79,8 @@ export default function Card({ post, id }) {
                                 post={post}
                                 height={cardBodyRef.current.clientHeight - ref.current.clientHeight}
                                 comments={comments}
+                                setIsOpen={setIsOpen}
+                                id={id}
                             />
                         ) : (
                             <CardCaption id={id} post={post} width={width} setIsOpen={setIsOpen} />

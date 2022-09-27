@@ -6,7 +6,7 @@ import { useUser } from '../../hooks/useUser'
 export default function CardOptionList({ post, setIsOpen }) {
     const axiosPrivate = useAxiosPrivate()
     const updatePostState = useUpdatePost()
-    const { user, getUser } = useUser()
+    const { user } = useUser()
 
     const handleDelete = () => {
         setIsOpen && setIsOpen(false)
@@ -33,8 +33,8 @@ export default function CardOptionList({ post, setIsOpen }) {
                 postId: post._id,
                 userId: user._id
             })
-            cogoToast.success(savePost.post.message)
-            getUser(user._id)
+            cogoToast.success(savePost.data.message)
+            updatePostState(user._id)
         } catch (err) {
             cogoToast.error(err.message)
         }
@@ -44,7 +44,9 @@ export default function CardOptionList({ post, setIsOpen }) {
         <ul className="list-group list-group-flush">
             {post.user._id === user._id && <li className="list-group-item bg-light cursor-pointer">Edit post</li>}
             <li className="list-group-item bg-light cursor-pointer" onClick={handleSavePost} data-bs-dismiss="offcanvas">
-                {user.savedPost && user.savedPost.includes(post._id) ? 'Add to favorites' : 'Remove from favorites'}
+                {user.savedPost && user.savedPost.filter((pst) => pst._id === post._id).length
+                    ? 'Remove from favorites'
+                    : 'Add to favorites'}
             </li>
             <li className="list-group-item bg-light cursor-pointer">About this account</li>
             <li className="list-group-item bg-light cursor-pointer">Unfollow</li>

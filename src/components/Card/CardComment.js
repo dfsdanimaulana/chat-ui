@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import cogoToast from 'cogo-toast'
 import moment from 'moment'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useUser } from '../../hooks/useUser'
 import { useComments } from '../../hooks/useComments'
-import cogoToast from 'cogo-toast'
 
 // components
 import Avatar from '../Avatar/Avatar'
-import { useRef } from 'react'
 
-export default function CardComment({ post, height, comments }) {
+export default function CardComment({ post, height, comments, setIsOpen, id }) {
+    const { width } = useWindowDimensions()
     return (
         <div className="h-100">
             <div className="card-header bg-white d-flex justify-content-between align-items-center">
@@ -18,7 +19,14 @@ export default function CardComment({ post, height, comments }) {
                     <Avatar width={24} thumbnail="false" image={post.user.img_thumb} />
                     <span className="card-title fs-6 fw-bold ms-2 text-secondary">{post.user.username}</span>
                 </div>
-                <i className="bi bi-three-dots-vertical"></i>
+                <span
+                    data-bs-toggle={width < 768 && 'offcanvas'}
+                    data-bs-target={width < 768 && '#offcanvasCard' + id}
+                    aria-controls={width < 768 && 'offcanvasCard'}
+                    onClick={() => width >= 768 && setIsOpen(true)}
+                >
+                    <i className="bi bi-three-dots-vertical ms-3"></i>
+                </span>
             </div>
             <div
                 className="card-body p-0 overflow-auto"
@@ -60,10 +68,10 @@ function Comment({ comment }) {
     return (
         <li className="list-group-item border-none position-relative">
             <div className="row">
-                <div className="col-2 col-md-1 d-flex justify-content-center pt-2">
+                <div className="col-1 d-flex justify-content-center align-items-center pt-2">
                     <Avatar width={24} thumbnail="false" image={comment.sender.img_thumb} />
                 </div>
-                <div className="col-7 col-md-9">
+                <div className="col-8 col-md-9">
                     <div className="mb-1">
                         <span className="fw-semibold me-1">{comment.sender.username}</span>
                         <span>{comment.msg}</span>
@@ -102,13 +110,13 @@ const CommentPopup = ({ setIsOpen, user, comment }) => {
     useOnClickOutside(ref, () => {
         setIsOpen((val) => !val)
     })
-    
+
     const handleDelete = () => {
         axiosPrivate.delete('/comment/' + comment._id).then(() => {
             getComments()
         })
     }
-    
+
     return (
         <div className="card position-absolute top-0 end-0 mt-1 me-5" ref={ref}>
             <ul className="list-group list-group-flush">

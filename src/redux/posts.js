@@ -20,7 +20,7 @@ export const postsSlice = createSlice({
         error: null
     },
     reducers: {
-        updatePostsStatus: async (state, action) => {
+        updatePostsStatus: (state, action) => {
             state.status = action.payload
         },
         resetPosts: (state) => {

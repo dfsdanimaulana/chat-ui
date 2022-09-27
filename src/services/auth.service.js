@@ -10,7 +10,13 @@ export const login = async (username, password) => {
         password
     })
     if (response.data.accessToken) {
-        localStorage.setItem('user', JSON.stringify(response.data))
+        localStorage.setItem(
+            'user',
+            JSON.stringify({
+                accessToken: response.data.accessToken,
+                _id: response.data._id
+            })
+        )
     }
     return response.data
 }

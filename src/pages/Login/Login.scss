@@ -1,0 +1,16 @@
+.line {
+  display: flex;
+  flex-direction: row;
+
+  &::after,
+    &::before {
+      content: "";
+      flex: 1 1;
+      border-bottom: 1px solid gray;
+      margin: 9px 5px;
+    }
+}
+
+.min-h {
+  min-height: 700px;
+}

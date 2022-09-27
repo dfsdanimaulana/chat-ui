@@ -1,18 +1,14 @@
-import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
+import { useUser } from '../hooks/useUser'
 
 const ProtectedRoute = ({ children, ...rest }) => {
-    const isAuth = useSelector((state) => state.auth.value)
-
-    // cek jwt in cookie
-    if (!isAuth) {
-    }
+    const { user } = useUser()
 
     return (
         <Route
             {...rest}
             render={(props) => {
-                if (isAuth) {
+                if (user) {
                     return children
                 } else {
                     return (

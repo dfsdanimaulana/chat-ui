@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserError, getUserValue, getUserStatus, fetchUser, userLogin, userLogout } from '../redux/user'
+import { getUserError, getUserValue, getUserStatus, fetchUser, userLogin, userLogout , updateUser} from '../redux/user'
 
 export function useUser() {
     const dispatch = useDispatch()
@@ -19,5 +19,9 @@ export function useUser() {
     const logout = () => {
         dispatch(userLogout())
     }
-    return { user, error, status, getUser, login, logout }
+
+    const update = (payload) => {
+        dispatch(updateUser(payload))
+    }
+    return { user, error, status, getUser, login, logout, update }
 }

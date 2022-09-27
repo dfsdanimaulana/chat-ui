@@ -1,22 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from '../api/axios'
 
-const initialStateValue = {
-    _id: '',
-    username: '',
-    name: '',
-    img_thumb: '',
-    img_bg: '',
-    email: '',
-    desc: '',
-    gender: '',
-    followers: [],
-    following: [],
-    post: [],
-    savedPost: [],
-    accessToken: ''
-}
-
 export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
     try {
         const response = await axios.get('/user/' + userId + '?populate=post,savedPost')
@@ -30,7 +14,7 @@ export const userSlice = createSlice({
     // state name
     name: 'user',
     initialState: {
-        value: initialStateValue
+        value: null
     },
     // function to change state value
     reducers: {
@@ -38,7 +22,10 @@ export const userSlice = createSlice({
             state.value = action.payload
         },
         userLogout: (state) => {
-            state.value = initialStateValue
+            state.value = null
+        },
+        updateUser: (state, action) => {
+            state.value = { ...state.value, ...action.payload }
         }
     },
     extraReducers(builder) {
@@ -64,6 +51,6 @@ export const getUserValue = (state) => state.user.value
 export const getUserStatus = (state) => state.user.status
 export const getUserError = (state) => state.user.error
 
-export const { userLogin, userLogout } = userSlice.actions
+export const { userLogin, userLogout, updateUser } = userSlice.actions
 
 export default userSlice.reducer

@@ -18,7 +18,7 @@ export default function Setting() {
     return (
         <>
             {width < 768 ? <Nav title="Setting" /> : <Navbar />}
-            <div className="container mb-5">
+            <div className="container mb-5 bg-white">
                 <div className="row mt-md-3">
                     <div className="col-md-4 border d-none d-md-block">
                         <SettingLink />

@@ -33,8 +33,8 @@ export default function Post() {
     const axiosPrivate = useAxiosPrivate()
     const { width } = useWindowDimensions()
     const { user } = useUser()
-    const { getPost } = usePost()
-    const { getPosts } = usePosts()
+    const { setStatusPost } = usePost()
+    const { setStatusPosts } = usePosts()
 
     const initialData = {
         userId: user._id,
@@ -66,14 +66,15 @@ export default function Post() {
         if (!data.image.length && !data.video) {
             hide()
             cogoToast.error('Please select image or video')
+            setDefault()
             return
         }
 
         axiosPrivate
             .post(`/post`, data)
             .then((res) => {
-                getPost(user._id)
-                getPosts()
+                setStatusPost('idle')
+                setStatusPosts('idle')
                 setDefault()
 
                 hide()

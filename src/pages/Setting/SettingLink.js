@@ -1,8 +1,4 @@
-import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-
-// state management
-import { loggedOut } from '../../redux/auth'
 
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
@@ -10,11 +6,9 @@ import { useUser } from '../../hooks/useUser'
 
 export default function SettingLink() {
     const { logout } = useUser()
-    const dispatch = useDispatch()
 
     const handleLogout = () => {
         logout()
-        dispatch(loggedOut())
     }
 
     return (
@@ -41,13 +35,13 @@ function ListItem({ title, path, listStyle }) {
 
     return (
         <li
-            className="list-group-item"
+            className="list-group-item cursor-pointer"
             data-bs-toggle={width < 768 && 'offcanvas'}
             data-bs-target={width < 768 && '#offcanvasRight'}
             aria-controls={width < 768 && 'offcanvasRight'}
-            onClick={()=> history.push(`/setting${path ? path : ''}`)}
+            onClick={() => history.push(`/setting${path ? path : ''}`)}
         >
-                <span className={listStyle && listStyle}>{title}</span>
+            <span className={listStyle && listStyle}>{title}</span>
         </li>
     )
 }

@@ -67,6 +67,7 @@ export default function ChangePassword({ user }) {
                 label="Old Password"
                 id="password_old"
                 value={data.password_old}
+                required
             />
             <FormInput
                 type="password"
@@ -74,6 +75,7 @@ export default function ChangePassword({ user }) {
                 label="New Password"
                 id="password_new"
                 value={data.password_new}
+                required
             />
             <FormInput
                 type="password"
@@ -81,6 +83,7 @@ export default function ChangePassword({ user }) {
                 label="Confirm New Password"
                 id="password_new_confirm"
                 value={data.password_new_confirm}
+                required
             />
             <div className="row align-items-center my-3">
                 <div className="col-3 text-end pe-3"></div>

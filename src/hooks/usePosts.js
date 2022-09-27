@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostsError, getPostsValue, getPostsStatus, fetchPosts } from '../redux/posts'
+import { getPostsError, getPostsValue, getPostsStatus, fetchPosts, updatePostsStatus } from '../redux/posts'
 
 export function usePosts() {
     const dispatch = useDispatch()
@@ -11,5 +11,9 @@ export function usePosts() {
         dispatch(fetchPosts())
     }
 
-    return { posts, error, status, getPosts }
+     const setStatusPosts = (status) => {
+         dispatch(updatePostsStatus(status))
+     }
+
+    return { posts, error, status, getPosts, setStatusPosts }
 }
