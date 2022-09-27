@@ -2,7 +2,8 @@ export default function CardImage({ post, id, width }) {
     const imageClass = `d-block w-100 ${width > 768 && 'rounded-start'}`
 
     const imagesPostStyles = {
-        height: width < 768 ? '390px' : '470px',
+        // height: width < 768 ? '390px' : '470px',
+        aspectRatio: '1/1',
         width: '100%',
         objectFit: 'cover'
     }
