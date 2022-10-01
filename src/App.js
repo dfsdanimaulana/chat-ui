@@ -1,7 +1,5 @@
 /** React dependencies */
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ProtectedRoute from './components/ProtectedRoute'
-import PersistLogin from './components/PersistLogin'
 import './App.scss'
 
 /** Pages */
@@ -12,13 +10,12 @@ import Post from './pages/Post/Post'
 import Profile from './pages/Profile/Profile'
 import PostProfile from './pages/Profile/PostProfile'
 import PageNotFound from './pages/404/PageNotFound'
+import Setting from './pages/Setting/Setting'
 
 /** Components */
-import Navbar from './components/Navbar/Navbar'
-import Navigation from './components/Navigation/Navigation'
-import Footer from './components/Footer/Footer'
-import Setting from './pages/Setting/Setting'
+import ProtectedRoute from './components/ProtectedRoute'
 import Qrcode from './components/QRCode/Qrcode'
+import Layout from './components/Layout'
 
 const App = () => {
     return (
@@ -31,40 +28,35 @@ const App = () => {
                     <Route exact path="/register">
                         <Register />
                     </Route>
-                    <Route component={<PersistLogin />}>
                     <ProtectedRoute exact path="/">
-                        <Navbar />
-                        <Home />
-                        <Navigation />
-                        <Footer />
+                        <Layout navbar navigation footer>
+                            <Home />
+                        </Layout>
                     </ProtectedRoute>
 
                     <ProtectedRoute path="/profile/posts/:id">
-                        <PostProfile />
-                        <Navigation />
-                        <Footer />
+                        <Layout navigation footer>
+                            <PostProfile />
+                        </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/profile">
-                        <Navbar />
-                        <Profile />
-                        <Navigation />
-                        <Footer />
+                        <Layout navbar navigation footer>
+                            <Profile />
+                        </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/post/create">
-                        <Navbar />
-                        <Post />
-                        <Navigation />
-                        <Footer />
+                        <Layout navbar navigation footer>
+                            <Post />
+                        </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/setting">
-                        <Setting />
-                        <Navigation />
-                        <Footer />
+                        <Layout navigation footer>
+                            <Setting />
+                        </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/qr/:id">
                         <Qrcode />
                     </ProtectedRoute>
-                    </Route>
                     <Route exact path="*">
                         <PageNotFound />
                     </Route>

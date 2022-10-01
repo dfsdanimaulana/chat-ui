@@ -11,11 +11,10 @@ const Home = () => {
     const { getComments } = useComments()
 
     useEffect(() => {
-        if (status === 'idle') {
-            getPosts()
-            getComments()
-        }
-    }, [status, getPosts, getComments])
+        getPosts()
+        getComments()
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <div className="container mt-3">

@@ -99,8 +99,6 @@ export function PostImages({ image, imageStyle, postId }) {
 }
 
 export function SavedPostImages({ image, imageStyle, postId }) {
-    const history = useHistory()
-
     return (
         <div className="position-relative">
             {image.length > 1 && (
