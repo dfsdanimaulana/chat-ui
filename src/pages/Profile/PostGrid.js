@@ -63,7 +63,7 @@ export default function PostGrid({ post, user }) {
                 <Route path={`${path}/saved`}>
                     <div className="row post_grid">
                         {[...user.savedPost].reverse().map((post) => (
-                            <PostImages
+                            <SavedPostImages
                                 key={post._id}
                                 postId={post.uniqueId}
                                 image={post.img_post_url}
@@ -94,6 +94,27 @@ export function PostImages({ image, imageStyle, postId }) {
                 </div>
             )}
             <img src={image[0]} alt="..." style={imageStyle} onClick={() => history.push('/profile/posts/' + postId)} />
+        </div>
+    )
+}
+
+export function SavedPostImages({ image, imageStyle, postId }) {
+    const history = useHistory()
+
+    return (
+        <div className="position-relative">
+            {image.length > 1 && (
+                <div
+                    className="position-absolute top-0 end-0 me-3"
+                    style={{
+                        fontSize: '12px',
+                        color: '#fff'
+                    }}
+                >
+                    <i className="bi bi-back"></i>
+                </div>
+            )}
+            <img src={image[0]} alt="..." style={imageStyle}/>
         </div>
     )
 }

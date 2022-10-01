@@ -1,6 +1,7 @@
 /** React dependencies */
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
+import PersistLogin from './components/PersistLogin'
 import './App.scss'
 
 /** Pages */
@@ -24,18 +25,20 @@ const App = () => {
         <div className="bg-light min-vh-100">
             <Router>
                 <Switch>
-                    <ProtectedRoute exact path="/">
-                        <Navbar />
-                        <Home />
-                        <Navigation />
-                        <Footer />
-                    </ProtectedRoute>
                     <Route exact path="/login">
                         <Login />
                     </Route>
                     <Route exact path="/register">
                         <Register />
                     </Route>
+                    <Route component={<PersistLogin />}>
+                    <ProtectedRoute exact path="/">
+                        <Navbar />
+                        <Home />
+                        <Navigation />
+                        <Footer />
+                    </ProtectedRoute>
+
                     <ProtectedRoute path="/profile/posts/:id">
                         <PostProfile />
                         <Navigation />
@@ -61,6 +64,7 @@ const App = () => {
                     <ProtectedRoute path="/qr/:id">
                         <Qrcode />
                     </ProtectedRoute>
+                    </Route>
                     <Route exact path="*">
                         <PageNotFound />
                     </Route>

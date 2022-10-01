@@ -43,8 +43,8 @@ export default function CardCaption({ post, width, setIsOpen, id }) {
                     </span>
                 ))}
             </div>
-            <div className="mt-auto d-flex justify-content-between px-2">
-                <p className="card-text">
+            <div className="mt-auto d-flex justify-content-between px-1">
+                <p className="card-text fs-7">
                     <small className="text-muted">{moment(post.createdAt).fromNow()}</small>
                 </p>
                 {post.like.length >= 1 && (
