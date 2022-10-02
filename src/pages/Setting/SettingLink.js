@@ -2,11 +2,11 @@ import { useHistory } from 'react-router-dom'
 
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { usePost } from '../../hooks/usePost'
 
 export default function SettingLink() {
-    const { logout } = useUser()
+    const { logout } = useAuth()
     const { reset } = usePost()
 
     const handleLogout = () => {

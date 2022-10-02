@@ -3,7 +3,7 @@ import cogoToast from 'cogo-toast'
 import { generateRandomId } from '../../utils/generateRandomId'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { usePost } from '../../hooks/usePost'
 import { usePosts } from '../../hooks/usePosts'
 
@@ -32,7 +32,7 @@ const initialImgSrc = ['https://i.ibb.co/g3ffFKB/camera.png']
 export default function Post() {
     const axiosPrivate = useAxiosPrivate()
     const { width } = useWindowDimensions()
-    const { user } = useUser()
+    const { user } = useAuth()
     const { setStatusPost } = usePost()
     const { setStatusPosts } = usePosts()
 

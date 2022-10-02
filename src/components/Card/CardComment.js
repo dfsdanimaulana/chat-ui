@@ -4,7 +4,7 @@ import moment from 'moment'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { useComments } from '../../hooks/useComments'
 
 // components
@@ -44,7 +44,7 @@ export default function CardComment({ post, height, comments, setIsOpen, id }) {
 
 function Comment({ comment }) {
     const axiosPrivate = useAxiosPrivate()
-    const { user } = useUser()
+    const { user } = useAuth()
     const { getComments } = useComments()
     const [isPending, setIsPending] = useState(false)
     const [isOpen, setIsOpen] = useState(false)

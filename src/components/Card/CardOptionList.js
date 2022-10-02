@@ -1,12 +1,12 @@
 import cogoToast from 'cogo-toast'
 import { useUpdatePost } from '../../hooks/useUpdatePost'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function CardOptionList({ post, setIsOpen }) {
     const axiosPrivate = useAxiosPrivate()
     const updatePostState = useUpdatePost()
-    const { user } = useUser()
+    const { user } = useAuth()
 
     const handleDelete = () => {
         setIsOpen && setIsOpen(false)

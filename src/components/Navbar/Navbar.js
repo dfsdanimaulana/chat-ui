@@ -2,12 +2,12 @@ import { Link, NavLink, useRouteMatch, useParams, useHistory } from 'react-route
 import SettingPopUp from '../../pages/Setting/SettingPopUp'
 import Avatar from '../Avatar/Avatar'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function Navbar() {
     const history = useHistory()
     const { path } = useRouteMatch()
-    const { user } = useUser()
+    const { user } = useAuth()
     const { width } = useWindowDimensions()
     const { username } = useParams()
 

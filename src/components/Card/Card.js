@@ -7,7 +7,7 @@ import cogoToast from 'cogo-toast'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { useComments } from '../../hooks/useComments'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { usePosts } from '../../hooks/usePosts'
 
 // components
@@ -22,7 +22,7 @@ import CardHeader from './CardHeader'
 export default function Card({ post, id }) {
     const axiosPrivate = useAxiosPrivate()
     const { comments: allComments } = useComments()
-    const { user, getUser } = useUser()
+    const { user, getUser } = useAuth()
     const { status, getPosts } = usePosts()
 
     const comments = allComments.filter((comment) => comment.postId === post._id)

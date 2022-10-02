@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import cogoToast from 'cogo-toast'
 import { Link } from 'react-router-dom'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 
 // components
 import Avatar from '../../components/Avatar/Avatar'
 
 export default function EditProfile({ user }) {
-    const { update } = useUser()
+    const { update } = useAuth()
     const axiosPrivate = useAxiosPrivate()
 
     const [data, setData] = useState({

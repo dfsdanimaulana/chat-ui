@@ -1,5 +1,5 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 
 // components
 import SettingLink from './SettingLink'
@@ -9,7 +9,7 @@ import ChangeProfilePicture from './ChangeProfilePicture'
 
 export default function Setting() {
     const { path } = useRouteMatch()
-    const { user } = useUser()
+    const { user } = useAuth()
 
     return (
         <div className="container mb-5 bg-white">

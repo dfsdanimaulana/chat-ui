@@ -1,8 +1,8 @@
 import axios from '../api/axios'
-import { useUser } from './useUser'
+import { useAuth } from './useAuth'
 
 export const useRefreshToken = () => {
-    const { user, login } = useUser()
+    const { user, login } = useAuth()
 
     const refreshToken = async () => {
         try {

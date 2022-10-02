@@ -4,7 +4,7 @@ import cogoToast from 'cogo-toast'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import { usePosts } from '../../hooks/usePosts'
 import { useComments } from '../../hooks/useComments'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { usePost } from '../../hooks/usePost'
 
 const imageStyle = (w) => {
@@ -17,7 +17,7 @@ const imageStyle = (w) => {
 }
 
 export default function ChangeProfilePicture() {
-    const { login, user } = useUser()
+    const { login, user } = useAuth()
     const { getPosts } = usePosts()
     const { getPost } = usePost()
     const { getComments } = useComments()

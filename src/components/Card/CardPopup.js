@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import CardOptionList from './CardOptionList'
 
 const itemStyle = {
@@ -12,7 +12,7 @@ const itemStyle = {
 }
 
 export default function CardPopup({ post, id }) {
-    const { user } = useUser()
+    const { user } = useAuth()
 
     return (
         <div

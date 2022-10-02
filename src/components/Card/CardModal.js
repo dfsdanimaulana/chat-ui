@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import ReactModal from 'react-modal'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 
 // components
@@ -33,7 +33,7 @@ const contentStyle = {
 }
 
 export default function CardModal({ id, post, isOpen, setIsOpen }) {
-    const { user } = useUser()
+    const { user } = useAuth()
     const cardRef = useRef()
 
     useOnClickOutside(cardRef, () => setIsOpen(false))

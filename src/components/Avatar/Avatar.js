@@ -1,4 +1,4 @@
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 
 const imagesThumbStyles = (w, b) => {
     return {
@@ -10,7 +10,7 @@ const imagesThumbStyles = (w, b) => {
 }
 
 export default function Avatar({ width, thumbnail, image, placeholder, border }) {
-    const { user } = useUser()
+    const { user } = useAuth()
 
     if (placeholder) {
         return <div className="placeholder rounded-circle" style={imagesThumbStyles(width, border)}></div>

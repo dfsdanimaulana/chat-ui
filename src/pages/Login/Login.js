@@ -2,14 +2,14 @@
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import cogoToast from 'cogo-toast'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { login as authLogin } from '../../services/auth.service'
 
 import './Login.scss'
 import LoginSVG from '../../assets/svg/Login.svg'
 
 export default function SignIn() {
-    const { login, getUser } = useUser()
+    const { login, getUser } = useAuth()
     const history = useHistory()
     const [input, setInput] = useState({
         username: '',

@@ -3,13 +3,13 @@ import { useState, useRef } from 'react'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { useComments } from '../../hooks/useComments'
 
 export default function CardCommentInput({ postId, setCommentOpen }) {
     const axiosPrivate = useAxiosPrivate()
     const ref = useRef()
-    const { user } = useUser()
+    const { user } = useAuth()
     const { getComments } = useComments()
 
     const [inputText, setInputText] = useState('')

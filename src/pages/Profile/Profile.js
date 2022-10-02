@@ -1,7 +1,7 @@
 import { Link, useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { usePost } from '../../hooks/usePost'
 import './Profile.scss'
 
@@ -14,7 +14,7 @@ export default function Profile() {
     const history = useHistory()
     const { username } = useParams()
     const { width } = useWindowDimensions()
-    const { user } = useUser()
+    const { user } = useAuth()
 
     const { post, status, error, getPost } = usePost()
 

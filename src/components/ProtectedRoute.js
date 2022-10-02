@@ -1,8 +1,8 @@
 import { Route, Redirect } from 'react-router-dom'
-import { useUser } from '../hooks/useUser'
+import { useAuth } from '../hooks/useAuth'
 
 const ProtectedRoute = ({ children, ...rest }) => {
-    const { user } = useUser()
+    const { user } = useAuth()
 
     return (
         <Route

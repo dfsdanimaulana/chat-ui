@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Avatar from '../Avatar/Avatar'
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate'
 import cogoToast from 'cogo-toast'
-import { useUser } from '../../hooks/useUser'
+import { useAuth } from '../../hooks/useAuth'
 import { usePosts } from '../../hooks/usePosts'
 import { usePost } from '../../hooks/usePost'
 import { useHistory } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 export default function CardHeader({ post, width, setIsOpen, id }) {
     const axiosPrivate = useAxiosPrivate()
     const history = useHistory()
-    const { user, getUser } = useUser()
+    const { user, getUser } = useAuth()
     const { getPosts } = usePosts()
     const { getPost } = usePost()
     const [isPending, setIsPending] = useState(false)
