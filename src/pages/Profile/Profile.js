@@ -1,5 +1,5 @@
 import { Link, useParams, useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAuth } from '../../hooks/useAuth'
 import { usePost } from '../../hooks/usePost'
@@ -17,11 +17,6 @@ export default function Profile() {
     const { user } = useAuth()
 
     const { post, status, error, getPost } = usePost()
-
-    /*
-    const [user, setUser]= useState(currentUser) 
-    const [post, setPost]= useState(currentPost) 
-    */
 
     useEffect(() => {
         if (username === user.username) {
