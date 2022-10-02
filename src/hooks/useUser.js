@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserError, getUserValue, getUserStatus, fetchUser, userLogin, userLogout , updateUser} from '../redux/user'
+import { getUserError, getUserValue, getUserStatus, fetchUser, userLogin, userLogout, updateUser } from '../redux/user'
 
 export function useUser() {
     const dispatch = useDispatch()

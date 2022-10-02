@@ -24,9 +24,12 @@ export default function SettingLink() {
             <ListItem title="Contact Us" />
             <ListItem listStyle={'text-danger fw-semibold'} title="Delete Account" />
             <li className="list-group-item">
-                <button className="btn btn-sm btn-outline-danger mt-3" 
-                data-bs-dismiss="offcanvas"
-                type="button" onClick={handleLogout}>
+                <button
+                    className="btn btn-sm btn-outline-danger mt-3"
+                    data-bs-dismiss="offcanvas"
+                    type="button"
+                    onClick={handleLogout}
+                >
                     Logout
                 </button>
             </li>

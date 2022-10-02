@@ -10,12 +10,12 @@ export const fetchPost = createAsyncThunk('post/fetchPost', async (userId) => {
     }
 })
 
-const initialState =  {
-        value: [],
-        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-        error: null
-    }
-    
+const initialState = {
+    value: [],
+    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null
+}
+
 export const postSlice = createSlice({
     name: 'post',
     initialState,

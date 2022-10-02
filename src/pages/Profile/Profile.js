@@ -1,4 +1,4 @@
-import { Link, useParams, useHistory} from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useUser } from '../../hooks/useUser'
@@ -22,9 +22,9 @@ export default function Profile() {
     const [user, setUser]= useState(currentUser) 
     const [post, setPost]= useState(currentPost) 
     */
-    
+
     useEffect(() => {
-        if(username === user.username) {
+        if (username === user.username) {
             history.push('/profile')
         }
         if (status === 'idle') {

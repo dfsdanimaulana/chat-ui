@@ -11,9 +11,9 @@ export function usePosts() {
         dispatch(fetchPosts())
     }
 
-     const setStatusPosts = (status) => {
-         dispatch(updatePostsStatus(status))
-     }
+    const setStatusPosts = (status) => {
+        dispatch(updatePostsStatus(status))
+    }
 
     return { posts, error, status, getPosts, setStatusPosts }
 }

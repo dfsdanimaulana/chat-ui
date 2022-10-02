@@ -39,7 +39,6 @@ export default function EditProfile({ user }) {
             data.name === user.name &&
             data.email === user.email &&
             data.desc === user.desc
-            
         ) {
             hide()
             cogoToast.info('Nothing to update!')
@@ -54,7 +53,6 @@ export default function EditProfile({ user }) {
                     name: res.data.name,
                     email: res.data.email,
                     desc: res.data.desc
-                    
                 }
                 hide()
                 update(updatedUser)

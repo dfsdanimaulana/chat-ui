@@ -29,38 +29,37 @@ const App = () => {
                         <Register />
                     </Route>
                     <ProtectedRoute exact path="/">
-                        <Layout navbar >
+                        <Layout navbar>
                             <Home />
                         </Layout>
                     </ProtectedRoute>
 
-
                     <ProtectedRoute path="/profile/posts/:id">
-                        <Layout nav title='Posts'>
+                        <Layout nav title="Posts">
                             <PostProfile />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/profile">
-                        <Layout navbar >
+                        <Layout navbar>
                             <Profile />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/post/create">
-                        <Layout navbar >
+                        <Layout navbar>
                             <Post />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/setting">
-                        <Layout nav title='Settings'>
+                        <Layout nav title="Settings">
                             <Setting />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/qr/:id">
                         <Qrcode />
                     </ProtectedRoute>
-                    
+
                     <ProtectedRoute path="/:username">
-                        <Layout navbar >
+                        <Layout navbar>
                             <Profile />
                         </Layout>
                     </ProtectedRoute>

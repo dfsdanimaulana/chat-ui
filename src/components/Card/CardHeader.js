@@ -37,7 +37,7 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
 
     return (
         <>
-            <div onClick={()=> history.push('/' + post.user.username)}>
+            <div onClick={() => history.push('/' + post.user.username)}>
                 <Avatar width={40} image={post.user.img_thumb} />
                 <span className="card-title fs-6 fw-bold ms-2 text-secondary">{post.user.username}</span>
             </div>

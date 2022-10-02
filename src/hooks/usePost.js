@@ -15,10 +15,10 @@ export function usePost() {
     const setStatusPost = (status) => {
         dispatch(updatePostStatus(status))
     }
-    
+
     const reset = () => {
         dispatch(resetPost())
     }
-    
-    return { post, error, status, getPost, setStatusPost, reset}
+
+    return { post, error, status, getPost, setStatusPost, reset }
 }

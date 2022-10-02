@@ -10,24 +10,27 @@ export default function Navbar() {
     const { user } = useUser()
     const { width } = useWindowDimensions()
     const { username } = useParams()
-    
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top bg-white">
                 <div className="container d-flex">
+                    {path === '/profile' && width < 768 ? (
+                        <span className="navbar-brand flex-fill fw-bold align-items-center" onClick={() => history.goBack()}>
+                            <i className="bi bi-arrow-left me-3"></i>
+                            {user.username}
+                        </span>
+                    ) : username && width < 768 ? (
+                        <span className="navbar-brand flex-fill fw-bold align-items-center" onClick={() => history.goBack()}>
+                            <i className="bi bi-arrow-left me-3"></i>
+                            {username}
+                        </span>
+                    ) : (
+                        <Link className="navbar-brand flex-fill fw-bold align-items-center" to="/">
+                            DanApp{' '}
+                        </Link>
+                    )}
 
-                    {path === '/profile' && width < 768 ? 
-                    (<span className='navbar-brand flex-fill fw-bold align-items-center' onClick={()=> history.goBack()}>
-                    <i className="bi bi-arrow-left me-3"></i>
-                    {user.username}</span>)
-                    
-                    : (username && width < 768 ? 
-                    (<span className='navbar-brand flex-fill fw-bold align-items-center' onClick={()=> history.goBack()}>
-                    <i className="bi bi-arrow-left me-3"></i>
-                    {username}</span>) 
-                    : ( <Link className="navbar-brand flex-fill fw-bold align-items-center" to="/">
-                        DanApp </Link>) )}
-                    
                     <form className="d-sm-flex flex-fill d-none" role="search">
                         <input
                             className="form-control form-control-sm me-2 bg-light"

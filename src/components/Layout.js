@@ -4,11 +4,11 @@ import Navbar from './Navbar/Navbar'
 import Navigation from './Navigation/Navigation'
 import { useWindowDimensions } from '../hooks/useWindowDimensions'
 
-export default function Layout({ children, nav, navbar, title}) {
+export default function Layout({ children, nav, navbar, title }) {
     const { width } = useWindowDimensions()
     return (
         <>
-            {nav && (width < 768 ? <Nav title={title}/> : <Navbar />) }
+            {nav && (width < 768 ? <Nav title={title} /> : <Navbar />)}
             {navbar && <Navbar />}
             {children}
             <Navigation />

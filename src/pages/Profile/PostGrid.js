@@ -112,7 +112,7 @@ export function SavedPostImages({ image, imageStyle, postId }) {
                     <i className="bi bi-back"></i>
                 </div>
             )}
-            <img src={image[0]} alt="..." style={imageStyle}/>
+            <img src={image[0]} alt="..." style={imageStyle} />
         </div>
     )
 }

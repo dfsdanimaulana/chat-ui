@@ -94,7 +94,7 @@ export default function SignIn() {
                                 placeholder="Email or username"
                                 onChange={handleChange}
                                 required
-autoComplete='off'
+                                autoComplete="off"
                             />
                         </div>
                         <div className="mb-3">
