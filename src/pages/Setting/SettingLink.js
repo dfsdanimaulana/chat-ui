@@ -3,12 +3,15 @@ import { useHistory } from 'react-router-dom'
 // hooks
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useUser } from '../../hooks/useUser'
+import { usePost } from '../../hooks/usePost'
 
 export default function SettingLink() {
     const { logout } = useUser()
+    const { reset } = usePost()
 
     const handleLogout = () => {
         logout()
+        reset()
     }
 
     return (
@@ -21,7 +24,9 @@ export default function SettingLink() {
             <ListItem title="Contact Us" />
             <ListItem listStyle={'text-danger fw-semibold'} title="Delete Account" />
             <li className="list-group-item">
-                <button className="btn btn-sm btn-outline-danger mt-3" type="button" onClick={handleLogout}>
+                <button className="btn btn-sm btn-outline-danger mt-3" 
+                data-bs-dismiss="offcanvas"
+                type="button" onClick={handleLogout}>
                     Logout
                 </button>
             </li>

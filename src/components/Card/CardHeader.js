@@ -5,9 +5,11 @@ import cogoToast from 'cogo-toast'
 import { useUser } from '../../hooks/useUser'
 import { usePosts } from '../../hooks/usePosts'
 import { usePost } from '../../hooks/usePost'
+import { useHistory } from 'react-router-dom'
 
 export default function CardHeader({ post, width, setIsOpen, id }) {
     const axiosPrivate = useAxiosPrivate()
+    const history = useHistory()
     const { user, getUser } = useUser()
     const { getPosts } = usePosts()
     const { getPost } = usePost()
@@ -35,7 +37,7 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
 
     return (
         <>
-            <div>
+            <div onClick={()=> history.push('/' + post.user.username)}>
                 <Avatar width={40} image={post.user.img_thumb} />
                 <span className="card-title fs-6 fw-bold ms-2 text-secondary">{post.user.username}</span>
             </div>
@@ -50,7 +52,7 @@ export default function CardHeader({ post, width, setIsOpen, id }) {
                     <span>
                         <i
                             className={
-                                user.savedPost.map((pst) => pst._id).includes(post._id)
+                                user?.savedPost?.map((pst) => pst._id).includes(post._id)
                                     ? 'bi bi-bookmark-fill'
                                     : 'bi bi-bookmark'
                             }

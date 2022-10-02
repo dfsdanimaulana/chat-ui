@@ -1,16 +1,10 @@
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { usePost } from '../../hooks/usePost'
-
-// components
-import Nav from '../../components/Navbar/Nav'
-import Navbar from '../../components/Navbar/Navbar'
 import Card from '../../components/Card/Card'
 
 export default function PostProfile() {
     const { id } = useParams()
-    const { width } = useWindowDimensions()
     const { post } = usePost()
 
     useEffect(() => {
@@ -27,7 +21,6 @@ export default function PostProfile() {
 
     return (
         <>
-            {width < 768 ? <Nav title="Posts" /> : <Navbar />}
             {post && (
                 <div className="container mt-3">
                     <div className="row px-lg-5 pb-5 pb-md-0">

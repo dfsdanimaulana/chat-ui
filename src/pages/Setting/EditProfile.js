@@ -16,8 +16,7 @@ export default function EditProfile({ user }) {
         username: user.username,
         name: user.name,
         email: user.email,
-        desc: user.desc,
-        gender: user.gender
+        desc: user.desc
     })
 
     const handleInputChange = (e) => {
@@ -39,8 +38,8 @@ export default function EditProfile({ user }) {
             data.username === user.username &&
             data.name === user.name &&
             data.email === user.email &&
-            data.desc === user.desc &&
-            data.gender === user.gender
+            data.desc === user.desc
+            
         ) {
             hide()
             cogoToast.info('Nothing to update!')
@@ -54,8 +53,8 @@ export default function EditProfile({ user }) {
                     username: res.data.username,
                     name: res.data.name,
                     email: res.data.email,
-                    desc: res.data.desc,
-                    gender: res.data.gender
+                    desc: res.data.desc
+                    
                 }
                 hide()
                 update(updatedUser)
@@ -112,26 +111,6 @@ export default function EditProfile({ user }) {
                 </div>
             </div>
             <FormInput handleChange={handleInputChange} label="Email" id="email" placeholder="Email" value={data.email} />
-            <div className="row align-items-center mt-3">
-                <div className="col-3 text-end pe-3">
-                    <label htmlFor="edit_gender" className="fw-semibold mt-1">
-                        Gender
-                    </label>
-                </div>
-                <div className="col-9 pe-5">
-                    <select
-                        className="form-select text-capitalize"
-                        aria-label="Default select example"
-                        id="gender"
-                        onChange={handleInputChange}
-                    >
-                        <option defaultValue={data.gender}>{data.gender}</option>
-                        <option value={data.gender === 'male' ? 'female' : 'male'}>
-                            {data.gender === 'male' ? 'Female' : 'Male'}
-                        </option>
-                    </select>
-                </div>
-            </div>
             <div className="row align-items-center my-4">
                 <div className="col-3 text-end pe-3"></div>
                 <div className="col-9 pe-5 text-end">

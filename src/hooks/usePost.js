@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostError, getPostValue, getPostStatus, fetchPost, updatePostStatus } from '../redux/post'
+import { getPostError, getPostValue, getPostStatus, fetchPost, updatePostStatus, resetPost } from '../redux/post'
 
 export function usePost() {
     const dispatch = useDispatch()
@@ -15,5 +15,10 @@ export function usePost() {
     const setStatusPost = (status) => {
         dispatch(updatePostStatus(status))
     }
-    return { post, error, status, getPost, setStatusPost }
+    
+    const reset = () => {
+        dispatch(resetPost())
+    }
+    
+    return { post, error, status, getPost, setStatusPost, reset}
 }

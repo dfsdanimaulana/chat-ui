@@ -10,19 +10,23 @@ export const fetchPost = createAsyncThunk('post/fetchPost', async (userId) => {
     }
 })
 
-export const postSlice = createSlice({
-    name: 'post',
-    initialState: {
+const initialState =  {
         value: [],
         status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
         error: null
-    },
+    }
+    
+export const postSlice = createSlice({
+    name: 'post',
+    initialState,
     reducers: {
         updatePostStatus: (state, action) => {
             state.status = action.payload
         },
         resetPost: (state) => {
-            state.value = false
+            state.value = []
+            state.status = 'idle'
+            state.error = null
         }
     },
     extraReducers(builder) {

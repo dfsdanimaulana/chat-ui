@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Link, useParams, useHistory} from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useUser } from '../../hooks/useUser'
 import { usePost } from '../../hooks/usePost'
@@ -11,17 +11,26 @@ import PostGrid from './PostGrid'
 import PostGridPlaceholder from './PostGridPlaceholder'
 
 export default function Profile() {
+    const history = useHistory()
+    const { username } = useParams()
     const { width } = useWindowDimensions()
     const { user } = useUser()
 
     const { post, status, error, getPost } = usePost()
 
+    /*
+    const [user, setUser]= useState(currentUser) 
+    const [post, setPost]= useState(currentPost) 
+    */
+    
     useEffect(() => {
+        if(username === user.username) {
+            history.push('/profile')
+        }
         if (status === 'idle') {
             getPost(user._id)
-            console.log(user)
         }
-    }, [status, user, getPost])
+    }, [status, user, getPost, history, username])
 
     return (
         <div className={`container pb-5 ${width >= 992 ? 'w-50' : ''}`}>

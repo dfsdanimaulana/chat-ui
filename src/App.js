@@ -29,33 +29,40 @@ const App = () => {
                         <Register />
                     </Route>
                     <ProtectedRoute exact path="/">
-                        <Layout navbar navigation footer>
+                        <Layout navbar >
                             <Home />
                         </Layout>
                     </ProtectedRoute>
 
+
                     <ProtectedRoute path="/profile/posts/:id">
-                        <Layout navigation footer>
+                        <Layout nav title='Posts'>
                             <PostProfile />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/profile">
-                        <Layout navbar navigation footer>
+                        <Layout navbar >
                             <Profile />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/post/create">
-                        <Layout navbar navigation footer>
+                        <Layout navbar >
                             <Post />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/setting">
-                        <Layout navigation footer>
+                        <Layout nav title='Settings'>
                             <Setting />
                         </Layout>
                     </ProtectedRoute>
                     <ProtectedRoute path="/qr/:id">
                         <Qrcode />
+                    </ProtectedRoute>
+                    
+                    <ProtectedRoute path="/:username">
+                        <Layout navbar >
+                            <Profile />
+                        </Layout>
                     </ProtectedRoute>
                     <Route exact path="*">
                         <PageNotFound />

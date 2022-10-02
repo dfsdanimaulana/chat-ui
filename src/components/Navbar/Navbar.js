@@ -1,16 +1,33 @@
-import { Link, NavLink, useRouteMatch } from 'react-router-dom'
+import { Link, NavLink, useRouteMatch, useParams, useHistory } from 'react-router-dom'
 import SettingPopUp from '../../pages/Setting/SettingPopUp'
 import Avatar from '../Avatar/Avatar'
+import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { useUser } from '../../hooks/useUser'
 
 export default function Navbar() {
+    const history = useHistory()
     const { path } = useRouteMatch()
+    const { user } = useUser()
+    const { width } = useWindowDimensions()
+    const { username } = useParams()
+    
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light shadow-sm sticky-top bg-white">
                 <div className="container d-flex">
-                    <Link className="navbar-brand flex-fill fw-bold" to="/">
-                        DanApp
-                    </Link>
+
+                    {path === '/profile' && width < 768 ? 
+                    (<span className='navbar-brand flex-fill fw-bold align-items-center' onClick={()=> history.goBack()}>
+                    <i className="bi bi-arrow-left me-3"></i>
+                    {user.username}</span>)
+                    
+                    : (username && width < 768 ? 
+                    (<span className='navbar-brand flex-fill fw-bold align-items-center' onClick={()=> history.goBack()}>
+                    <i className="bi bi-arrow-left me-3"></i>
+                    {username}</span>) 
+                    : ( <Link className="navbar-brand flex-fill fw-bold align-items-center" to="/">
+                        DanApp </Link>) )}
+                    
                     <form className="d-sm-flex flex-fill d-none" role="search">
                         <input
                             className="form-control form-control-sm me-2 bg-light"
